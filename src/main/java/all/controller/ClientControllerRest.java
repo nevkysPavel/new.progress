@@ -88,7 +88,20 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+    @PutMapping(value = "/put/client")
+    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client){
+        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        if(Objects.nonNull(client)){
+            this.clientService.updateClient(client);
+            responseEntity = new ResponseEntity(HttpStatus.CREATED);
+        }
+        return responseEntity;
+    }
+
     public ClientService getClientService() {
         return clientService;
     }
+
+
 }

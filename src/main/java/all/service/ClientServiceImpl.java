@@ -36,5 +36,11 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> getListClients() {
         return this.clientDao.getListClients();
     }
+
+    @Override
+    public void updateClient(Client client) {
+        this.clientDao.updateClient(client);
+
+    }
 }
 

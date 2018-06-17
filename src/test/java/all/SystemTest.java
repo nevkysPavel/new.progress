@@ -80,6 +80,16 @@ public class SystemTest {
 
     }
 
+    @Test
+    public void systemTestUpdateClient() {
+//            given()
+//                    .contentType(ContentType.JSON)
+//                    .pathParam("id",)
+//                    .put("/food/api/clients/put/client")
+//                    .then()
+//                    .body("")
+    }
+
 
 }
 
