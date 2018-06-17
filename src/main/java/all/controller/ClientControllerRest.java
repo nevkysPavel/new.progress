@@ -1,0 +1,94 @@
+package all.controller;
+
+import all.entity.Client;
+import all.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Objects;
+
+
+//@FieldDefaults(level = PRIVATE)
+@RestController
+@RequestMapping("/api/clients")
+public class ClientControllerRest {
+
+    @Autowired
+    ClientService clientService;
+
+//
+//    @GetMapping(value = "/simple/{id}")
+//    public void simpleQuery(@PathVariable int id) {
+//        clientService.addClient(new Client("John", "Keeper", Sex.MAN, 23, 12, 45));
+//    }
+//
+//    @PostMapping(value = "/save/client")
+//    public void saveClient(@RequestBody Client client) {
+//        clientService.addClient(client);
+//    }
+
+    @GetMapping(value = "/get/client/{id}")
+    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
+
+        Client client = this.clientService.getClientById(clientId);
+
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        if (Objects.nonNull(client)) {
+            responseEntity = new ResponseEntity<>(client, HttpStatus.OK);
+        }
+
+        return responseEntity;
+
+    }
+
+    @PostMapping(value = "/post/client")
+    public ResponseEntity<Client> addClient(@RequestBody @Valid Client client) {
+
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if (Objects.nonNull(client)) {
+            responseEntity = new ResponseEntity<>(client, HttpStatus.CREATED);
+            this.clientService.addClient(client);
+        }
+
+        return responseEntity;
+    }
+
+
+    @DeleteMapping(value = "/delete/client/{id}")
+    public ResponseEntity<Client> deleteClient(@PathVariable("id") int id) {
+
+        Client client = this.clientService.getClientById(id);
+
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        if (Objects.nonNull(client)) {
+            this.clientService.deleteClient(id);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return responseEntity;
+    }
+
+    @GetMapping(value = "/get/clients")
+    public ResponseEntity<List<Client>> getListClients() {
+
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        List<Client> clientList = this.clientService.getListClients();
+
+        if(Objects.nonNull(clientList)){
+            responseEntity = new ResponseEntity(HttpStatus.FOUND);
+        }
+        return responseEntity;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+}
