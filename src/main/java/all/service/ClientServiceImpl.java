@@ -18,8 +18,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
 //    @Transactional(propagation = Propagation.NEVER)
     //Аннотация для управления транзакциями с помощью Spring
-    public void addClient(Client client) {
-        this.clientDao.addClient(client);
+    public void saveClient(Client client) {
+        this.clientDao.saveClient(client);
     }
 
     @Override

@@ -31,11 +31,11 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     @Transactional
-    public void addClient(Client client) {
+    public void saveClient(Client client) {
 
         /*complex logic*/
 
-        em.persist(em.merge(client));
+        em.persist(client);
     }
 
     public void deleteClientById(int id) {

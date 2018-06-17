@@ -23,12 +23,12 @@ public class ClientControllerRest {
 //
 //    @GetMapping(value = "/simple/{id}")
 //    public void simpleQuery(@PathVariable int id) {
-//        clientService.addClient(new Client("John", "Keeper", Sex.MAN, 23, 12, 45));
+//        clientService.saveClient(new Client("John", "Keeper", Sex.MAN, 23, 12, 45));
 //    }
 //
 //    @PostMapping(value = "/save/client")
 //    public void saveClient(@RequestBody Client client) {
-//        clientService.addClient(client);
+//        clientService.saveClient(client);
 //    }
 
     @GetMapping(value = "/get/client/{id}")
@@ -47,13 +47,13 @@ public class ClientControllerRest {
     }
 
     @PostMapping(value = "/post/client")
-    public ResponseEntity<Client> addClient(@RequestBody @Valid Client client) {
+    public ResponseEntity<Client> saveClient(@RequestBody @Valid Client client) {
 
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         if (Objects.nonNull(client)) {
             responseEntity = new ResponseEntity<>(client, HttpStatus.CREATED);
-            this.clientService.addClient(client);
+            this.clientService.saveClient(client);
         }
 
         return responseEntity;

@@ -5,7 +5,7 @@ import all.entity.Client;
 import java.util.List;
 
 public interface ClientService {
-    void addClient(Client client);
+    void saveClient(Client client);
 
     void deleteClient(int id);
 

@@ -1,27 +1,20 @@
 package all;
 
 
-import all.configuration.JavaConfiguration;
-import all.configuration.WebAppInitializer;
-
+import all.entity.Client;
+import all.entity.Sex;
 import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
+import io.restassured.http.ContentType;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import javax.xml.ws.Response;
+import java.util.List;
 
-
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-import javax.swing.*;
 
 public class SystemTest {
 
@@ -40,10 +33,15 @@ public class SystemTest {
 
         RestAssured.baseURI = baseHost;
 
+
+
+
+
     }
+
     @Test
-    public void systemTest()  {
-        String string = get("/food/api/clients/get/client/1")
+    public void systemTestGetClient() {
+        String string = get("/food/api/clients/get/client/3")
                 .then().extract().body().asString();
         System.out.println(string);
 //Given an app
@@ -54,5 +52,34 @@ public class SystemTest {
 
 
     }
+
+    //Поменял автогенерацию id и пошло
+    @Test
+    public void systemTestSaveClient() {
+        Client client = new Client("Nevkys", "Pavel", Sex.MAN, 1995, 175, 70);
+        given().contentType(ContentType.JSON).body(client).when().post("/food/api/clients/post/client")
+                .then().statusCode(201).and().assertThat().body("years",equalTo(1995));
+
+
+    }
+
+    @Test
+    public void systemTestDeleteClient() {
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", 12)
+                .when()
+                .delete("/food/api/clients/delete/client/{id}")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void systemTestGetListClients(){
+//        List<Client> all = get("/food/api/clients/get/clients").then().assertThat().body()
+
+    }
+
+
 }
 

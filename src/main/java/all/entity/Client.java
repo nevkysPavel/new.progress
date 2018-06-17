@@ -1,5 +1,7 @@
 package all.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 
@@ -11,9 +13,10 @@ import javax.persistence.*;
 //@FieldDefaults(level = PRIVATE)
 public class Client {
 
-    //Это поле будет уникальным id;
+    //Была проблема с генерацией id (не проходил saveClient) - изменил, работает
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "id",strategy = "increment")
     @Column(name = "id")
     int id;
 
