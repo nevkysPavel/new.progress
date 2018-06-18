@@ -73,12 +73,11 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> getListClients() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-
-        CriteriaQuery<Client> criteriaQuery = cb.createQuery(Client.class);
-
-        TypedQuery<Client> query = em.createQuery(criteriaQuery);
-
-        List<Client> allClient = query.getResultList();
+        CriteriaQuery<Client> cq = cb.createQuery(Client.class);
+        Root<Client> clientRoot = cq.from(Client.class);
+        CriteriaQuery<Client> all = cq.select(clientRoot);
+        TypedQuery<Client> q = em.createQuery(all);
+        List<Client> allClient = q.getResultList();
 
         return  allClient;
 

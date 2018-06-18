@@ -75,6 +75,7 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+    //Сделал, не указал в ResponseEntity, чтобы возвращал список.
     @GetMapping(value = "/get/clients")
     public ResponseEntity<List<Client>> getListClients() {
 
@@ -83,7 +84,7 @@ public class ClientControllerRest {
         List<Client> clientList = this.clientService.getListClients();
 
         if(Objects.nonNull(clientList)){
-            responseEntity = new ResponseEntity(HttpStatus.FOUND);
+            responseEntity = new ResponseEntity(clientList, HttpStatus.FOUND);
         }
         return responseEntity;
     }
