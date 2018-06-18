@@ -1,14 +1,21 @@
 package all.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
+import static lombok.AccessLevel.PRIVATE;
 
 /* Будет идти заполнение за день (дальше можно сделать с добавление)
 /  Будет создана отдельная таблица и связана с конкретным пользователем
+
 */
 
-//dsfdsf
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "FOOD_AND_ACTIVITY")
+@FieldDefaults(level = PRIVATE)
 public class FoodAndActivity {
 
     @Id
@@ -21,7 +28,5 @@ public class FoodAndActivity {
     short carbohydrate;
     @Column(name ="FAT")
     short fat;
-
-
 
 }

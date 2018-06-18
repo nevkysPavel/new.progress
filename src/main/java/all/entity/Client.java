@@ -2,6 +2,7 @@ package all.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "clients")
 @FieldDefaults(level = PRIVATE)
 public class Client {

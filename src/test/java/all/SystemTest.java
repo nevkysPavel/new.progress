@@ -56,7 +56,7 @@ public class SystemTest {
     //Поменял автогенерацию id и пошло
     @Test
     public void systemTestSaveClient() {
-        Client client = new Client("Nevkys", "Pavel", Sex.MAN, 2100, 200, 70);
+        Client client = new Client("Nevkys", "Pavel", Sex.MAN, 2100, 100, 70);
         given().contentType(ContentType.JSON).body(client).when().post("/food/api/clients/post/client")
                 .then().statusCode(201).and().assertThat().body("years",equalTo(2100));
 
@@ -67,7 +67,7 @@ public class SystemTest {
     public void systemTestDeleteClient() {
         given()
                 .contentType(ContentType.JSON)
-                .pathParam("id", 17)
+                .pathParam("id", 18)
                 .when()
                 .delete("/food/api/clients/delete/client/{id}")
                 .then()
