@@ -1,16 +1,20 @@
 package all.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import static lombok.AccessLevel.PRIVATE;
 
 
 // Сложно ли задать реистрацию и делать вход по лоину и паролю ?
 //Идет заполнение данных и дальше перебрасывает на страницу с заполнением еда и активность.
-//@Data
+@Data
 @Entity
+@AllArgsConstructor
 @Table(name = "clients")
-//@FieldDefaults(level = PRIVATE)
+@FieldDefaults(level = PRIVATE)
 public class Client {
 
     //Была проблема с генерацией id (не проходил saveClient) - изменил, работает
@@ -47,70 +51,6 @@ public class Client {
         this.sex = sex;
         this.years = years;
         this.height = height;
-        this.weight = weight;
-    }
-
-    public Client(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Client() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public int getYears() {
-        return years;
-    }
-
-    public void setYears(int years) {
-        this.years = years;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
         this.weight = weight;
     }
 }

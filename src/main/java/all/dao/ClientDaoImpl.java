@@ -31,8 +31,6 @@ public class ClientDaoImpl implements ClientDao {
     @Transactional
     public void saveClient(Client client) {
 
-        /*complex logic*/
-
         em.persist(client);
     }
 
