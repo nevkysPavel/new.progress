@@ -30,6 +30,8 @@ dependencies {
 // https://mvnrepository.com/artifact/com.wix/wix-embedded-mysql
     compile group: 'com.wix', name: 'wix-embedded-mysql', version: '4.1.2'
 
+    testCompile 'com.jayway.restassured:spring-mock-mvc:2.4.0'
+
     /*compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.26-b03',
             'org.glassfish.jersey.media:jersey-media-moxy:2.26-b03',
             'com.fasterxml.jackson.core:jackson-databind:+',
@@ -76,7 +78,7 @@ dependencies {
             'org.apache.tomcat:tomcat-jsp-api:+',
             'org.projectlombok:lombok:+',
             'edu.washington.cs.types.checker:checker-framework:+'*/
-    testCompile 'io.rest-assured:rest-assured:3.1.0'
+   // testCompile 'io.rest-assured:rest-assured:3.1.0'
 // 'org.junit.jupiter:junit-jupiter-params:+',
     testCompile 'org.hamcrest:java-hamcrest:+',
             'org.mockito:mockito-core:+',

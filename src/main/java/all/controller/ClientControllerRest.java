@@ -14,7 +14,7 @@ import java.util.Objects;
 
 //@FieldDefaults(level = PRIVATE)
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("food/api/clients")
 public class ClientControllerRest {
 
     @Autowired
