@@ -1,6 +1,8 @@
 package all.dao;
 
 import all.entity.Client;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,26 +12,27 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
-/*@FieldDefaults(level = PRIVATE)
-@Slf4j*/
+import static lombok.AccessLevel.PRIVATE;
+
+
+
 @Repository
 @Transactional
+@FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
 
     @PersistenceContext
-    protected EntityManager em;
+    @Setter
+    EntityManager em;
 
-    public void setEm(EntityManager em) {
-        this.em = em;
-    }
 
     @Override
-    @Transactional
     public void saveClient(Client client) {
 
         em.persist(client);
     }
 
+    @Override
     public void deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -53,19 +56,19 @@ public class ClientDaoImpl implements ClientDao {
         clientQuery.where(cb.equal(clientRoot.get("id"), id));
         em.createQuery(clientQuery)
                 .getSingleResult();
-        return  em.createQuery(clientQuery).getSingleResult();
+        return em.createQuery(clientQuery).getSingleResult();
     }
 
     @Override
     public List<Client> getListClients() {
+        List<Client> allClient;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Client> cq = cb.createQuery(Client.class);
         Root<Client> clientRoot = cq.from(Client.class);
         CriteriaQuery<Client> all = cq.select(clientRoot);
         TypedQuery<Client> q = em.createQuery(all);
-        List<Client> allClient = q.getResultList();
-
-        return  allClient;
+        allClient = q.getResultList();
+        return allClient;
 
     }
 
@@ -74,21 +77,21 @@ public class ClientDaoImpl implements ClientDao {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaUpdate<Client> update = cb.createCriteriaUpdate(Client.class);
         Root e = update.from(Client.class);
-        update.set("id",newClient);
-        update.set("firstName",newClient);
+        update.set("id", newClient);
+        update.set("firstName", newClient);
         update.set("lastName", newClient);
-        update.set("sex",newClient);
-        update.set("years",newClient);
+        update.set("sex", newClient);
+        update.set("years", newClient);
         update.set("height", newClient);
         update.set("weight", newClient);
 
-        update.where(cb.equal(e.get("id"),client));
+        update.where(cb.equal(e.get("id"), client));
         update.where(cb.equal(e.get("firstName"), client));
         update.where(cb.equal(e.get("lastName"), client));
-        update.where(cb.equal(e.get("sex"),client));
-        update.where(cb.equal(e.get("years"),client));
-        update.where(cb.equal(e.get("height"),client));
-        update.where(cb.equal(e.get("weight"),client));
+        update.where(cb.equal(e.get("sex"), client));
+        update.where(cb.equal(e.get("years"), client));
+        update.where(cb.equal(e.get("height"), client));
+        update.where(cb.equal(e.get("weight"), client));
 
         this.em.createQuery(update).executeUpdate();
 

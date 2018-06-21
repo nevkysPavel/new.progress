@@ -3,7 +3,9 @@ package all.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+
 import javax.persistence.*;
+
 import static lombok.AccessLevel.PRIVATE;
 
 /* Будет идти заполнение за день (дальше можно сделать с добавление)
@@ -22,11 +24,11 @@ public class FoodAndActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     int id;
-    @Column(name ="PROTEIN")
+    @Column(name = "PROTEIN")
     short protein;
-    @Column(name ="CARBOHYDRATE")
+    @Column(name = "CARBOHYDRATE")
     short carbohydrate;
-    @Column(name ="FAT")
+    @Column(name = "FAT")
     short fat;
 
 }

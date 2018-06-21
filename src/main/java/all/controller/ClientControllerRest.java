@@ -2,6 +2,8 @@ package all.controller;
 
 import all.entity.Client;
 import all.service.ClientService;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,17 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+import static lombok.AccessLevel.PRIVATE;
 
-//@FieldDefaults(level = PRIVATE)
+
+
 @RestController
 @RequestMapping("food/api/clients")
+@FieldDefaults(level = PRIVATE)
 public class ClientControllerRest {
 
     @Autowired
+    @Getter
     ClientService clientService;
 
     @GetMapping(value = "/get/client/{id}")
@@ -72,26 +78,21 @@ public class ClientControllerRest {
 
         List<Client> clientList = this.clientService.getListClients();
 
-        if(Objects.nonNull(clientList)){
+        if (Objects.nonNull(clientList)) {
             responseEntity = new ResponseEntity(clientList, HttpStatus.FOUND);
         }
         return responseEntity;
     }
 
     @PutMapping(value = "/put/client")
-    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client, Client newClient){
+    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client, Client newClient) {
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 
-        if(Objects.nonNull(client)){
+        if (Objects.nonNull(client)) {
             this.clientService.updateClient(client, newClient);
             responseEntity = new ResponseEntity(HttpStatus.CREATED);
         }
         return responseEntity;
     }
-
-    public ClientService getClientService() {
-        return clientService;
-    }
-
 
 }

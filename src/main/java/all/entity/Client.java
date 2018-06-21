@@ -5,14 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import static lombok.AccessLevel.PRIVATE;
 
-
-// Сложно ли задать реистрацию и делать вход по лоину и паролю ?
-//Идет заполнение данных и дальше перебрасывает на страницу с заполнением еда и активность.
 @Data
 @Entity
 @AllArgsConstructor
@@ -21,10 +18,9 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class Client {
 
-    //Была проблема с генерацией id (не проходил saveClient) - изменил, работает
+
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(name = "id",strategy = "increment")
+    @GenericGenerator(name = "id", strategy = "increment")
     @Column(name = "id")
     int id;
 
@@ -33,20 +29,17 @@ public class Client {
 
     @Column(name = "last_name")
     String lastName;
-    // Будет выводиться сообщение введите male/female. Дальше независимо от регистра испол. в вычислениях.
-    // Испол. регулярные выражения для проверки.
+
     @Enumerated(EnumType.STRING)
     Sex sex;//enum
-    //Это временно, задать другим форматом и оптимально вычислять возраст, согласно введенной дате рождения
-    //Стоит ли делать проверки на адекватность введенных данных ?
-    // Каклй тип данных лучше использовать, если потом буду проводить расчеты.
-    @Column(name ="years")
+
+    @Column(name = "years")
     int years;
 
-    @Column(name ="height")
+    @Column(name = "height")
     int height;
 
-    @Column(name ="weight")
+    @Column(name = "weight")
     int weight;
 
     public Client(String firstName, String lastName, Sex sex, int years, int height, int weight) {
