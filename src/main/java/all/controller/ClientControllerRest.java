@@ -20,17 +20,6 @@ public class ClientControllerRest {
     @Autowired
     ClientService clientService;
 
-//
-//    @GetMapping(value = "/simple/{id}")
-//    public void simpleQuery(@PathVariable int id) {
-//        clientService.saveClient(new Client("John", "Keeper", Sex.MAN, 23, 12, 45));
-//    }
-//
-//    @PostMapping(value = "/save/client")
-//    public void saveClient(@RequestBody Client client) {
-//        clientService.saveClient(client);
-//    }
-
     @GetMapping(value = "/get/client/{id}")
     public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
 
@@ -75,7 +64,7 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
-    //Сделал, не указал в ResponseEntity, чтобы возвращал список.
+
     @GetMapping(value = "/get/clients")
     public ResponseEntity<List<Client>> getListClients() {
 
@@ -90,11 +79,11 @@ public class ClientControllerRest {
     }
 
     @PutMapping(value = "/put/client")
-    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client){
+    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client, Client newClient){
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 
         if(Objects.nonNull(client)){
-            this.clientService.updateClient(client);
+            this.clientService.updateClient(client, newClient);
             responseEntity = new ResponseEntity(HttpStatus.CREATED);
         }
         return responseEntity;
