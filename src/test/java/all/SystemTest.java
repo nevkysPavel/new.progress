@@ -28,7 +28,6 @@ import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-//classes = {JavaConfiguration.class, WebAppInitializer.class}
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {JavaConfiguration.class})

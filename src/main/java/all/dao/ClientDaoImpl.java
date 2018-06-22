@@ -4,7 +4,6 @@ import all.entity.Client;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 
 @Repository
-@Transactional
+//@Transactional
 @FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
 
@@ -72,28 +71,35 @@ public class ClientDaoImpl implements ClientDao {
 
     }
 
+
+
+    // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
+    // This overwrites any changes that you performed on this entity within the current Session.
     @Override
     public void updateClient(Client client, Client newClient) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaUpdate<Client> update = cb.createCriteriaUpdate(Client.class);
-        Root e = update.from(Client.class);
-        update.set("id", newClient);
-        update.set("firstName", newClient);
-        update.set("lastName", newClient);
-        update.set("sex", newClient);
-        update.set("years", newClient);
-        update.set("height", newClient);
-        update.set("weight", newClient);
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaUpdate<Client> update = cb.createCriteriaUpdate(Client.class);
+//        Root e = update.from(Client.class);
+//        update.set("id", newClient);
+//        update.set("firstName", newClient);
+//        update.set("lastName", newClient);
+//        update.set("sex", newClient);
+//        update.set("years", newClient);
+//        update.set("height", newClient);
+//        update.set("weight", newClient);
+//
+//        update.where(cb.equal(e.get("id"), client));
+//        update.where(cb.equal(e.get("firstName"), client));
+//        update.where(cb.equal(e.get("lastName"), client));
+//        update.where(cb.equal(e.get("sex"), client));
+//        update.where(cb.equal(e.get("years"), client));
+//        update.where(cb.equal(e.get("height"), client));
+//        update.where(cb.equal(e.get("weight"), client));
+//
+//        this.em.createQuery(update).executeUpdate();
+        em.persist(em.merge(newClient));
 
-        update.where(cb.equal(e.get("id"), client));
-        update.where(cb.equal(e.get("firstName"), client));
-        update.where(cb.equal(e.get("lastName"), client));
-        update.where(cb.equal(e.get("sex"), client));
-        update.where(cb.equal(e.get("years"), client));
-        update.where(cb.equal(e.get("height"), client));
-        update.where(cb.equal(e.get("weight"), client));
 
-        this.em.createQuery(update).executeUpdate();
 
     }
 }
