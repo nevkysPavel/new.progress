@@ -4,19 +4,22 @@ import all.entity.Client;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
 
-
 @Repository
-//@Transactional
+@Transactional
 @FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
 
@@ -27,20 +30,15 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public void saveClient(Client client) {
-
         em.persist(client);
     }
 
     @Override
     public void deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-
         CriteriaDelete<Client> criteriaDelete = cb.createCriteriaDelete(Client.class);
-
         Root<Client> root = criteriaDelete.from(Client.class);
-
         criteriaDelete.where(cb.equal(root.get("id"), id));
-
         em.createQuery(criteriaDelete).executeUpdate();
 
     }
@@ -53,8 +51,7 @@ public class ClientDaoImpl implements ClientDao {
         Root<Client> clientRoot = clientQuery.from(Client.class);
         clientQuery.select(clientRoot);
         clientQuery.where(cb.equal(clientRoot.get("id"), id));
-        em.createQuery(clientQuery)
-                .getSingleResult();
+        em.createQuery(clientQuery).getSingleResult();
         return em.createQuery(clientQuery).getSingleResult();
     }
 
@@ -72,14 +69,14 @@ public class ClientDaoImpl implements ClientDao {
     }
 
 
-
     // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
     // This overwrites any changes that you performed on this entity within the current Session.
+    //FixMe
     @Override
-    public void updateClient(Client client, Client newClient) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaUpdate<Client> update = cb.createCriteriaUpdate(Client.class);
-//        Root e = update.from(Client.class);
+    public void updateClient(Client newClient) {
+//        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+//        CriteriaUpdate<Order> update = cb.createCriteriaUpdate(Order.class);
+//        Root e = update.from(Order.class);
 //        update.set("id", newClient);
 //        update.set("firstName", newClient);
 //        update.set("lastName", newClient);
@@ -97,10 +94,32 @@ public class ClientDaoImpl implements ClientDao {
 //        update.where(cb.equal(e.get("weight"), client));
 //
 //        this.em.createQuery(update).executeUpdate();
-        em.persist(em.merge(newClient));
+//        int id = newClient.getId();
+//        Client client = em.find(Client.class, id);
+//        client.setId(newClient.getId());
+//        client.setFirstName(newClient.getFirstName());
+//        client.setLastName(newClient.getFirstName());
+//        client.setSex(newClient.getSex());
+//        client.setYears(newClient.getYears());
+//        client.setHeight(newClient.getHeight());
+//        client.setWeight(newClient.getWeight());
+//        em.merge(client);
+
+        Client client = em.find(Client.class,newClient.getId());
+        client.setId(newClient.getId());
+        client.setFirstName(newClient.getFirstName());
+        client.setLastName(newClient.getFirstName());
+        client.setSex(newClient.getSex());
+        client.setYears(newClient.getYears());
+        client.setHeight(newClient.getHeight());
+        client.setWeight(newClient.getWeight());
+        em.merge(client);
 
 
 
-    }
+
+
+
+   }
 }
 

@@ -1,5 +1,5 @@
-group 'progress'
-version '1.0-SNAPSHOT'
+group = 'progress'
+version = '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'
@@ -29,6 +29,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:+'
 // https://mvnrepository.com/artifact/com.wix/wix-embedded-mysql
     compile group: 'com.wix', name: 'wix-embedded-mysql', version: '4.1.2'
+
 
     testCompile 'com.jayway.restassured:spring-mock-mvc:2.4.0'
 

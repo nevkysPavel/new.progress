@@ -9,6 +9,8 @@ import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.MysqldConfig;
+import lombok.experimental.FieldDefaults;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,17 +28,20 @@ import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.config.Charset.UTF8;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
+import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {JavaConfiguration.class})
+@FieldDefaults(level = PRIVATE)
 public class SystemTest {
+    static EmbeddedMysql mysqld;
     @Autowired
     private WebApplicationContext context;
 
     @BeforeClass
-    public static void start() throws InterruptedException {
+    public static void start()  {
         MysqldConfig config = aMysqldConfig(v5_6_23)
                 .withCharset(UTF8)
                 .withPort(3306)
@@ -44,10 +49,16 @@ public class SystemTest {
                 .build();
 
 
-        EmbeddedMysql mysqld = anEmbeddedMysql(config)
+        mysqld = anEmbeddedMysql(config)
                 .addSchema("newprogress", ScriptResolver.classPathScript("createTableClientsTest.sql"))
                 .start();
 
+    }
+
+    //FixMe
+    @AfterClass
+    public static void stop() {
+        mysqld.stop();
     }
 
     @Before
@@ -55,9 +66,8 @@ public class SystemTest {
         RestAssuredMockMvc.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
-
     @Test
-    public void systemTestSaveClient() {
+    public void ClientControllerRestTest() {
         //Save clients
         Client Den = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
         given().contentType(ContentType.JSON).body(Den)
@@ -143,11 +153,6 @@ public class SystemTest {
                 .then()
                 .statusCode(204);
     }
-//FixMe
-//    @AfterClass
-//    public static void stop(){
-//
-//    }
 }
 
 

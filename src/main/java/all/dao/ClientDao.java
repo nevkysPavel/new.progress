@@ -13,6 +13,6 @@ public interface ClientDao {
 
     List<Client> getListClients();
 
-    void updateClient(Client client, Client newClient);
+    void updateClient(Client newClient);
 
 }

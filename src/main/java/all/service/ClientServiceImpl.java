@@ -16,8 +16,12 @@ import static lombok.AccessLevel.PRIVATE;
 @Transactional
 public class ClientServiceImpl implements ClientService {
 
+    final ClientDao clientDao;
+
     @Autowired
-    ClientDao clientDao;
+    public ClientServiceImpl(ClientDao clientDao){
+        this.clientDao = clientDao;
+    }
 
     @Override
     public void saveClient(Client client) {
@@ -40,8 +44,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void updateClient(Client client, Client newClient) {
-        this.clientDao.updateClient(client, newClient);
+    public void updateClient(Client newClient) {
+        this.clientDao.updateClient(newClient);
 
     }
 }

@@ -16,15 +16,19 @@ import java.util.Objects;
 import static lombok.AccessLevel.PRIVATE;
 
 
-
 @RestController
 @RequestMapping("food/api/clients")
 @FieldDefaults(level = PRIVATE)
 public class ClientControllerRest {
 
-    @Autowired
+
     @Getter
-    ClientService clientService;
+    final ClientService clientService;
+
+    @Autowired
+    public ClientControllerRest(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping(value = "/get/client/{id}")
     public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
@@ -85,11 +89,11 @@ public class ClientControllerRest {
     }
 
     @PutMapping(value = "/put/client")
-    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client, Client newClient) {
+    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client newClient) {
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 
-        if (Objects.nonNull(client)) {
-            this.clientService.updateClient(client, newClient);
+        if (Objects.nonNull(newClient)) {
+            this.clientService.updateClient(newClient);
             responseEntity = new ResponseEntity(HttpStatus.CREATED);
         }
         return responseEntity;
