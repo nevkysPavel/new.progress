@@ -18,5 +18,6 @@
 
 
         <mapping class="all.entity.Client" />
+        <mapping class="all.entity.FoodAndActivity"/>
     </session-factory>
 </hibernate-configuration>

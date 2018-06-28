@@ -4,7 +4,6 @@ import all.entity.Client;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +18,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 
 @Repository
-@Transactional
 @FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
 

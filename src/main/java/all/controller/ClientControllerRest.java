@@ -30,13 +30,14 @@ public class ClientControllerRest {
         this.clientService = clientService;
     }
 
+
+
     @GetMapping(value = "/get/client/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
+    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId)  {
 
         Client client = this.clientService.getClientById(clientId);
 
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
         if (Objects.nonNull(client)) {
             responseEntity = new ResponseEntity<>(client, HttpStatus.OK);
         }
@@ -44,6 +45,7 @@ public class ClientControllerRest {
         return responseEntity;
 
     }
+
 
     @PostMapping(value = "/post/client")
     public ResponseEntity<Client> saveClient(@RequestBody @Valid Client client) {
@@ -85,8 +87,10 @@ public class ClientControllerRest {
         if (Objects.nonNull(clientList)) {
             responseEntity = new ResponseEntity(clientList, HttpStatus.FOUND);
         }
+
         return responseEntity;
     }
+
 
     @PutMapping(value = "/put/client")
     public ResponseEntity<Client> updateClient(@RequestBody @Valid Client newClient) {

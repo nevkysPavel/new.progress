@@ -55,7 +55,7 @@ public class SystemTest {
 
     }
 
-    //FixMe
+
     @AfterClass
     public static void stop() {
         mysqld.stop();
