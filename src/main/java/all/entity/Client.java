@@ -10,11 +10,6 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -35,12 +30,12 @@ public class Client {
 
     @Column(name = "first_name")
     @NotNull
-    @Size(min=3, max = 50)
+//    @Size(min=3, max = 50)
     String firstName;
 
     @Column(name = "last_name")
     @NotNull
-            @Size(min=3, max=30)
+//    @Size(min=3, max=30)
     String lastName;
 
     @Enumerated(EnumType.STRING)
@@ -55,13 +50,13 @@ public class Client {
 
     @Column(name = "height")
     @NotNull
-    @Size(min = 40,max = 280)
+//    @Size(min = 40,max = 280)
     int height;
 
 
     @Column(name = "weight")
     @NotNull
-    @Size(min = 30,max = 300)
+//    @Size(min = 30,max = 300)
     int weight;
     //Fixme
     //Чтобы заработало, добавил в hibernate.cfg.xml Client and FoodAndActivity
@@ -89,4 +84,3 @@ public class Client {
 //
 //    }
 }
-

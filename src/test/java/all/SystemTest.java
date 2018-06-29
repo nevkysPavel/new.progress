@@ -50,7 +50,7 @@ public class SystemTest {
 
 
         mysqld = anEmbeddedMysql(config)
-                .addSchema("newprogress", ScriptResolver.classPathScript("createTableClientsTest.sql"))
+                .addSchema("process", ScriptResolver.classPathScript("createTableClientsTest.sql"))
                 .start();
 
     }
@@ -154,5 +154,3 @@ public class SystemTest {
                 .statusCode(204);
     }
 }
-
-
