@@ -56,7 +56,7 @@ public class JavaConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/newprogress");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/process");
         dataSource.setUsername("pavel");
         dataSource.setPassword("31228900");
 
@@ -70,7 +70,7 @@ public class JavaConfiguration {
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-        adapter.setGenerateDdl(false);
+        adapter.setGenerateDdl(true);
 
         return adapter;
     }

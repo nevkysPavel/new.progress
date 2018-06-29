@@ -2,8 +2,6 @@ package all.controller;
 
 import all.entity.Client;
 import all.service.ClientService;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,31 +11,33 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static lombok.AccessLevel.PRIVATE;
 
-
+//@FieldDefaults(level = PRIVATE)
 @RestController
 @RequestMapping("food/api/clients")
-@FieldDefaults(level = PRIVATE)
 public class ClientControllerRest {
 
-
-    @Getter
-    final ClientService clientService;
-
     @Autowired
-    public ClientControllerRest(ClientService clientService) {
-        this.clientService = clientService;
-    }
+    ClientService clientService;
 
-
+//
+//    @GetMapping(value = "/simple/{id}")
+//    public void simpleQuery(@PathVariable int id) {
+//        clientService.saveClient(new Client("John", "Keeper", Sex.MAN, 23, 12, 45));
+//    }
+//
+//    @PostMapping(value = "/save/client")
+//    public void saveClient(@RequestBody Client client) {
+//        clientService.saveClient(client);
+//    }
 
     @GetMapping(value = "/get/client/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId)  {
+    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
 
         Client client = this.clientService.getClientById(clientId);
 
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         if (Objects.nonNull(client)) {
             responseEntity = new ResponseEntity<>(client, HttpStatus.OK);
         }
@@ -45,7 +45,6 @@ public class ClientControllerRest {
         return responseEntity;
 
     }
-
 
     @PostMapping(value = "/post/client")
     public ResponseEntity<Client> saveClient(@RequestBody @Valid Client client) {
@@ -76,7 +75,7 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
-
+    //Сделал, не указал в ResponseEntity, чтобы возвращал список.
     @GetMapping(value = "/get/clients")
     public ResponseEntity<List<Client>> getListClients() {
 
@@ -84,23 +83,26 @@ public class ClientControllerRest {
 
         List<Client> clientList = this.clientService.getListClients();
 
-        if (Objects.nonNull(clientList)) {
+        if(Objects.nonNull(clientList)){
             responseEntity = new ResponseEntity(clientList, HttpStatus.FOUND);
         }
-
         return responseEntity;
     }
 
-
     @PutMapping(value = "/put/client")
-    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client newClient) {
+    public ResponseEntity<Client> updateClient(@RequestBody @Valid Client client){
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 
-        if (Objects.nonNull(newClient)) {
-            this.clientService.updateClient(newClient);
+        if(Objects.nonNull(client)){
+            this.clientService.updateClient(client);
             responseEntity = new ResponseEntity(HttpStatus.CREATED);
         }
         return responseEntity;
     }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
 
 }
