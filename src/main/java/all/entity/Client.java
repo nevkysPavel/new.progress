@@ -10,6 +10,8 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -22,21 +24,20 @@ import static lombok.AccessLevel.PRIVATE;
 @SelectBeforeUpdate
 public class Client {
 
-
     @Id
-    @GenericGenerator(name = "id", strategy = "increment")
-    @Column(name = "id")
+    @GenericGenerator(name = "client_id", strategy = "increment")
+    @Column(name = "client_id")
     int id;
 
     @Column(name = "first_name")
     @NotNull
 //    @Size(min=3, max = 50)
-    String firstName;
+            String firstName;
 
     @Column(name = "last_name")
     @NotNull
 //    @Size(min=3, max=30)
-    String lastName;
+            String lastName;
 
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -51,18 +52,17 @@ public class Client {
     @Column(name = "height")
     @NotNull
 //    @Size(min = 40,max = 280)
-    int height;
+            int height;
 
 
     @Column(name = "weight")
     @NotNull
 //    @Size(min = 30,max = 300)
-    int weight;
+            int weight;
     //Fixme
-    //Чтобы заработало, добавил в hibernate.cfg.xml Client and FoodAndActivity
     //Валятся тесты, видно надо дописывать
-//    @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
-//    List<FoodAndActivity> foodAndActivities;
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    List<FoodAndActivity> foodAndActivities;
 
     public Client(String firstName, String lastName, Sex sex, int years, int height, int weight) {
         this.firstName = firstName;
@@ -73,14 +73,14 @@ public class Client {
         this.weight = weight;
     }
 
-//    public Client(int id, @NotNull @Size(min = 3, max = 50) String firstName, @NotNull @Size(min = 3, max = 30) String lastName, @NotNull Sex sex, @NotNull @Min(1900) int years, @NotNull @Size(min = 40, max = 280) int height, @NotNull @Size(min = 30, max = 300) int weight) {
-//        this.id = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.sex = sex;
-//        this.years = years;
-//        this.height = height;
-//        this.weight = weight;
-//
-//    }
+    public Client(int id, @NotNull @Size(min = 3, max = 50) String firstName, @NotNull @Size(min = 3, max = 30) String lastName, @NotNull Sex sex, @NotNull @Min(1900) int years, @NotNull @Size(min = 40, max = 280) int height, @NotNull @Size(min = 30, max = 300) int weight) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.years = years;
+        this.height = height;
+        this.weight = weight;
+
+    }
 }

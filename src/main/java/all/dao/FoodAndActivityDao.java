@@ -4,11 +4,16 @@ import all.entity.Client;
 import all.entity.FoodAndActivity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface FoodAndActivityDao {
     int getClientAge(Client client);
 
-    int getCaloriesFromFood(int id, String date);
+    List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id);
+
+    void saveFoodAndActivityByIdClient(int id, FoodAndActivity foodAndActivity);
+
+//    void saveFoodAndActivity(FoodAndActivity foodAndActivity);
 
     FoodAndActivity getFoodAndActivityById(int id);
 

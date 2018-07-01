@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -61,12 +62,20 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
     }
 
     @Override
-    public int getCaloriesFromFood(int id, String date) {
+    public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
-//        List<FoodAndActivity> allFoodAndActivity = client.getFoodAndActivities();
-
-
-
-        return 0;
+        List<FoodAndActivity> allFoodAndActivity = client.getFoodAndActivities();
+        return allFoodAndActivity;
     }
+
+    @Override
+    public void saveFoodAndActivityByIdClient(int id, FoodAndActivity foodAndActivity) {
+       Client client = clientDao.getClientById(id);
+       return;
+    }
+
+//    @Override
+//    public void saveFoodAndActivity(FoodAndActivity foodAndActivity) {
+//        em.persist(foodAndActivity);
+//    }
 }
