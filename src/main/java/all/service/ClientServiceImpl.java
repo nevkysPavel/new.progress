@@ -2,6 +2,7 @@ package all.service;
 
 import all.dao.ClientDao;
 import all.entity.Client;
+import all.entity.FoodAndActivity;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,10 @@ public class ClientServiceImpl implements ClientService {
         this.clientDao.updateClient(newClient);
 
     }
+
+//    @Override
+//    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+//        this.clientDao.saveFoodAndActivity(clientId,foodAndActivity);
+//    }
 }
 

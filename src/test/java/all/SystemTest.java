@@ -50,7 +50,7 @@ public class SystemTest {
 
 
         mysqld = anEmbeddedMysql(config)
-                .addSchema("process", ScriptResolver.classPathScript("createTableClientsTest.sql"))
+                .addSchema("process", ScriptResolver.classPathScript("createTablesForTests.sql"))
                 .start();
 
     }

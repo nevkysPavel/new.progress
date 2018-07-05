@@ -103,4 +103,14 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+//    @PostMapping(value = "/post/foodAndActivity")
+//    public ResponseEntity<FoodAndActivity> saveFoodAndActivity(@RequestBody int ida, @RequestBody @Valid FoodAndActivity foodAndActivity){
+//        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        if(Objects.nonNull(foodAndActivity)){
+//            responseEntity = new ResponseEntity<>(foodAndActivity,HttpStatus.CREATED);
+//            this.clientService.saveFoodAndActivity(ida,foodAndActivity);
+//        }
+//        return responseEntity;
+//    }
+
 }

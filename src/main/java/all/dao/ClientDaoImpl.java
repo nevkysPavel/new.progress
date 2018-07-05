@@ -1,7 +1,6 @@
 package all.dao;
 
 import all.entity.Client;
-import all.entity.FoodAndActivity;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
@@ -26,6 +25,8 @@ public class ClientDaoImpl implements ClientDao {
     @Setter
     EntityManager em;
 
+//    @Autowired
+//    private FoodAndActivityDao foodAndActivityDao;
 
     @Override
     public void saveClient(Client client) {
@@ -67,11 +68,13 @@ public class ClientDaoImpl implements ClientDao {
 
     }
 
-    @Override
-    public void saveFoodAndActivity(int id,FoodAndActivity foodAndActivity) {
-        Client client = getClientById(id);
-
-    }
+//    @Override
+//    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+//        Client client = getClientById(clientId);
+//        foodAndActivity.setClient(client);
+//        foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+//        em.persist(foodAndActivity);
+//    }
 
     // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
     // This overwrites any changes that you performed on this entity within the current Session.
@@ -109,7 +112,7 @@ public class ClientDaoImpl implements ClientDao {
 //        client.setWeight(newClient.getWeight());
 //        em.merge(client);
 
-        Client client = em.find(Client.class,newClient.getId());
+        Client client = em.find(Client.class, newClient.getId());
         client.setId(newClient.getId());
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getFirstName());
@@ -120,10 +123,6 @@ public class ClientDaoImpl implements ClientDao {
         em.merge(client);
 
 
-
-
-
-
-   }
+    }
 }
 

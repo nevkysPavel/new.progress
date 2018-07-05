@@ -15,5 +15,6 @@ public interface ClientService {
 
     void updateClient(Client newClient);
 
+    //void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
 
 }

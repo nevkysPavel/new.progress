@@ -35,11 +35,13 @@ public class FoodAndActivity {
     KindOfSport kindOfSport;
     @Column(name = "duration_of_training")
     int durationOfTraining;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     Client client;
 
-    public FoodAndActivity(short protein, short carbohydrate, short fat, KindOfSport kindOfSport, int durationOfTraining) {
+    public FoodAndActivity(LocalDate localDate, int id, int protein, int carbohydrate, int fat, KindOfSport kindOfSport, int durationOfTraining) {
+        this.localDate = localDate;
+        this.id = id;
         this.protein = protein;
         this.carbohydrate = carbohydrate;
         this.fat = fat;
