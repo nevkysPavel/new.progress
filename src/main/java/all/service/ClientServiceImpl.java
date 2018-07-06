@@ -50,9 +50,9 @@ public class ClientServiceImpl implements ClientService {
 
     }
 
-//    @Override
-//    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
-//        this.clientDao.saveFoodAndActivity(clientId,foodAndActivity);
-//    }
+    @Override
+    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+        this.clientDao.saveFoodAndActivity(clientId,foodAndActivity);
+    }
 }
 

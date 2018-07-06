@@ -1,5 +1,6 @@
 package all.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -9,12 +10,14 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Entity
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "clients")
 @FieldDefaults(level = PRIVATE)
@@ -58,8 +61,8 @@ public class Client {
             int weight;
     //Fixme
     //Валятся тесты, видно надо дописывать
-//    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    List<FoodAndActivity> foodAndActivities = new ArrayList<>();
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<FoodAndActivity> foodAndActivities = new ArrayList<>();
 
     public Client(String firstName, String lastName, Sex sex, int years, int height, int weight) {
         this.firstName = firstName;

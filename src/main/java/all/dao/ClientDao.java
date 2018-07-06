@@ -1,6 +1,7 @@
 package all.dao;
 
 import all.entity.Client;
+import all.entity.FoodAndActivity;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface ClientDao {
 
     void updateClient(Client newClient);
 
-    //void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
+    void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
 
 }

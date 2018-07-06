@@ -2,8 +2,11 @@ package all;
 
 
 import all.configuration.JavaConfiguration;
+import all.dao.ClientDao;
 import all.entity.Client;
 import all.entity.Sex;
+import all.service.ClientService;
+import all.service.FoodAndActivityService;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import com.wix.mysql.EmbeddedMysql;
@@ -40,6 +43,15 @@ public class SystemTest {
     @Autowired
     private WebApplicationContext context;
 
+        @Autowired
+        ClientDao clientDao;
+
+    @Autowired
+    ClientService clientService;
+
+    @Autowired
+    FoodAndActivityService foodAndActivityService;
+
     @BeforeClass
     public static void start()  {
         MysqldConfig config = aMysqldConfig(v5_6_23)
@@ -54,6 +66,15 @@ public class SystemTest {
                 .start();
 
     }
+//        @Test
+//    public void saveFoodAndActivity() {
+//        Client client = new Client(1, "dsf", "sdfr", Sex.MAN, 1999, 170, 70);
+//        clientService.saveClient(client);
+//        FoodAndActivity foodAndActivity = new FoodAndActivity(LocalDate.now(), 1, 18, 18, 18, KindOfSport.RUN, 18);
+//        clientService.saveFoodAndActivity(1, foodAndActivity);
+//        Client clientById = clientService.getClientById(1);
+//        Assert.assertEquals(client,clientById);
+//    }
 
 
     @AfterClass
@@ -114,6 +135,10 @@ public class SystemTest {
                 .body("firstName", equalTo("Maggy"))
                 .body("lastName", equalTo("Mag"))
                 .extract().as(Client.class);
+
+        //savefood
+//        FoodAndActivity foodAndActivity = new FoodAndActivity(LocalDate.now(), 0, 18, 19, 20, KindOfSport.RUN, 25,Maggy);
+//        given().contentType(ContentType.JSON).body(foodAndActivity)
 
         //Update client
 //        Client newMaggy = new Client(4,"newMaggy", "newMag", Sex.MAN, 1976, 166, 56);

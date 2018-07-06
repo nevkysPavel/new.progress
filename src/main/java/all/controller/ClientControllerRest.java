@@ -1,6 +1,7 @@
 package all.controller;
 
 import all.entity.Client;
+import all.entity.FoodAndActivity;
 import all.service.ClientService;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -103,14 +104,14 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
-//    @PostMapping(value = "/post/foodAndActivity")
-//    public ResponseEntity<FoodAndActivity> saveFoodAndActivity(@RequestBody int ida, @RequestBody @Valid FoodAndActivity foodAndActivity){
-//        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        if(Objects.nonNull(foodAndActivity)){
-//            responseEntity = new ResponseEntity<>(foodAndActivity,HttpStatus.CREATED);
-//            this.clientService.saveFoodAndActivity(ida,foodAndActivity);
-//        }
-//        return responseEntity;
-//    }
+    @PostMapping(value = "/post/foodAndActivity")
+    public ResponseEntity<FoodAndActivity> saveFoodAndActivity(@RequestBody int ida, @RequestBody @Valid FoodAndActivity foodAndActivity){
+        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(Objects.nonNull(foodAndActivity)){
+            responseEntity = new ResponseEntity<>(foodAndActivity,HttpStatus.CREATED);
+            this.clientService.saveFoodAndActivity(ida,foodAndActivity);
+        }
+        return responseEntity;
+    }
 
 }
