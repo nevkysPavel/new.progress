@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -29,13 +30,6 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
     @Autowired
     public FoodAndActivityDaoImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
-    }
-
-    //Fixme
-    //Может тоже сделать реализацию в интерфейсе?
-    @Override
-    public int getClientAge(Client client) {
-        return getThisYear() - client.getYears();
     }
 
     @Override
@@ -72,4 +66,11 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         em.persist(foodAndActivity);
     }
 
+    //Fixme
+    @Override
+    public int getCaloricityByDateAndClientId(int id, LocalDate localDate) {
+        Client client = clientDao.getClientById(id);
+        client.getFoodAndActivities();
+        return 0;
+    }
 }

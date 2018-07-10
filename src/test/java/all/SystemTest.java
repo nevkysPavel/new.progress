@@ -162,6 +162,13 @@ public class SystemTest {
                 .log().body()
                 .extract().as(Client.class);
 
+        get("food/api/clients/get/calorie/3")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .log().body();
+
 
         //Get listClients
         given()

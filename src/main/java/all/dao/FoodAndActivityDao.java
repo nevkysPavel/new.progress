@@ -1,13 +1,11 @@
 package all.dao;
 
-import all.entity.Client;
 import all.entity.FoodAndActivity;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface FoodAndActivityDao {
-    int getClientAge(Client client);
 
     FoodAndActivity getFoodAndActivityById(int id);
 
@@ -17,9 +15,7 @@ public interface FoodAndActivityDao {
 
     void saveFoodAndActivity(FoodAndActivity foodAndActivity);
 
-    default int getThisYear() {
-        return LocalDate.now().getYear();
-    }
+    int getCaloricityByDateAndClientId(int id, LocalDate localDate);
 
 }
 

@@ -54,5 +54,10 @@ public class ClientServiceImpl implements ClientService {
     public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         this.clientDao.saveFoodAndActivity(clientId,foodAndActivity);
     }
+
+    @Override
+    public int getCalorieCalculationByClientId(int id) {
+        return this.clientDao.getCalorieCalculationByClientId(id);
+    }
 }
 

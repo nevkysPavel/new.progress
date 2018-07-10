@@ -2,6 +2,7 @@ package all.dao;
 
 import all.entity.Client;
 import all.entity.FoodAndActivity;
+import all.entity.Sex;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = getClientById(clientId);
         foodAndActivity.setClient(client);
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
-        em.persist(foodAndActivity);
+        //em.persist(foodAndActivity);
     }
 
     // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
@@ -125,6 +126,23 @@ public class ClientDaoImpl implements ClientDao {
         em.merge(client);
 
 
+    }
+
+    @Override
+    public int getClientAge(Client client) {
+        return getThisYear() - client.getYears();
+    }
+//Fixme
+    @Override
+    public int getCalorieCalculationByClientId(int id) {
+        Client client = getClientById(id);
+        int i = (int) ((10 * client.getWeight())+(6.25 * client.getHeight()) - (5 * getClientAge(client)));
+        if(client.getSex()==Sex.MAN){
+            i += 5;
+        } else {
+            i -= 161;
+        }
+        return i;
     }
 }
 

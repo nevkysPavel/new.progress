@@ -18,4 +18,6 @@ public interface ClientService {
 
     void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
 
+    int getCalorieCalculationByClientId(int id);
+
 }

@@ -56,8 +56,7 @@ public class Client {
     @NotNull
 //    @Size(min = 30,max = 300)
             int weight;
-    //Fixme
-    //Валятся тесты, видно надо дописывать
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<FoodAndActivity> foodAndActivities = new ArrayList<>();
 

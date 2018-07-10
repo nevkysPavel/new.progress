@@ -113,4 +113,14 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+    @GetMapping(value = "/get/calorie/{id}")
+    public ResponseEntity getCalorieCalculationByClientId(@PathVariable("id") int clientId){
+        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int amount = this.clientService.getCalorieCalculationByClientId(clientId);
+        if(amount!=0){
+            responseEntity = new ResponseEntity(amount,HttpStatus.OK);
+        }
+        return responseEntity;
+    }
+
 }
