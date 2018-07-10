@@ -8,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +44,6 @@ public class Client {
 
     @Column(name = "years")
     @NotNull
-    @Min(1900)
-
     int years;
 
     @Column(name = "height")
@@ -73,7 +70,7 @@ public class Client {
         this.weight = weight;
     }
 
-    public Client(int id, @NotNull String firstName, @NotNull String lastName, @NotNull Sex sex, @NotNull @Min(1900) int years, @NotNull int height, @NotNull int weight) {
+    public Client(int id, @NotNull String firstName, @NotNull String lastName, @NotNull Sex sex, @NotNull  int years, @NotNull int height, @NotNull int weight) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

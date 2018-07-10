@@ -1,7 +1,7 @@
 package all.controller;
 
+import all.dto.UpdateFoodAndActivityDTO;
 import all.entity.Client;
-import all.entity.FoodAndActivity;
 import all.service.ClientService;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -32,9 +32,8 @@ public class ClientControllerRest {
     }
 
 
-
     @GetMapping(value = "/get/client/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId)  {
+    public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
 
         Client client = this.clientService.getClientById(clientId);
 
@@ -105,11 +104,11 @@ public class ClientControllerRest {
     }
 
     @PostMapping(value = "/post/foodAndActivity")
-    public ResponseEntity<FoodAndActivity> saveFoodAndActivity(@RequestBody int ida, @RequestBody @Valid FoodAndActivity foodAndActivity){
+    public ResponseEntity saveFoodAndActivity(@RequestBody @Valid UpdateFoodAndActivityDTO updateFoodAndActivityDTO) {
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(Objects.nonNull(foodAndActivity)){
-            responseEntity = new ResponseEntity<>(foodAndActivity,HttpStatus.CREATED);
-            this.clientService.saveFoodAndActivity(ida,foodAndActivity);
+        if (Objects.nonNull(updateFoodAndActivityDTO)) {
+            clientService.saveFoodAndActivity(updateFoodAndActivityDTO.getClientId(), updateFoodAndActivityDTO.getFoodAndActivity());
+            responseEntity = new ResponseEntity<>(HttpStatus.CREATED);
         }
         return responseEntity;
     }

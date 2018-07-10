@@ -14,7 +14,7 @@ CREATE TABLE food_and_activity (
   carbohydrate INTEGER NOT NULL,
   fat          INTEGER NOT NULL,
   kindOfSport  VARCHAR(20),
-  durationOfTraining INTEGER NOT NULL,
+  durationOfTraining INTEGER,
   localDate DATE
 );
 

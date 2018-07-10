@@ -3,7 +3,10 @@ package all;
 
 import all.configuration.JavaConfiguration;
 import all.dao.ClientDao;
+import all.dto.UpdateFoodAndActivityDTO;
 import all.entity.Client;
+import all.entity.FoodAndActivity;
+import all.entity.KindOfSport;
 import all.entity.Sex;
 import all.service.ClientService;
 import all.service.FoodAndActivityService;
@@ -177,5 +180,27 @@ public class SystemTest {
                 .delete("/food/api/clients/delete/client/3")
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    public void foodAndActivityCRUD() {
+        //Given a Client
+        Client client = new Client(10, "dsf", "dt", Sex.MAN, 1999, 170, 70);
+        clientService.saveClient(client);
+        //than save FoodAndActivity
+        FoodAndActivity foodAndActivity = new FoodAndActivity( 2, 18, 19, 20, KindOfSport.RUN, 22);
+        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
+        updateFoodAndActivityDTO.setClientId(client.getId());
+        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
+        given().contentType(ContentType.JSON).body(updateFoodAndActivityDTO)
+                .when()
+                .post("/food/api/clients/post/foodAndActivity")
+                .then()
+                .statusCode(201);
+        System.out.println("");
+
+
+
+
     }
 }

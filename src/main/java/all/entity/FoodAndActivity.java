@@ -49,6 +49,16 @@ public class FoodAndActivity {
         this.durationOfTraining = durationOfTraining;
     }
 
+    public FoodAndActivity(int id, int protein, int carbohydrate, int fat, KindOfSport kindOfSport, int durationOfTraining) {
+        this.id = id;
+        this.protein = protein;
+        this.carbohydrate = carbohydrate;
+        this.fat = fat;
+        this.kindOfSport = kindOfSport;
+        this.durationOfTraining = durationOfTraining;
+
+    }
+
     @PrePersist
     protected void onCreate() {
         localDate = LocalDate.now();
