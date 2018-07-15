@@ -27,6 +27,8 @@ public interface ClientDao {
 
     int getCalorieCalculationByClientId(int id);
 
+    int getCaloriesByDateAndClientId(int id, LocalDate localDate);
+
 
 
 }

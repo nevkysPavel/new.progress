@@ -55,6 +55,7 @@ public class SystemTest {
     @Autowired
     FoodAndActivityService foodAndActivityService;
 
+
     @BeforeClass
     public static void start()  {
         MysqldConfig config = aMysqldConfig(v5_6_23)
@@ -207,7 +208,7 @@ public class SystemTest {
         System.out.println("");
 
 
-
+       clientDao.saveFoodAndActivity(10,foodAndActivity);
 
     }
 }

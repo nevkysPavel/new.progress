@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-
+@Transactional
 @Repository
 @FieldDefaults(level = PRIVATE)
 public class FoodAndActivityDaoImpl implements FoodAndActivityDao {

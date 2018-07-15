@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,11 +16,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-
+@Transactional
 @Repository
 @FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
@@ -75,7 +77,14 @@ public class ClientDaoImpl implements ClientDao {
     public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         Client client = getClientById(clientId);
         foodAndActivity.setClient(client);
-        foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<FoodAndActivity> qdef = cb.createQuery(FoodAndActivity.class);
+        Root<FoodAndActivity> c = qdef.from(FoodAndActivity.class);
+        CriteriaQuery<FoodAndActivity> foodAndActivityByDate = qdef.select(c)
+                .where(cb.equal(c.get("localDate"), foodAndActivity.getLocalDate()));
+        FoodAndActivity singleResult = em.createQuery(foodAndActivityByDate).getSingleResult();
+        System.out.println(singleResult);
+       // foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
         //em.persist(foodAndActivity);
     }
 
@@ -143,6 +152,13 @@ public class ClientDaoImpl implements ClientDao {
             i -= 161;
         }
         return i;
+    }
+
+    @Override
+    public int getCaloriesByDateAndClientId(int id, LocalDate localDate) {
+        Client client = getClientById(id);
+
+        return 0;
     }
 }
 

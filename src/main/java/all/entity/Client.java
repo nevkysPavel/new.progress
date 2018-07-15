@@ -18,6 +18,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+//FixME
+// Лучше испол. SEQUENCE
 @Table(name = "clients")
 @FieldDefaults(level = PRIVATE)
 @SelectBeforeUpdate
