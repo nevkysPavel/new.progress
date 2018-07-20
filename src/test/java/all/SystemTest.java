@@ -3,7 +3,7 @@ package all;
 
 import all.configuration.JavaConfiguration;
 import all.dao.ClientDao;
-import all.dto.UpdateFoodAndActivityDTO;
+import all.dao.FoodAndActivityDao;
 import all.entity.Client;
 import all.entity.FoodAndActivity;
 import all.entity.KindOfSport;
@@ -28,6 +28,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
+
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.get;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
@@ -46,39 +48,29 @@ public class SystemTest {
     @Autowired
     private WebApplicationContext context;
 
-        @Autowired
-        ClientDao clientDao;
+    @Autowired
+    ClientDao clientDao;
 
     @Autowired
     ClientService clientService;
 
     @Autowired
     FoodAndActivityService foodAndActivityService;
-
+    @Autowired
+    private FoodAndActivityDao foodAndActivityDao;
 
     @BeforeClass
-    public static void start()  {
+    public static void start() {
         MysqldConfig config = aMysqldConfig(v5_6_23)
                 .withCharset(UTF8)
                 .withPort(3306)
                 .withUser("pavel", "31228900")
                 .build();
 
-
         mysqld = anEmbeddedMysql(config)
                 .addSchema("process", ScriptResolver.classPathScript("createTablesForTests.sql"))
                 .start();
-
     }
-//        @Test
-//    public void saveFoodAndActivity() {
-//        Client client = new Client(1, "dsf", "sdfr", Sex.MAN, 1999, 170, 70);
-//        clientService.saveClient(client);
-//        FoodAndActivity foodAndActivity = new FoodAndActivity(LocalDate.now(), 1, 18, 18, 18, KindOfSport.RUN, 18);
-//        clientService.saveFoodAndActivity(1, foodAndActivity);
-//        Client clientById = clientService.getClientById(1);
-//        Assert.assertEquals(client,clientById);
-//    }
 
 
     @AfterClass
@@ -193,22 +185,27 @@ public class SystemTest {
     @Test
     public void foodAndActivityCRUD() {
         //Given a Client
-        Client client = new Client(10, "dsf", "dt", Sex.MAN, 1999, 170, 70);
-        clientService.saveClient(client);
+        Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+        int clientId = clientService.saveClient(client);
+        Client clientById = clientDao.getClientById(clientId);
         //than save FoodAndActivity
-        FoodAndActivity foodAndActivity = new FoodAndActivity( 2, 18, 19, 20, KindOfSport.RUN, 22);
-        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
-        updateFoodAndActivityDTO.setClientId(client.getId());
-        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
-        given().contentType(ContentType.JSON).body(updateFoodAndActivityDTO)
-                .when()
-                .post("/food/api/clients/post/foodAndActivity")
-                .then()
-                .statusCode(201);
-        System.out.println("");
+        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22,clientById);
+        int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+        System.out.println(foodAndActivityId);
+        //Then update food and activity
+        FoodAndActivity foodAndActivity1 = foodAndActivityDao.get(clientId, LocalDate.now());
+        foodAndActivity.setClient(null);
+        System.out.println(foodAndActivity1);
+//        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
+//        updateFoodAndActivityDTO.setClientId(client.getClient_id());
+//        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
+//        given().contentType(ContentType.JSON).body(updateFoodAndActivityDTO)
+//                .when()
+//                .post("/food/api/clients/post/foodAndActivity")
+//                .then()
+//                .statusCode(201);
+//        System.out.println("");
 
-
-       clientDao.saveFoodAndActivity(10,foodAndActivity);
 
     }
 }

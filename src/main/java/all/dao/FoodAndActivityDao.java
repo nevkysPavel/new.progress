@@ -13,9 +13,10 @@ public interface FoodAndActivityDao {
 
     List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id);
 
-    void saveFoodAndActivity(FoodAndActivity foodAndActivity);
+    int saveFoodAndActivity(FoodAndActivity foodAndActivity);
 
     int getCaloricityByDateAndClientId(int id, LocalDate localDate);
 
+    FoodAndActivity get(int clientId, LocalDate foodAndActivityData);
 }
 

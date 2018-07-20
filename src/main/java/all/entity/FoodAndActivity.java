@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,9 +19,9 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class FoodAndActivity {
 
-    LocalDate localDate;
+
     @Id
-    @GenericGenerator(name = "id", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
     @Column(name = "protein")
@@ -35,28 +34,19 @@ public class FoodAndActivity {
     KindOfSport kindOfSport;
     @Column(name = "duration_of_training")
     int durationOfTraining;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id")
     Client client;
+    @Column
+    LocalDate localDate;
 
-    public FoodAndActivity(LocalDate localDate, int id, int protein, int carbohydrate, int fat, KindOfSport kindOfSport, int durationOfTraining) {
-        this.localDate = localDate;
-        this.id = id;
+    public FoodAndActivity(int protein, int carbohydrate, int fat, KindOfSport kindOfSport, int durationOfTraining, Client client) {
         this.protein = protein;
         this.carbohydrate = carbohydrate;
         this.fat = fat;
         this.kindOfSport = kindOfSport;
         this.durationOfTraining = durationOfTraining;
-    }
-
-    public FoodAndActivity(int id, int protein, int carbohydrate, int fat, KindOfSport kindOfSport, int durationOfTraining) {
-        this.id = id;
-        this.protein = protein;
-        this.carbohydrate = carbohydrate;
-        this.fat = fat;
-        this.kindOfSport = kindOfSport;
-        this.durationOfTraining = durationOfTraining;
-
+        this.client = client;
     }
 
     @PrePersist

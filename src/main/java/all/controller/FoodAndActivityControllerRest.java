@@ -29,10 +29,10 @@
 //        this.foodAndActivityService=foodAndActivityService;
 //    }
 //
-//    @GetMapping(value = "get/getAllTablesFoodAndActivityByIdClient/{id}")
-//    public ResponseEntity<List<FoodAndActivity>> getAllTablesFoodAndActivityByIdClient(@PathVariable("id") int id) {
+//    @GetMapping(value = "get/getAllTablesFoodAndActivityByIdClient/{client_id}")
+//    public ResponseEntity<List<FoodAndActivity>> getAllTablesFoodAndActivityByIdClient(@PathVariable("client_id") int client_id) {
 //        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        List<FoodAndActivity> foodAndActivityList = this.foodAndActivityService.getAllTablesFoodAndActivityByIdClient(id);
+//        List<FoodAndActivity> foodAndActivityList = this.foodAndActivityService.getAllTablesFoodAndActivityByIdClient(client_id);
 //        if(Objects.nonNull(foodAndActivityList)){
 //            responseEntity = new ResponseEntity(foodAndActivityList,HttpStatus.FOUND);
 //        }

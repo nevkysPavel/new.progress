@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ClientDao {
-    void saveClient(Client client);
+    int saveClient(Client client);
 
     void deleteClientById(int id);
 
@@ -26,8 +26,6 @@ public interface ClientDao {
      int getClientAge(Client client);
 
     int getCalorieCalculationByClientId(int id);
-
-    int getCaloriesByDateAndClientId(int id, LocalDate localDate);
 
 
 

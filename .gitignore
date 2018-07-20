@@ -4,3 +4,8 @@ domain/
 gradle/
 logs/
 target/
+.idea
+gradlew
+gradlew.bat
+*.log
+out

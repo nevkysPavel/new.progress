@@ -18,9 +18,10 @@ import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Transactional
+
 @Repository
 @FieldDefaults(level = PRIVATE)
+@Transactional
 public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 
     final ClientDao clientDao;
@@ -39,7 +40,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         CriteriaQuery<FoodAndActivity> criteriaQuery = cb.createQuery(FoodAndActivity.class);
         Root<FoodAndActivity> root = criteriaQuery.from(FoodAndActivity.class);
         criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("id"), id));
+        criteriaQuery.where(cb.equal(root.get("client_id"), id));
         em.createQuery(criteriaQuery).getSingleResult();
         return em.createQuery(criteriaQuery).getSingleResult();
     }
@@ -63,8 +64,10 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
     }
 
     @Override
-    public void saveFoodAndActivity(FoodAndActivity foodAndActivity) {
+    public int saveFoodAndActivity(FoodAndActivity foodAndActivity) {
         em.persist(foodAndActivity);
+        em.flush();
+        return foodAndActivity.getId();
     }
 
     //Fixme
@@ -73,5 +76,15 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         Client client = clientDao.getClientById(id);
         client.getFoodAndActivities();
         return 0;
+    }
+
+    @Override
+    public FoodAndActivity get(int clientId, LocalDate foodAndActivityData) {
+        Client clientById = clientDao.getClientById(clientId);
+        List<FoodAndActivity> foodAndActivities = clientById.getFoodAndActivities();
+        return foodAndActivities.stream()
+                .filter(foodAndActivity -> foodAndActivity.getLocalDate().equals(LocalDate.now()))
+                .findFirst().get();
+
     }
 }

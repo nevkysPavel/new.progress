@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,12 +15,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.time.LocalDate;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Transactional
+
 @Repository
 @FieldDefaults(level = PRIVATE)
 public class ClientDaoImpl implements ClientDao {
@@ -34,8 +32,10 @@ public class ClientDaoImpl implements ClientDao {
     private FoodAndActivityDao foodAndActivityDao;
 
     @Override
-    public void saveClient(Client client) {
+    public int saveClient(Client client) {
         em.persist(client);
+        em.flush();
+        return client.getClient_id();
     }
 
     @Override
@@ -43,19 +43,18 @@ public class ClientDaoImpl implements ClientDao {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaDelete<Client> criteriaDelete = cb.createCriteriaDelete(Client.class);
         Root<Client> root = criteriaDelete.from(Client.class);
-        criteriaDelete.where(cb.equal(root.get("id"), id));
+        criteriaDelete.where(cb.equal(root.get("client_id"), id));
         em.createQuery(criteriaDelete).executeUpdate();
 
     }
 
     @Override
     public Client getClientById(int id) {
-
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Client> clientQuery = cb.createQuery(Client.class);
         Root<Client> clientRoot = clientQuery.from(Client.class);
         clientQuery.select(clientRoot);
-        clientQuery.where(cb.equal(clientRoot.get("id"), id));
+        clientQuery.where(cb.equal(clientRoot.get("client_id"), id));
         em.createQuery(clientQuery).getSingleResult();
         return em.createQuery(clientQuery).getSingleResult();
     }
@@ -77,14 +76,7 @@ public class ClientDaoImpl implements ClientDao {
     public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         Client client = getClientById(clientId);
         foodAndActivity.setClient(client);
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<FoodAndActivity> qdef = cb.createQuery(FoodAndActivity.class);
-        Root<FoodAndActivity> c = qdef.from(FoodAndActivity.class);
-        CriteriaQuery<FoodAndActivity> foodAndActivityByDate = qdef.select(c)
-                .where(cb.equal(c.get("localDate"), foodAndActivity.getLocalDate()));
-        FoodAndActivity singleResult = em.createQuery(foodAndActivityByDate).getSingleResult();
-        System.out.println(singleResult);
-       // foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+        foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
         //em.persist(foodAndActivity);
     }
 
@@ -96,7 +88,7 @@ public class ClientDaoImpl implements ClientDao {
 //        CriteriaBuilder cb = this.em.getCriteriaBuilder();
 //        CriteriaUpdate<Order> update = cb.createCriteriaUpdate(Order.class);
 //        Root e = update.from(Order.class);
-//        update.set("id", newClient);
+//        update.set("client_id", newClient);
 //        update.set("firstName", newClient);
 //        update.set("lastName", newClient);
 //        update.set("sex", newClient);
@@ -104,7 +96,7 @@ public class ClientDaoImpl implements ClientDao {
 //        update.set("height", newClient);
 //        update.set("weight", newClient);
 //
-//        update.where(cb.equal(e.get("id"), client));
+//        update.where(cb.equal(e.get("client_id"), client));
 //        update.where(cb.equal(e.get("firstName"), client));
 //        update.where(cb.equal(e.get("lastName"), client));
 //        update.where(cb.equal(e.get("sex"), client));
@@ -113,9 +105,9 @@ public class ClientDaoImpl implements ClientDao {
 //        update.where(cb.equal(e.get("weight"), client));
 //
 //        this.em.createQuery(update).executeUpdate();
-//        int id = newClient.getId();
-//        Client client = em.find(Client.class, id);
-//        client.setId(newClient.getId());
+//        int client_id = newClient.getClient_id();
+//        Client client = em.find(Client.class, client_id);
+//        client.setClient_id(newClient.getClient_id());
 //        client.setFirstName(newClient.getFirstName());
 //        client.setLastName(newClient.getFirstName());
 //        client.setSex(newClient.getSex());
@@ -124,8 +116,8 @@ public class ClientDaoImpl implements ClientDao {
 //        client.setWeight(newClient.getWeight());
 //        em.merge(client);
 
-        Client client = em.find(Client.class, newClient.getId());
-        client.setId(newClient.getId());
+        Client client = em.find(Client.class, newClient.getClient_id());
+        client.setClient_id(newClient.getClient_id());
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getFirstName());
         client.setSex(newClient.getSex());
@@ -152,13 +144,6 @@ public class ClientDaoImpl implements ClientDao {
             i -= 161;
         }
         return i;
-    }
-
-    @Override
-    public int getCaloriesByDateAndClientId(int id, LocalDate localDate) {
-        Client client = getClientById(id);
-
-        return 0;
     }
 }
 

@@ -6,6 +6,7 @@ import all.entity.FoodAndActivity;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,19 +14,19 @@ import static lombok.AccessLevel.PRIVATE;
 
 @FieldDefaults(level = PRIVATE)
 @Service
-
+@Transactional
 public class ClientServiceImpl implements ClientService {
 
     final ClientDao clientDao;
 
     @Autowired
-    public ClientServiceImpl(ClientDao clientDao){
+    public ClientServiceImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
     @Override
-    public void saveClient(Client client) {
-        this.clientDao.saveClient(client);
+    public int saveClient(Client client) {
+        return clientDao.saveClient(client);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
-        this.clientDao.saveFoodAndActivity(clientId,foodAndActivity);
+        this.clientDao.saveFoodAndActivity(clientId, foodAndActivity);
     }
 
     @Override

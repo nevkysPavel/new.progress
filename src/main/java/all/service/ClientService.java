@@ -6,7 +6,7 @@ import all.entity.FoodAndActivity;
 import java.util.List;
 
 public interface ClientService {
-    void saveClient(Client client);
+    int saveClient(Client client);
 
     void deleteClient(int id);
 
