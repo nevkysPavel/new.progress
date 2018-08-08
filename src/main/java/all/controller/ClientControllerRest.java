@@ -103,6 +103,7 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+    //проверить работу запроса и как писать правильно
     @PostMapping(value = "/post/foodAndActivity")
     public ResponseEntity saveFoodAndActivity(@RequestBody @Valid UpdateFoodAndActivityDTO updateFoodAndActivityDTO) {
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
