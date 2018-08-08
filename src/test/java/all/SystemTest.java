@@ -29,6 +29,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.get;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
@@ -132,6 +134,23 @@ public class SystemTest {
                 .body("lastName", equalTo("Mag"))
                 .extract().as(Client.class);
 
+        //getFoodAndActivitybyDate
+//        Map<String, String> a = new HashMap<>();
+//        //Given a Client
+//        Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+//        int clientId = clientService.saveClient(client);
+//        Client clientById = clientDao.getClientById(clientId);
+//        //than save FoodAndActivity
+//        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22,clientById);
+//        int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+//        System.out.println(foodAndActivityId);
+//        a.put("client_id",String.valueOf(clientId));
+//        a.put("data",LocalDate.now().toString());
+//
+//        getFoodAndActivityByDateAndClientId("food/by_local_date/",a)
+//                .then()
+//                .log().body();
+
         //savefood
 //        FoodAndActivity foodAndActivity = new FoodAndActivity(LocalDate.now(), 0, 18, 19, 20, KindOfSport.RUN, 25,Maggy);
 //        given().contentType(ContentType.JSON).body(foodAndActivity)
@@ -154,13 +173,15 @@ public class SystemTest {
                 .body("years", equalTo(1969))
                 .log().body()
                 .extract().as(Client.class);
-
+//FixMe
+        // Дописать тест
         get("food/api/clients/get/calorie/3")
                 .then()
                 .assertThat()
                 .statusCode(200)
                 .and()
                 .log().body();
+
 
 
         //Get listClients
@@ -189,12 +210,12 @@ public class SystemTest {
         int clientId = clientService.saveClient(client);
         Client clientById = clientDao.getClientById(clientId);
         //than save FoodAndActivity
-        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22,clientById);
+        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
         int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
         System.out.println(foodAndActivityId);
         //Then update food and activity
-        FoodAndActivity foodAndActivity1 = foodAndActivityDao.get(clientId, LocalDate.now());
-        foodAndActivity.setClient(null);
+        FoodAndActivity foodAndActivity1 = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
+        //  foodAndActivity.setClient(null);
         System.out.println(foodAndActivity1);
 //        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
 //        updateFoodAndActivityDTO.setClientId(client.getClient_id());
@@ -207,5 +228,24 @@ public class SystemTest {
 //        System.out.println("");
 
 
+    }
+
+    @Test
+    public void getFoodAndActivityByDate() {
+        Map<String, String> a = new HashMap<>();
+        //Given a Client
+        Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+        int clientId = clientService.saveClient(client);
+        Client clientById = clientDao.getClientById(clientId);
+        //than save FoodAndActivity
+        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
+        int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+        System.out.println(foodAndActivityId);
+        a.put("client_id", String.valueOf(clientId));
+        a.put("data", LocalDate.now().toString());
+
+        get("food/by_local_date/", a)
+                .then()
+                .log().body();
     }
 }

@@ -2,7 +2,6 @@ package all.dao;
 
 import all.entity.Client;
 import all.entity.FoodAndActivity;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,7 +25,6 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 
     final ClientDao clientDao;
     @PersistenceContext
-    @Setter
     EntityManager em;
 
     @Autowired
@@ -34,19 +32,21 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         this.clientDao = clientDao;
     }
 
-    @Override
-    public FoodAndActivity getFoodAndActivityById(int id) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<FoodAndActivity> criteriaQuery = cb.createQuery(FoodAndActivity.class);
-        Root<FoodAndActivity> root = criteriaQuery.from(FoodAndActivity.class);
-        criteriaQuery.select(root);
-        criteriaQuery.where(cb.equal(root.get("client_id"), id));
-        em.createQuery(criteriaQuery).getSingleResult();
-        return em.createQuery(criteriaQuery).getSingleResult();
-    }
+    //Get Food by id ?
+//    @Override
+//    public FoodAndActivity getFoodAndActivityById(int id) {
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<FoodAndActivity> criteriaQuery = cb.createQuery(FoodAndActivity.class);
+//        Root<FoodAndActivity> root = criteriaQuery.from(FoodAndActivity.class);
+//        criteriaQuery.select(root);
+//        criteriaQuery.where(cb.equal(root.getFoodAndActivityByDateAndClientId("client_id"), id));
+//        em.createQuery(criteriaQuery).getSingleResult();
+//        return em.createQuery(criteriaQuery).getSingleResult();
+//    }
 
+//    //Get Food by date ?
     @Override
-    public FoodAndActivity getFoodAncActivityByDate(String date) {
+    public FoodAndActivity getFoodAndActivityByDate(String date) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<FoodAndActivity> clientQuery = cb.createQuery(FoodAndActivity.class);
         Root<FoodAndActivity> root = clientQuery.from(FoodAndActivity.class);
@@ -56,6 +56,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         return em.createQuery(clientQuery).getSingleResult();
     }
 
+    //Get All Food by Client id ? Сделать
     @Override
     public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
@@ -63,6 +64,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         return allFoodAndActivity;
     }
 
+    //Save Food
     @Override
     public int saveFoodAndActivity(FoodAndActivity foodAndActivity) {
         em.persist(foodAndActivity);
@@ -70,21 +72,28 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         return foodAndActivity.getId();
     }
 
+    //Get Calories By Client id and Date ?
     //Fixme
-    @Override
-    public int getCaloricityByDateAndClientId(int id, LocalDate localDate) {
-        Client client = clientDao.getClientById(id);
-        client.getFoodAndActivities();
-        return 0;
-    }
+//    @Override
+//    public int getCaloricityByDateAndClientId(int id, LocalDate localDate) {
+//        Client client = clientDao.getClientById(id);
+//        client.getFoodAndActivities();
+//        return 0;
+//    }
 
+    //Get Food by Client id and Date ?
+    //FixMe
     @Override
-    public FoodAndActivity get(int clientId, LocalDate foodAndActivityData) {
+    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData) {
         Client clientById = clientDao.getClientById(clientId);
         List<FoodAndActivity> foodAndActivities = clientById.getFoodAndActivities();
         return foodAndActivities.stream()
-                .filter(foodAndActivity -> foodAndActivity.getLocalDate().equals(LocalDate.now()))
-                .findFirst().get();
+                .filter(foodAndActivity -> foodAndActivity.getLocalDate().equals(foodAndActivityData))
+                .findFirst()
+                .orElseGet(FoodAndActivity::new);
+    }
 
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }

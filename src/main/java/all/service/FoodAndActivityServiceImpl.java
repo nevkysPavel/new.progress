@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -27,8 +28,11 @@ public class FoodAndActivityServiceImpl implements FoodAndActivityService{
         return this.foodAndActivityDao.getAllTablesFoodAndActivityByIdClient(id);
     }
 
+//    @Override
+//    public FoodAndActivity getFoodAndActivityById(int id) {
+//        return foodAndActivityDao.getFoodAndActivityById(id);
+//    }
+
     @Override
-    public FoodAndActivity getFoodAndActivityById(int id) {
-        return foodAndActivityDao.getFoodAndActivityById(id);
-    }
+    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData){return null;}
 }

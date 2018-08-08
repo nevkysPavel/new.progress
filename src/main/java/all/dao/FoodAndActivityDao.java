@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface FoodAndActivityDao {
 
-    FoodAndActivity getFoodAndActivityById(int id);
+//    FoodAndActivity getFoodAndActivityById(int id);
 
-    FoodAndActivity getFoodAncActivityByDate(String date);
+    FoodAndActivity getFoodAndActivityByDate(String date);
 
     List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id);
 
     int saveFoodAndActivity(FoodAndActivity foodAndActivity);
 
-    int getCaloricityByDateAndClientId(int id, LocalDate localDate);
+//    int getCaloricityByDateAndClientId(int id, LocalDate localDate);
 
-    FoodAndActivity get(int clientId, LocalDate foodAndActivityData);
+    FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData);
 }
 

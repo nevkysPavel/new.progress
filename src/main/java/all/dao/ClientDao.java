@@ -15,18 +15,22 @@ public interface ClientDao {
 
     List<Client> getListClients();
 
+    void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
+
     void updateClient(Client newClient);
 
-    void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
 
+    //Fixme
+    //Так можно ?
     default int getThisYear() {
         return LocalDate.now().getYear();
     }
 
-     int getClientAge(Client client);
+    //Fixme
+    //Так можно ?
+    int getClientAge(Client client);
 
     int getCalorieCalculationByClientId(int id);
-
 
 
 }

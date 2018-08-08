@@ -3,7 +3,6 @@ package all.dao;
 import all.entity.Client;
 import all.entity.FoodAndActivity;
 import all.entity.Sex;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,12 +24,12 @@ import static lombok.AccessLevel.PRIVATE;
 public class ClientDaoImpl implements ClientDao {
 
     @PersistenceContext
-    @Setter
     EntityManager em;
 
     @Autowired
     private FoodAndActivityDao foodAndActivityDao;
 
+    //Save Client
     @Override
     public int saveClient(Client client) {
         em.persist(client);
@@ -38,6 +37,7 @@ public class ClientDaoImpl implements ClientDao {
         return client.getClient_id();
     }
 
+    //Delete Client
     @Override
     public void deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -48,6 +48,7 @@ public class ClientDaoImpl implements ClientDao {
 
     }
 
+    //Get Client by id
     @Override
     public Client getClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -59,6 +60,7 @@ public class ClientDaoImpl implements ClientDao {
         return em.createQuery(clientQuery).getSingleResult();
     }
 
+    //Get List of Clients
     @Override
     public List<Client> getListClients() {
         List<Client> allClient;
@@ -72,6 +74,7 @@ public class ClientDaoImpl implements ClientDao {
 
     }
 
+    //Save FoodAndActivity to Client
     @Override
     public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         Client client = getClientById(clientId);
@@ -82,6 +85,8 @@ public class ClientDaoImpl implements ClientDao {
 
     // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
     // This overwrites any changes that you performed on this entity within the current Session.
+
+    //Update Client
     //FixMe
     @Override
     public void updateClient(Client newClient) {
@@ -96,13 +101,13 @@ public class ClientDaoImpl implements ClientDao {
 //        update.set("height", newClient);
 //        update.set("weight", newClient);
 //
-//        update.where(cb.equal(e.get("client_id"), client));
-//        update.where(cb.equal(e.get("firstName"), client));
-//        update.where(cb.equal(e.get("lastName"), client));
-//        update.where(cb.equal(e.get("sex"), client));
-//        update.where(cb.equal(e.get("years"), client));
-//        update.where(cb.equal(e.get("height"), client));
-//        update.where(cb.equal(e.get("weight"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("client_id"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("firstName"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("lastName"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("sex"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("years"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("height"), client));
+//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("weight"), client));
 //
 //        this.em.createQuery(update).executeUpdate();
 //        int client_id = newClient.getClient_id();
@@ -133,17 +138,23 @@ public class ClientDaoImpl implements ClientDao {
     public int getClientAge(Client client) {
         return getThisYear() - client.getYears();
     }
-//Fixme
+
+    //Get Client Calorie
+    //Fixme
     @Override
     public int getCalorieCalculationByClientId(int id) {
         Client client = getClientById(id);
-        int i = (int) ((10 * client.getWeight())+(6.25 * client.getHeight()) - (5 * getClientAge(client)));
-        if(client.getSex()==Sex.MAN){
+        int i = (int) ((10 * client.getWeight()) + (6.25 * client.getHeight()) - (5 * getClientAge(client)));
+        if (client.getSex() == Sex.MAN) {
             i += 5;
         } else {
             i -= 161;
         }
         return i;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }
 
