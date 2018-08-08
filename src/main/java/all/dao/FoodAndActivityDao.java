@@ -9,7 +9,7 @@ public interface FoodAndActivityDao {
 
 //    FoodAndActivity getFoodAndActivityById(int id);
 
-    FoodAndActivity getFoodAndActivityByDate(String date);
+//    FoodAndActivity getFoodAndActivityByDate(String date);
 
     List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id);
 

@@ -9,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,18 +42,18 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 //    }
 
 //    //Get Food by date ?
-    @Override
-    public FoodAndActivity getFoodAndActivityByDate(String date) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<FoodAndActivity> clientQuery = cb.createQuery(FoodAndActivity.class);
-        Root<FoodAndActivity> root = clientQuery.from(FoodAndActivity.class);
-        clientQuery.select(root);
-        clientQuery.where(cb.equal(root.get("date"), date));
-        em.createQuery(clientQuery).getSingleResult();
-        return em.createQuery(clientQuery).getSingleResult();
-    }
+//    @Override
+//    public FoodAndActivity getFoodAndActivityByDate(String date) {
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<FoodAndActivity> clientQuery = cb.createQuery(FoodAndActivity.class);
+//        Root<FoodAndActivity> root = clientQuery.from(FoodAndActivity.class);
+//        clientQuery.select(root);
+//        clientQuery.where(cb.equal(root.get("date"), date));
+//        em.createQuery(clientQuery).getSingleResult();
+//        return em.createQuery(clientQuery).getSingleResult();
+//    }
 
-    //Get All Food by Client id ? Сделать
+    //Get All Food by Client id ? Написать до реста и проверить, и тесты
     @Override
     public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
@@ -81,7 +78,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 //        return 0;
 //    }
 
-    //Get Food by Client id and Date ?
+    //Get Food by Client id and Date ? / дописать и проверка и тесты
     //FixMe
     @Override
     public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData) {

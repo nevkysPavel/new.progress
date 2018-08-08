@@ -34,5 +34,6 @@ public class FoodAndActivityServiceImpl implements FoodAndActivityService{
 //    }
 
     @Override
-    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData){return null;}
+    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData){
+        return this.foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId,foodAndActivityData);}
 }
