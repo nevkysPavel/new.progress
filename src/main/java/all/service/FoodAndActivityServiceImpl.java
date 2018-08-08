@@ -25,7 +25,7 @@ public class FoodAndActivityServiceImpl implements FoodAndActivityService{
 
     @Override
     public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id){
-        return this.foodAndActivityDao.getAllTablesFoodAndActivityByIdClient(id);
+        return this.foodAndActivityDao.getFoodAndActivityByIdClient(id);
     }
 
 //    @Override

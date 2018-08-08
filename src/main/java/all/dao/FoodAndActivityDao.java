@@ -11,7 +11,7 @@ public interface FoodAndActivityDao {
 
 //    FoodAndActivity getFoodAndActivityByDate(String date);
 
-    List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id);
+    List<FoodAndActivity> getFoodAndActivityByIdClient(int id);
 
     int saveFoodAndActivity(FoodAndActivity foodAndActivity);
 

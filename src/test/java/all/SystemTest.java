@@ -134,29 +134,12 @@ public class SystemTest {
                 .body("lastName", equalTo("Mag"))
                 .extract().as(Client.class);
 
-        //getFoodAndActivitybyDate
-//        Map<String, String> a = new HashMap<>();
-//        //Given a Client
-//        Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
-//        int clientId = clientService.saveClient(client);
-//        Client clientById = clientDao.getClientById(clientId);
-//        //than save FoodAndActivity
-//        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22,clientById);
-//        int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
-//        System.out.println(foodAndActivityId);
-//        a.put("client_id",String.valueOf(clientId));
-//        a.put("data",LocalDate.now().toString());
-//
-//        getFoodAndActivityByDateAndClientId("food/by_local_date/",a)
-//                .then()
-//                .log().body();
 
-        //savefood
-//        FoodAndActivity foodAndActivity = new FoodAndActivity(LocalDate.now(), 0, 18, 19, 20, KindOfSport.RUN, 25,Maggy);
-//        given().contentType(ContentType.JSON).body(foodAndActivity)
+
+
 
         //Update client
-//        Client newMaggy = new Client(4,"newMaggy", "newMag", Sex.MAN, 1976, 166, 56);
+//        Client newMaggy = new Client(Maggy.c);
 //        given().contentType(ContentType.JSON).body(Maggy).body(newMaggy)
 //                .put("/food/api/clients/put/client")
 //                .then()
@@ -210,13 +193,30 @@ public class SystemTest {
         int clientId = clientService.saveClient(client);
         Client clientById = clientDao.getClientById(clientId);
         //than save FoodAndActivity
-        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
-        int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
-        System.out.println(foodAndActivityId);
+        FoodAndActivity foodAndActivity1 = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
+        FoodAndActivity foodAndActivity2 = new FoodAndActivity(20, 50, 25, KindOfSport.RUN, 40, clientById);
+        FoodAndActivity foodAndActivity3 = new FoodAndActivity(200, 200, 55, KindOfSport.SWIM, 33, clientById);
+
+        int foodAndActivityId1 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity1);
+        int foodAndActivityId2 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity2);
+        int foodAndActivityId3 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity3);
+        System.out.println(foodAndActivityId1);
+        System.out.println(foodAndActivityId2);
+        System.out.println(foodAndActivityId3);
+
+        //Get list FoodAndActivity
+
+//        given()
+//                .contentType(ContentType.JSON)
+//                .when()
+//                .get("/food/getFoodAndActivityByIdClient/1")
+//                .then()
+//                .statusCode(302)
+//                .log().all();
         //Then update food and activity
-        FoodAndActivity foodAndActivity1 = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
+        FoodAndActivity getFoodAndActivity = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
         //  foodAndActivity.setClient(null);
-        System.out.println(foodAndActivity1);
+        System.out.println(getFoodAndActivity);
 //        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
 //        updateFoodAndActivityDTO.setClientId(client.getClient_id());
 //        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
@@ -226,7 +226,6 @@ public class SystemTest {
 //                .then()
 //                .statusCode(201);
 //        System.out.println("");
-
 
     }
 
@@ -248,4 +247,6 @@ public class SystemTest {
                 .then()
                 .log().body();
     }
+
+
 }

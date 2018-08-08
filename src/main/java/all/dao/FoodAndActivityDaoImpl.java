@@ -53,9 +53,9 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 //        return em.createQuery(clientQuery).getSingleResult();
 //    }
 
-    //Get All Food by Client id ? Написать до реста и проверить, и тесты
+    //Get All Food by Client id ?
     @Override
-    public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id) {
+    public List<FoodAndActivity> getFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
         List<FoodAndActivity> allFoodAndActivity = client.getFoodAndActivities();
         return allFoodAndActivity;
