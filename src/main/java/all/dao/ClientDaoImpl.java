@@ -6,6 +6,7 @@ import all.entity.Sex;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +22,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Repository
 @FieldDefaults(level = PRIVATE)
+@Transactional
 public class ClientDaoImpl implements ClientDao {
 
     @PersistenceContext
@@ -89,7 +91,7 @@ public class ClientDaoImpl implements ClientDao {
     //Update Client
     //FixMe
     @Override
-    public void updateClient(Client newClient) {
+    public Client updateClient(Client newClient) {
 //        CriteriaBuilder cb = this.em.getCriteriaBuilder();
 //        CriteriaUpdate<Order> update = cb.createCriteriaUpdate(Order.class);
 //        Root e = update.from(Order.class);
@@ -129,8 +131,8 @@ public class ClientDaoImpl implements ClientDao {
         client.setYears(newClient.getYears());
         client.setHeight(newClient.getHeight());
         client.setWeight(newClient.getWeight());
-        em.merge(client);
-
+        Client merge = em.merge(client);
+return merge;
 
     }
 

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -51,6 +52,7 @@ public class ServicesTest {
     public void saveClient() {
         Client client = new Client();
         clientDaoMock.saveClient((client));
+        Mockito.when(clientDaoMock.getListClients()).thenReturn();
         verify(clientDaoMock, times(1)).saveClient(any(Client.class));
 
     }

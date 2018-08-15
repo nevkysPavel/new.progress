@@ -30,6 +30,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.get;
@@ -123,7 +124,7 @@ public class SystemTest {
                 .extract().as(Client.class);
 
         Client Maggy = new Client("Maggy", "Mag", Sex.WOMAN, 1975, 165, 55);
-        given().contentType(ContentType.JSON).body(Maggy)
+      Maggy=  given().contentType(ContentType.JSON).body(Maggy)
                 .when()
                 .post("/food/api/clients/post/client")
                 .then()
@@ -134,8 +135,8 @@ public class SystemTest {
                 .body("lastName", equalTo("Mag"))
                 .extract().as(Client.class);
 
-
-
+        Client client = clientDao.updateClient(new Client(Maggy.getClient_id(), "updatedMaggy", "updatedLastName", Sex.MAN, 100, 200, 150));
+        System.out.println(client);
 
 
         //Update client
@@ -145,45 +146,47 @@ public class SystemTest {
 //                .then()
 //                .log().body();
 
-        //Get client
-        get("/food/api/clients/get/client/3")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .body("firstName", equalTo("Lucy"))
-                .body("lastName", equalTo("Lui"))
-                .body("sex", equalTo("WOMAN"))
-                .body("years", equalTo(1969))
-                .log().body()
-                .extract().as(Client.class);
-//FixMe
-        // Дописать тест
-        get("food/api/clients/get/calorie/3")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .and()
-                .log().body();
 
 
-
-        //Get listClients
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/food/api/clients/get/clients")
-                .then()
-                .statusCode(302)
-                .log().all();
-
-
-        //Delete client
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .delete("/food/api/clients/delete/client/3")
-                .then()
-                .statusCode(204);
+//        //Get client
+//        get("/food/api/clients/get/client/3")
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .body("firstName", equalTo("Lucy"))
+//                .body("lastName", equalTo("Lui"))
+//                .body("sex", equalTo("WOMAN"))
+//                .body("years", equalTo(1969))
+//                .log().body()
+//                .extract().as(Client.class);
+////FixMe
+//        // Дописать тест
+//        get("food/api/clients/get/calorie/3")
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .and()
+//                .log().body();
+//
+//
+//
+//        //Get listClients
+//        given()
+//                .contentType(ContentType.JSON)
+//                .when()
+//                .get("/food/api/clients/get/clients")
+//                .then()
+//                .statusCode(302)
+//                .log().all();
+//
+//
+//        //Delete client
+//        given()
+//                .contentType(ContentType.JSON)
+//                .when()
+//                .delete("/food/api/clients/delete/client/3")
+//                .then()
+//                .statusCode(204);
     }
 
     @Test
@@ -205,18 +208,20 @@ public class SystemTest {
         System.out.println(foodAndActivityId3);
 
         //Get list FoodAndActivity
-
-//        given()
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .get("/food/getFoodAndActivityByIdClient/1")
-//                .then()
-//                .statusCode(302)
-//                .log().all();
+        List<FoodAndActivity> foodAndActivityByIdClient = foodAndActivityDao.getFoodAndActivityByIdClient(clientId);
+        System.out.println(foodAndActivityByIdClient);
+        String response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/food/getFoodAndActivityByIdClient/1")
+                .then()
+                .statusCode(302)
+                .log().all().extract().body().asString();
+        System.out.println(response);
         //Then update food and activity
-        FoodAndActivity getFoodAndActivity = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
+      //  FoodAndActivity getFoodAndActivity = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
         //  foodAndActivity.setClient(null);
-        System.out.println(getFoodAndActivity);
+      //  System.out.println(getFoodAndActivity);
 //        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
 //        updateFoodAndActivityDTO.setClientId(client.getClient_id());
 //        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
@@ -226,7 +231,6 @@ public class SystemTest {
 //                .then()
 //                .statusCode(201);
 //        System.out.println("");
-
     }
 
     @Test

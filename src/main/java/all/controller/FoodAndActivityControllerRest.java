@@ -28,7 +28,7 @@ public class FoodAndActivityControllerRest {
         this.foodAndActivityService = foodAndActivityService;
     }
 
-  @GetMapping(value = "getAllTablesFoodAndActivityByIdClient/{client_id}")
+  @GetMapping(value = "getFoodAndActivityByIdClient/{client_id}")
     public ResponseEntity<List<FoodAndActivity>> getAllTablesFoodAndActivityByIdClient(@PathVariable("client_id") int client_id) {
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         List<FoodAndActivity> foodAndActivityList = this.foodAndActivityService.getAllTablesFoodAndActivityByIdClient(client_id);

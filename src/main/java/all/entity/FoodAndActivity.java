@@ -1,5 +1,6 @@
 package all.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class FoodAndActivity {
     @Column(name = "duration_of_training")
     int durationOfTraining;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference
     @JoinColumn(name = "client_id")
     Client client;
     @Column

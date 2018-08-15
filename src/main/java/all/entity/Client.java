@@ -1,5 +1,6 @@
 package all.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
@@ -40,6 +41,7 @@ public class Client {
     int weight;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<FoodAndActivity> foodAndActivities = new ArrayList<>();
 
     public Client(String firstName, String lastName, Sex sex, int years, int height, int weight) {
