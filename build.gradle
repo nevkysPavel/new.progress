@@ -45,7 +45,9 @@ dependencies {
             'mysql:mysql-connector-java:5.1.46',
             'com.wix:wix-embedded-mysql:4.1.2',
             'org.aspectj:aspectjrt:+',
-            'io.springfox:springfox-swagger2:2.7.0'
+            //Swagger
+            'io.springfox:springfox-swagger2:2.7.0',
+            'io.springfox:springfox-swagger-ui:2.7.0'
 
     compileOnly 'org.projectlombok:lombok:+'
 

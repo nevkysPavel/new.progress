@@ -97,7 +97,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = em.find(Client.class, newClient.getClient_id());
         client.setClient_id(newClient.getClient_id());
         client.setFirstName(newClient.getFirstName());
-        client.setLastName(newClient.getFirstName());
+        client.setLastName(newClient.getLastName());
         client.setSex(newClient.getSex());
         client.setYears(newClient.getYears());
         client.setHeight(newClient.getHeight());

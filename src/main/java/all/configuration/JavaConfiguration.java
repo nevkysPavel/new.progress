@@ -14,6 +14,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -22,9 +27,9 @@ import javax.sql.DataSource;
 @ComponentScan("all")
 @EnableWebMvc
 @Configuration
-
+@EnableSwagger2
 @EnableTransactionManagement
-public class JavaConfiguration {
+public class JavaConfiguration  {
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
@@ -74,5 +79,42 @@ public class JavaConfiguration {
 
         return adapter;
     }
+
+
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+
+//    private ApiInfo apiInfo() {
+//        return new ApiInfo(
+//                "My REST API",
+//                "Some custom description of API.",
+//                "API TOS",
+//                "Terms of service",
+//                new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
+//                "License of API", "API license URL", Collections.emptyList());
+//    }
+
+private ApiInfo metaData() {
+    return new ApiInfoBuilder()
+            .title("REST API")
+            .description("Spring Boot REST API")
+            .contact(new Contact("JonkiPro",
+                    "https://github.com/JonkiPro",
+                    "unknows@unknown.com"))
+            .license("MIT")
+            .licenseUrl("https://github.com/JonkiPro/REST-Web-Services/blob/master/LICENSE")
+            .version("1.0")
+            .build();
+}
+
+
+
 }
 
