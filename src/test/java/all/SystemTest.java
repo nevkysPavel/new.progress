@@ -38,7 +38,10 @@ import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.equalTo;
-//Fixme Надо ли делать .log().body() ?
+/*Fixme Надо ли делать .log().body() ?
+    mysqld.reloadSchema("process",ScriptResolver.classPathScript("createTablesForTests.sql"));
+    Это лучще испол. ?
+*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {JavaConfiguration.class})
@@ -71,6 +74,8 @@ public class SystemTest {
         mysqld = anEmbeddedMysql(config)
                 .addSchema("process", ScriptResolver.classPathScript("createTablesForTests.sql"))
                 .start();
+
+
     }
 
     @AfterClass
@@ -81,9 +86,8 @@ public class SystemTest {
     @Before
     public void setUp() {
         RestAssuredMockMvc.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
-
     }
+
 
     @Test
     public void ClientControllerRestTestSaveAndGetListAndDelete() {
