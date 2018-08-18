@@ -45,8 +45,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void updateClient(Client newClient) {
-        this.clientDao.updateClient(newClient);
+    public void putClient(Client newClient) {
+        this.clientDao.putClient(newClient);
 
     }
 

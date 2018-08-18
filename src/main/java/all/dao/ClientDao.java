@@ -17,7 +17,7 @@ public interface ClientDao {
 
     void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
 
-    Client updateClient(Client newClient);
+    Client putClient(Client newClient);
 
 
     //Fixme

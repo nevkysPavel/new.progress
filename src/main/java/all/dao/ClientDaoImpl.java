@@ -88,40 +88,11 @@ public class ClientDaoImpl implements ClientDao {
     // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
     // This overwrites any changes that you performed on this entity within the current Session.
 
-    //Update Client
+
     //FixMe
     @Override
-    public Client updateClient(Client newClient) {
-//        CriteriaBuilder cb = this.em.getCriteriaBuilder();
-//        CriteriaUpdate<Order> update = cb.createCriteriaUpdate(Order.class);
-//        Root e = update.from(Order.class);
-//        update.set("client_id", newClient);
-//        update.set("firstName", newClient);
-//        update.set("lastName", newClient);
-//        update.set("sex", newClient);
-//        update.set("years", newClient);
-//        update.set("height", newClient);
-//        update.set("weight", newClient);
-//
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("client_id"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("firstName"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("lastName"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("sex"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("years"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("height"), client));
-//        update.where(cb.equal(e.getFoodAndActivityByDateAndClientId("weight"), client));
-//
-//        this.em.createQuery(update).executeUpdate();
-//        int client_id = newClient.getClient_id();
-//        Client client = em.find(Client.class, client_id);
-//        client.setClient_id(newClient.getClient_id());
-//        client.setFirstName(newClient.getFirstName());
-//        client.setLastName(newClient.getFirstName());
-//        client.setSex(newClient.getSex());
-//        client.setYears(newClient.getYears());
-//        client.setHeight(newClient.getHeight());
-//        client.setWeight(newClient.getWeight());
-//        em.merge(client);
+    public Client putClient(Client newClient) {
+
 
         Client client = em.find(Client.class, newClient.getClient_id());
         client.setClient_id(newClient.getClient_id());

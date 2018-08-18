@@ -14,7 +14,7 @@ public interface ClientService {
 
     List<Client> getListClients();
 
-    void updateClient(Client newClient);
+    void putClient(Client newClient);
 
     void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
 

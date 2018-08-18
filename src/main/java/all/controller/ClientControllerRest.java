@@ -97,7 +97,7 @@ public class ClientControllerRest {
         ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 
         if (Objects.nonNull(newClient)) {
-            this.clientService.updateClient(newClient);
+            this.clientService.putClient(newClient);
             responseEntity = new ResponseEntity(HttpStatus.CREATED);
         }
         return responseEntity;

@@ -4,6 +4,7 @@ package all;
 import all.configuration.JavaConfiguration;
 import all.dao.ClientDao;
 import all.dao.FoodAndActivityDao;
+import all.dto.UpdateFoodAndActivityDTO;
 import all.entity.Client;
 import all.entity.FoodAndActivity;
 import all.entity.KindOfSport;
@@ -16,10 +17,7 @@ import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.MysqldConfig;
 import lombok.experimental.FieldDefaults;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,7 +28,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.get;
@@ -59,6 +56,7 @@ public class SystemTest {
 
     @Autowired
     FoodAndActivityService foodAndActivityService;
+
     @Autowired
     private FoodAndActivityDao foodAndActivityDao;
 
@@ -75,7 +73,6 @@ public class SystemTest {
                 .start();
     }
 
-
     @AfterClass
     public static void stop() {
         mysqld.stop();
@@ -87,8 +84,8 @@ public class SystemTest {
     }
 
     @Test
-    public void ClientControllerRestTest() {
-        //Save clients
+    public void ClientControllerRestTestSaveAndGetList() {
+        //Save Clients
         Client Den = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
         given().contentType(ContentType.JSON).body(Den)
                 .when()
@@ -97,7 +94,13 @@ public class SystemTest {
                 .statusCode(201)
                 .and()
                 .assertThat()
+                .body("firstName", equalTo("Den"))
+                .body("lastName", equalTo("Denis"))
+                .body("sex", equalTo("MAN"))
                 .body("years", equalTo(1990))
+                .body("height", equalTo(170))
+                .body("weight", equalTo(70))
+
                 .extract().as(Client.class);
 
         Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
@@ -124,7 +127,7 @@ public class SystemTest {
                 .extract().as(Client.class);
 
         Client Maggy = new Client("Maggy", "Mag", Sex.WOMAN, 1975, 165, 55);
-      Maggy=  given().contentType(ContentType.JSON).body(Maggy)
+        given().contentType(ContentType.JSON).body(Maggy)
                 .when()
                 .post("/food/api/clients/post/client")
                 .then()
@@ -134,63 +137,134 @@ public class SystemTest {
                 .body("firstName", equalTo("Maggy"))
                 .body("lastName", equalTo("Mag"))
                 .extract().as(Client.class);
-
-        Client client = clientDao.updateClient(new Client(Maggy.getClient_id(), "updatedMaggy", "updatedLastName", Sex.MAN, 100, 200, 150));
-        System.out.println(client);
-
-
-        //Update client
-//        Client newMaggy = new Client(Maggy.c);
-//        given().contentType(ContentType.JSON).body(Maggy).body(newMaggy)
-//                .put("/food/api/clients/put/client")
-//                .then()
-//                .log().body();
-
-
-
-//        //Get client
-//        get("/food/api/clients/get/client/3")
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("firstName", equalTo("Lucy"))
-//                .body("lastName", equalTo("Lui"))
-//                .body("sex", equalTo("WOMAN"))
-//                .body("years", equalTo(1969))
-//                .log().body()
-//                .extract().as(Client.class);
-////FixMe
-//        // Дописать тест
-//        get("food/api/clients/get/calorie/3")
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .and()
-//                .log().body();
-//
-//
-//
-//        //Get listClients
-//        given()
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .get("/food/api/clients/get/clients")
-//                .then()
-//                .statusCode(302)
-//                .log().all();
-//
-//
-//        //Delete client
-//        given()
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .delete("/food/api/clients/delete/client/3")
-//                .then()
-//                .statusCode(204);
+        //Get List
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/food/api/clients/get/clients")
+                .then()
+                .statusCode(302)
+                .log().all();
     }
 
     @Test
-    public void foodAndActivityCRUD() {
+    public void ClientControllerRestTestGetById() {
+        Client Lucy = new Client("Mo", "My", Sex.WOMAN, 1969, 170, 50);
+        given().contentType(ContentType.JSON).body(Lucy)
+                .when()
+                .post("/food/api/clients/post/client")
+                .then()
+                .statusCode(201);
+
+        //        //Get client
+        get("/food/api/clients/get/client/1")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("firstName", equalTo("Mo"))
+                .body("lastName", equalTo("My"))
+                .body("sex", equalTo("WOMAN"))
+                .body("years", equalTo(1969))
+                .body("height", equalTo(170))
+                .body("weight", equalTo(50))
+                .log().body()
+                .extract().as(Client.class);
+    }
+
+    //Fixme Как проверять обновление
+    @Test
+    public void ClientControllerRestTestPut() {
+        Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
+        Borov = given().contentType(ContentType.JSON).body(Borov)
+                .when()
+                .post("/food/api/clients/post/client")
+                .then()
+                .statusCode(201)
+                .extract().as(Client.class);
+
+        Client client = clientDao.putClient(new Client(Borov.getClient_id(), "updatedBorov", "updateBoris", Sex.WOMAN, 110, 210, 140));
+        System.out.println(client);
+
+        given().contentType(ContentType.JSON).body(client)
+                .when()
+                .put("/food/api/clients/put/client")
+                .then()
+                .assertThat()
+                .statusCode(201)
+                .body("firstName", equalTo("updatedBorov"))
+                .body("lastName", equalTo("updateBoris"))
+                .body("sex", equalTo("MAN"))
+                .body("years", equalTo(110))
+                .body("height", equalTo(210))
+                .body("weight", equalTo(140))
+                .extract().as(Client.class);
+    }
+
+    @Test
+    public void ClientControllerRestTestDelete() {
+        Client Den = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+        given().contentType(ContentType.JSON).body(Den)
+                .when()
+                .post("/food/api/clients/post/client")
+                .then()
+                .statusCode(201)
+                .and()
+                .assertThat()
+                .body("years", equalTo(1990))
+                .extract().as(Client.class);
+
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("/food/api/clients/delete/client/1")
+                .then()
+                .statusCode(204);
+
+    }
+
+    @Test
+    public void ClientControllerRestTestGetCalorieCalculation() {
+        Client Den = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+        given().contentType(ContentType.JSON).body(Den)
+                .when()
+                .post("/food/api/clients/post/client");
+
+
+        int amount = given().contentType(ContentType.JSON)
+                .when()
+                .get("food/api/clients/get/calorie/1")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .extract().as(Integer.class);
+        Assert.assertEquals(1627, amount);
+    }
+
+    @Test
+    public void ClientControllerRestTestSaveFoodAndActivity() {
+
+        Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
+        int clientId = clientService.saveClient(client);
+        Client clientById = clientDao.getClientById(clientId);
+
+        FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
+
+        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
+        updateFoodAndActivityDTO.setClientId(clientId);
+        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
+        given().contentType(ContentType.JSON).body(updateFoodAndActivityDTO)
+                .when()
+                .post("food/api/clients/post/foodAndActivity")
+                .then()
+                .statusCode(201);
+
+
+    }
+
+    @Test
+    public void FoodAndActivityRestTestGetFoodAndActivityByIdClient() {
         //Given a Client
         Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
         int clientId = clientService.saveClient(client);
@@ -200,41 +274,21 @@ public class SystemTest {
         FoodAndActivity foodAndActivity2 = new FoodAndActivity(20, 50, 25, KindOfSport.RUN, 40, clientById);
         FoodAndActivity foodAndActivity3 = new FoodAndActivity(200, 200, 55, KindOfSport.SWIM, 33, clientById);
 
-        int foodAndActivityId1 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity1);
-        int foodAndActivityId2 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity2);
-        int foodAndActivityId3 = foodAndActivityDao.saveFoodAndActivity(foodAndActivity3);
-        System.out.println(foodAndActivityId1);
-        System.out.println(foodAndActivityId2);
-        System.out.println(foodAndActivityId3);
+        foodAndActivityDao.saveFoodAndActivity(foodAndActivity1);
+        foodAndActivityDao.saveFoodAndActivity(foodAndActivity2);
+        foodAndActivityDao.saveFoodAndActivity(foodAndActivity3);
 
-        //Get list FoodAndActivity
-        List<FoodAndActivity> foodAndActivityByIdClient = foodAndActivityDao.getFoodAndActivityByIdClient(clientId);
-        System.out.println(foodAndActivityByIdClient);
-        String response = given()
+         given()
                 .contentType(ContentType.JSON)
                 .when()
                 .get("/food/getFoodAndActivityByIdClient/1")
                 .then()
                 .statusCode(302)
-                .log().all().extract().body().asString();
-        System.out.println(response);
-        //Then update food and activity
-      //  FoodAndActivity getFoodAndActivity = foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now());
-        //  foodAndActivity.setClient(null);
-      //  System.out.println(getFoodAndActivity);
-//        UpdateFoodAndActivityDTO updateFoodAndActivityDTO = new UpdateFoodAndActivityDTO();
-//        updateFoodAndActivityDTO.setClientId(client.getClient_id());
-//        updateFoodAndActivityDTO.setFoodAndActivity(foodAndActivity);
-//        given().contentType(ContentType.JSON).body(updateFoodAndActivityDTO)
-//                .when()
-//                .post("/food/api/clients/post/foodAndActivity")
-//                .then()
-//                .statusCode(201);
-//        System.out.println("");
+                .log().all();
     }
 
     @Test
-    public void getFoodAndActivityByDate() {
+    public void FoodAndActivityRestTestGetFoodAndActivityByDateAndClientId() {
         Map<String, String> a = new HashMap<>();
         //Given a Client
         Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
