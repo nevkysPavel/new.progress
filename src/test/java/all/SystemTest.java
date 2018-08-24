@@ -38,10 +38,7 @@ import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.equalTo;
-/*Fixme Надо ли делать .log().body() ?
-    mysqld.reloadSchema("process",ScriptResolver.classPathScript("createTablesForTests.sql"));
-    Это лучще испол. ?
-*/
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {JavaConfiguration.class})
@@ -74,8 +71,6 @@ public class SystemTest {
         mysqld = anEmbeddedMysql(config)
                 .addSchema("process", ScriptResolver.classPathScript("createTablesForTests.sql"))
                 .start();
-
-
     }
 
     @AfterClass
@@ -86,6 +81,7 @@ public class SystemTest {
     @Before
     public void setUp() {
         RestAssuredMockMvc.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        mysqld.reloadSchema("process",ScriptResolver.classPathScript("createTablesForTests.sql"));
     }
 
 
@@ -189,10 +185,9 @@ public class SystemTest {
                 .statusCode(201)
                 .extract().as(Client.class);
 
-        Client client = clientDao.putClient(new Client(Borov.getClient_id(), "updatedBorov", "updateBoris", Sex.WOMAN, 110, 210, 140));
-        System.out.println(client);
+        Borov.setFirstName("UpdatedBorow");
 
-       given().contentType(ContentType.JSON).body(client)
+        Client updatedBorov = given().contentType(ContentType.JSON).body(Borov)
                 .when()
                 .put("/food/api/clients/put/client")
                 .then()
@@ -204,8 +199,9 @@ public class SystemTest {
 //                .body("years", equalTo(110))
 //                .body("height", equalTo(210))
 //                .body("weight", equalTo(140))
-                .log().all();
-                //.extract().as(Client.class);
+                .log().all()
+                .extract().as(Client.class);
+        Assert.assertEquals("UpdatedBorow",updatedBorov.getFirstName());
     }
 
     @Test
@@ -315,6 +311,5 @@ public class SystemTest {
                 .then()
                 .log().body();
     }
-
 
 }

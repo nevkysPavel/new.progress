@@ -94,11 +94,10 @@ public class ClientControllerRest {
 
     @PutMapping(value = "/put/client")
     public ResponseEntity<Client> updateClient(@RequestBody @Valid Client newClient) {
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+        ResponseEntity<Client> responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         if (Objects.nonNull(newClient)) {
-            this.clientService.putClient(newClient);
-            responseEntity = new ResponseEntity(HttpStatus.CREATED);
+            responseEntity = new ResponseEntity<>(this.clientService.putClient(newClient),HttpStatus.CREATED);
         }
         return responseEntity;
     }
@@ -115,11 +114,11 @@ public class ClientControllerRest {
     }
 
     @GetMapping(value = "/get/calorie/{id}")
-    public ResponseEntity getCalorieCalculationByClientId(@PathVariable("id") int clientId){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Integer> getCalorieCalculationByClientId(@PathVariable("id") int clientId){
+        ResponseEntity<Integer> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         int amount = this.clientService.getCalorieCalculationByClientId(clientId);
         if(amount!=0){
-            responseEntity = new ResponseEntity(amount,HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(amount,HttpStatus.OK);
         }
         return responseEntity;
     }

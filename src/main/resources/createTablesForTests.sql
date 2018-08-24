@@ -14,10 +14,15 @@ CREATE TABLE food_and_activity (
   carbohydrate INTEGER NOT NULL,
   fat          INTEGER NOT NULL,
   kindOfSport  VARCHAR(20),
-  durationOfTraining INTEGER,
+  duration_of_training INTEGER,
   localDate DATE,
-  client_id INTEGER
+  client_id INTEGER,
+  CONSTRAINT FK_PersonOrder foreign key (client_id) references clients (client_id)
 );
+
+create index FKg9ptyre1tyaxjey10ob1fj1gs
+  on food_and_activity (client_id);
+
 
 
 

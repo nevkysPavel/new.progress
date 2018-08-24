@@ -89,11 +89,9 @@ public class ClientDaoImpl implements ClientDao {
     // This overwrites any changes that you performed on this entity within the current Session.
 
 
-    //FixMe
+
     @Override
     public Client putClient(Client newClient) {
-
-
         Client client = em.find(Client.class, newClient.getClient_id());
         client.setClient_id(newClient.getClient_id());
         client.setFirstName(newClient.getFirstName());
@@ -102,9 +100,7 @@ public class ClientDaoImpl implements ClientDao {
         client.setYears(newClient.getYears());
         client.setHeight(newClient.getHeight());
         client.setWeight(newClient.getWeight());
-        Client merge = em.merge(client);
-return merge;
-
+        return em.merge(client);
     }
 
     @Override
