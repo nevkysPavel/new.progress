@@ -33,7 +33,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableSwagger2
 @EnableTransactionManagement
-public class JavaConfiguration  {
+public class JavaConfiguration {
 
     @Bean
     public Docket api() {
@@ -89,7 +89,7 @@ public class JavaConfiguration  {
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-      //  adapter.setGenerateDdl(true);
+        //  adapter.setGenerateDdl(true);
 
         return adapter;
     }
@@ -104,30 +104,18 @@ public class JavaConfiguration  {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-
-//    private ApiInfo apiInfo() {
-//        return new ApiInfo(
-//                "My REST API",
-//                "Some custom description of API.",
-//                "API TOS",
-//                "Terms of service",
-//                new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
-//                "License of API", "API license URL", Collections.emptyList());
-//    }
-
-private ApiInfo metaData() {
-    return new ApiInfoBuilder()
-            .title("REST API")
-            .description("Spring Boot REST API")
-            .contact(new Contact("JonkiPro",
-                    "https://github.com/JonkiPro",
-                    "unknows@unknown.com"))
-            .license("MIT")
-            .licenseUrl("https://github.com/JonkiPro/REST-Web-Services/blob/master/LICENSE")
-            .version("1.0")
-            .build();
-}
-
+    private ApiInfo metaData() {
+        return new ApiInfoBuilder()
+                .title("REST API")
+                .description("Spring Boot REST API")
+                .contact(new Contact("Nesmachnyi Pavel",
+                        "https://github.com/nevkysPavel",
+                        "nesmachnyipavel@gmail.com"))
+//                .license("MIT")
+//                .licenseUrl("https://github.com/JonkiPro/REST-Web-Services/blob/master/LICENSE")
+                .version("1.0")
+                .build();
+    }
 
 
 }
