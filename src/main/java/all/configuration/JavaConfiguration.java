@@ -89,17 +89,13 @@ public class JavaConfiguration {
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-        //  adapter.setGenerateDdl(true);
-
         return adapter;
     }
 
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
-
                 .addResourceLocations("classpath:/META-INF/resources/");
-
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
@@ -111,8 +107,6 @@ public class JavaConfiguration {
                 .contact(new Contact("Nesmachnyi Pavel",
                         "https://github.com/nevkysPavel",
                         "nesmachnyipavel@gmail.com"))
-//                .license("MIT")
-//                .licenseUrl("https://github.com/JonkiPro/REST-Web-Services/blob/master/LICENSE")
                 .version("1.0")
                 .build();
     }
