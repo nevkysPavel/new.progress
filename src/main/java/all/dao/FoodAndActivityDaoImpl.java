@@ -29,39 +29,14 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         this.clientDao = clientDao;
     }
 
-    //Get Food by id ?
-//    @Override
-//    public FoodAndActivity getFoodAndActivityById(int id) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<FoodAndActivity> criteriaQuery = cb.createQuery(FoodAndActivity.class);
-//        Root<FoodAndActivity> root = criteriaQuery.from(FoodAndActivity.class);
-//        criteriaQuery.select(root);
-//        criteriaQuery.where(cb.equal(root.getFoodAndActivityByDateAndClientId("client_id"), id));
-//        em.createQuery(criteriaQuery).getSingleResult();
-//        return em.createQuery(criteriaQuery).getSingleResult();
-//    }
 
-//    //Get Food by date ?
-//    @Override
-//    public FoodAndActivity getFoodAndActivityByDate(String date) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<FoodAndActivity> clientQuery = cb.createQuery(FoodAndActivity.class);
-//        Root<FoodAndActivity> root = clientQuery.from(FoodAndActivity.class);
-//        clientQuery.select(root);
-//        clientQuery.where(cb.equal(root.get("date"), date));
-//        em.createQuery(clientQuery).getSingleResult();
-//        return em.createQuery(clientQuery).getSingleResult();
-//    }
-
-    //Get All Food by Client id ?
     @Override
     public List<FoodAndActivity> getFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
-        List<FoodAndActivity> allFoodAndActivity = client.getFoodAndActivities();
-        return allFoodAndActivity;
+        return  client.getFoodAndActivities();
     }
 
-    //Save Food
+
     @Override
     public int saveFoodAndActivity(FoodAndActivity foodAndActivity) {
         em.persist(foodAndActivity);

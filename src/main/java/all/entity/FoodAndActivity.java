@@ -152,8 +152,7 @@ public class FoodAndActivity {
         if (this$client == null ? other$client != null : !this$client.equals(other$client)) return false;
         final Object this$localDate = this.getLocalDate();
         final Object other$localDate = other.getLocalDate();
-        if (this$localDate == null ? other$localDate != null : !this$localDate.equals(other$localDate)) return false;
-        return true;
+        return this$localDate == null ? other$localDate == null : this$localDate.equals(other$localDate);
     }
 
     public int hashCode() {

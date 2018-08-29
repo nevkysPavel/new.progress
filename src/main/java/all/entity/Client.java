@@ -161,9 +161,7 @@ public class Client {
         if (this.getWeight() != other.getWeight()) return false;
         final Object this$foodAndActivities = this.getFoodAndActivities();
         final Object other$foodAndActivities = other.getFoodAndActivities();
-        if (this$foodAndActivities == null ? other$foodAndActivities != null : !this$foodAndActivities.equals(other$foodAndActivities))
-            return false;
-        return true;
+        return this$foodAndActivities == null ? other$foodAndActivities == null : this$foodAndActivities.equals(other$foodAndActivities);
     }
 
     public int hashCode() {
