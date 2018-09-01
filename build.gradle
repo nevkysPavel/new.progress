@@ -48,6 +48,8 @@ dependencies {
             //Swagger
             'io.springfox:springfox-swagger2:2.7.0',
             'io.springfox:springfox-swagger-ui:2.7.0'
+    //Front-end
+    compile 'com.github.spullara.mustache.java:compiler:0.9.5'
 
     compileOnly 'org.projectlombok:lombok:+'
 
