@@ -41,17 +41,16 @@ dependencies {
             'org.hibernate:hibernate-entitymanager:5.2.13.Final',
             'org.hibernate.validator:hibernate-validator:6.0.10.Final',
             'org.hibernate:hibernate-core:5.2.9.Final',
-
+            //Front-end
+            'com.github.spullara.mustache.java:compiler:0.9.5',
             'mysql:mysql-connector-java:5.1.46',
             'com.wix:wix-embedded-mysql:4.1.2',
             'org.aspectj:aspectjrt:+',
             //Swagger
             'io.springfox:springfox-swagger2:2.7.0',
-            'io.springfox:springfox-swagger-ui:2.7.0'
-    //Front-end
-    compile 'com.github.spullara.mustache.java:compiler:0.9.5'
-
-    compileOnly 'org.projectlombok:lombok:+'
+            'io.springfox:springfox-swagger-ui:2.7.0',
+            //Front-end
+             'com.github.spullara.mustache.java:compiler:0.9.5'
 
     testCompile 'org.hamcrest:java-hamcrest:+',
             'org.mockito:mockito-core:+',
@@ -59,64 +58,6 @@ dependencies {
             'io.rest-assured:rest-assured:3.1.0',
             'junit:junit:4.12',
             'com.jayway.restassured:spring-mock-mvc:2.4.0'
-
-    /*compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.26-b03',
-            'org.glassfish.jersey.media:jersey-media-moxy:2.26-b03',
-            'com.fasterxml.jackson.core:jackson-databind:+',
-
-            'javax.xml.bind:jaxb-api:+',
-            'com.mchange:c3p0:+',
-            'io.vavr:vavr:+',
-        'org.apache.logging.log4j:log4j-slf4j-impl:+',
-
-
-
-
-            'org.postgresql:postgresql:+',
-            //'mysql:mysql-connector-java:+',
-
-            'org.springframework:spring-context:+',
-            'org.springframework:spring-context-support:+',
-            'org.springframework:spring-orm:+',
-            'org.springframework:spring-jdbc:+',
-            'org.springframework:spring-tx:+',
-            'org.springframework:spring-webmvc:+',
-            'org.springframework.boot:spring-boot-starter-parent:+',
-            'org.springframework.boot:spring-boot-starter-data-jpa:+',
-            'org.springframework.boot:spring-boot-starter-data-rest:+',
-            'org.springframework.boot:spring-boot-starter-tomcat:+',
-
-            'org.hibernate:hibernate-core:+',
-            'org.hibernate:hibernate-spatial:+',
-            'org.hibernate:hibernate-validator:+',
-            'org.hibernate:hibernate-entitymanager:+',
-            'org.hibernate:hibernate-c3p0:+',
-            //Надо ли ?
-           'org.slf4j:slf4j-api:+',
-           'org.slf4j:jcl-over-slf4j:+',
-
-            'org.aspectj:aspectjrt:+',
-            'org.aspectj:aspectjweaver:+',
-            'aopalliance:aopalliance:+'
-
-
-
-
-    compileOnly 'org.apache.tomcat:tomcat-api:+',
-            'org.apache.tomcat:tomcat-jsp-api:+',
-            'org.projectlombok:lombok:+',
-            'edu.washington.cs.types.checker:checker-framework:+'
-
- 'org.junit.jupiter:junit-jupiter-params:+',
-
-
-'org.junit.jupiter:junit-jupiter-engine:+',
-
-           'org.junit.platform:junit-platform-surefire-provider:1.2.0',
-          'org.junit.jupiter:junit-jupiter-engine:5.2.0'*/
-
-
-
 }
 
 

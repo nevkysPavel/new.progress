@@ -3,8 +3,6 @@ package all.controller;
 import all.dto.UpdateFoodAndActivityDTO;
 import all.entity.Client;
 import all.service.ClientService;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +12,13 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static lombok.AccessLevel.PRIVATE;
-
 
 @RestController
 @RequestMapping("food/api/clients")
-@FieldDefaults(level = PRIVATE)
+
 public class ClientControllerRest {
 
 
-    @Getter
     final ClientService clientService;
 
     @Autowired
@@ -123,4 +118,7 @@ public class ClientControllerRest {
         return responseEntity;
     }
 
+    public ClientService getClientService() {
+        return this.clientService;
+    }
 }

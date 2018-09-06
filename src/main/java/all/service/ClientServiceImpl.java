@@ -3,16 +3,13 @@ package all.service;
 import all.dao.ClientDao;
 import all.entity.Client;
 import all.entity.FoodAndActivity;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
 
-@FieldDefaults(level = PRIVATE)
 @Service
 @Transactional
 public class ClientServiceImpl implements ClientService {

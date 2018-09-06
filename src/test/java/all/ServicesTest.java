@@ -5,7 +5,6 @@ import all.dao.ClientDao;
 import all.entity.Client;
 import all.entity.Sex;
 import all.service.ClientService;
-import lombok.experimental.FieldDefaults;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -24,7 +23,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -33,7 +31,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-@FieldDefaults(level = PRIVATE)
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {TestJavaConfiguration.class})
 @WebAppConfiguration

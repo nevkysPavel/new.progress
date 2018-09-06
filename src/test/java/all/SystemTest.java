@@ -16,7 +16,6 @@ import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.MysqldConfig;
-import lombok.experimental.FieldDefaults;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +35,12 @@ import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.config.Charset.UTF8;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
-import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {JavaConfiguration.class})
-@FieldDefaults(level = PRIVATE)
+
 public class SystemTest {
     static EmbeddedMysql mysqld;
     @Autowired

@@ -2,8 +2,6 @@ package all.controller;
 
 import all.entity.FoodAndActivity;
 import all.service.FoodAndActivityService;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +11,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @RestController
 @RequestMapping("food/")
-@FieldDefaults(level = PRIVATE)
+
 public class FoodAndActivityControllerRest {
 
-    @Getter
     final FoodAndActivityService foodAndActivityService;
 
     @Autowired
@@ -42,5 +37,9 @@ public class FoodAndActivityControllerRest {
     public FoodAndActivity getFoodAndActivityByDateAndClientId(@RequestParam int client_id, @RequestParam LocalDate date) {
 
         return foodAndActivityService.getFoodAndActivityByDateAndClientId(client_id, date);
+    }
+
+    public FoodAndActivityService getFoodAndActivityService() {
+        return this.foodAndActivityService;
     }
 }

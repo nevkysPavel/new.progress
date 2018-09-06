@@ -1,34 +1,31 @@
 package all.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-import static lombok.AccessLevel.PRIVATE;
-
 
 @Entity
 @Table(name = "food_and_activity")
-@FieldDefaults(level = PRIVATE)
+
 public class FoodAndActivity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    private  int id;
     @Column(name = "protein")
-    int protein;
+    private int protein;
     @Column(name = "carbohydrate")
-    int carbohydrate;
+    private int carbohydrate;
     @Column(name = "fat")
-    int fat;
+    private int fat;
     @Enumerated(EnumType.STRING)
-    KindOfSport kindOfSport;
+    private KindOfSport kindOfSport;
     @Column(name = "duration_of_training")
-    int durationOfTraining;
+    private int durationOfTraining;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
     @JoinColumn(name = "client_id")

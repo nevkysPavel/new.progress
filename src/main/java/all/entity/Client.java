@@ -1,44 +1,41 @@
 package all.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Entity
 @Table(name = "clients")
-@FieldDefaults(level = PRIVATE)
+
 @SelectBeforeUpdate
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
-    int client_id;
+   private int client_id;
 
     @Column(name = "first_name")
-    String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    String lastName;
+    private  String lastName;
 
     @Enumerated(EnumType.STRING)
-    Sex sex;//enum
+    private Sex sex;//enum
 
     @Column(name = "years")
-    int years;
+    private int years;
 
     @Column(name = "height")
-    int height;
+    private  int height;
 
 
     @Column(name = "weight")
-    int weight;
+    private  int weight;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference

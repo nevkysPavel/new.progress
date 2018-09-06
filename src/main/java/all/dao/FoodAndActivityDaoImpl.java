@@ -2,7 +2,6 @@ package all.dao;
 
 import all.entity.Client;
 import all.entity.FoodAndActivity;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +11,9 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
-
 
 @Repository
-@FieldDefaults(level = PRIVATE)
+
 @Transactional
 public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 
