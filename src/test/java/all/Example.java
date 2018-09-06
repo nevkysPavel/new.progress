@@ -42,7 +42,7 @@ public class Example {
     @Test
     public void ExampleTest() throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile("template.mustache");
+        Mustache mustache = mf.compile("template.mustache.html");
         mustache.execute(new PrintWriter(System.out), new Example()).flush();
     }
 }

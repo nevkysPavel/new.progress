@@ -4,6 +4,7 @@ package all.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -13,8 +14,11 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.view.mustache.MustacheTemplateLoader;
+import org.springframework.web.servlet.view.mustache.MustacheViewResolver;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -35,6 +39,24 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class JavaConfiguration {
 
+//    @Autowired
+//    ResourceLoader resourceLoader;
+
+    @Bean
+    public ViewResolver getViewResolver(ResourceLoader resourceLoader) {
+        MustacheViewResolver mustacheViewResolver = new MustacheViewResolver();
+        mustacheViewResolver.setPrefix("/WEB-INF/views/");
+        mustacheViewResolver.setSuffix(".html");
+        mustacheViewResolver.setCache(false);
+        mustacheViewResolver.setContentType("text/html;charset=utf-8");
+
+        MustacheTemplateLoader mustacheTemplateLoader = new MustacheTemplateLoader();
+        mustacheTemplateLoader.setResourceLoader(resourceLoader);
+
+        mustacheViewResolver.setTemplateLoader(mustacheTemplateLoader);
+        return mustacheViewResolver;
+    }
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -48,11 +70,8 @@ public class JavaConfiguration {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
         JpaTransactionManager manager = new JpaTransactionManager();
-
         manager.setEntityManagerFactory(factory);
-
         manager.setDataSource(dataSource());
-
         return manager;
     }
 
@@ -62,7 +81,6 @@ public class JavaConfiguration {
         emfb.setDataSource(dataSource);
         emfb.setJpaVendorAdapter(adapter);
         emfb.setPackagesToScan("all.entity");
-
         return emfb;
     }
 
@@ -78,20 +96,17 @@ public class JavaConfiguration {
         dataSource.setUrl("jdbc:mysql://localhost:3306/process");
         dataSource.setUsername("pavel");
         dataSource.setPassword("31228900");
-
         return dataSource;
     }
 
     @Bean
     public JpaVendorAdapter adapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
         return adapter;
     }
-
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
@@ -110,7 +125,5 @@ public class JavaConfiguration {
                 .version("1.0")
                 .build();
     }
-
-
 }
 

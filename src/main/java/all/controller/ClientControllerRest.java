@@ -15,7 +15,6 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("food/api/clients")
-
 public class ClientControllerRest {
 
 
