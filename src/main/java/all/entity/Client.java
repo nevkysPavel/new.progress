@@ -13,33 +13,25 @@ import java.util.List;
 @SelectBeforeUpdate
 public class Client {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
-   private int client_id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private  String lastName;
-
-    @Enumerated(EnumType.STRING)
-    private Sex sex;//enum
-
-    @Column(name = "years")
-    private int years;
-
-    @Column(name = "height")
-    private  int height;
-
-
-    @Column(name = "weight")
-    private  int weight;
-
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
     List<FoodAndActivity> foodAndActivities = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
+    private int client_id;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;//enum
+    @Column(name = "years")
+    private int years;
+    @Column(name = "height")
+    private int height;
+    @Column(name = "weight")
+    private int weight;
 
     public Client(String firstName, String lastName, Sex sex, int years, int height, int weight) {
         this.firstName = firstName;
@@ -50,7 +42,7 @@ public class Client {
         this.weight = weight;
     }
 
-    public Client(int client_id,  String firstName,  String lastName,  Sex sex,  int years, int height, int weight) {
+    public Client(int client_id, String firstName, String lastName, Sex sex, int years, int height, int weight) {
         this.client_id = client_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,7 +52,7 @@ public class Client {
         this.weight = weight;
     }
 
-    public Client(int client_id,  String firstName,  String lastName,  Sex sex,  int years,  int height,  int weight, List<FoodAndActivity> foodAndActivities) {
+    public Client(int client_id, String firstName, String lastName, Sex sex, int years, int height, int weight, List<FoodAndActivity> foodAndActivities) {
         this.client_id = client_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,60 +70,60 @@ public class Client {
         return this.client_id;
     }
 
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public  String getLastName() {
-        return this.lastName;
-    }
-
-    public  Sex getSex() {
-        return this.sex;
-    }
-
-    public int getYears() {
-        return this.years;
-    }
-
-    public  int getHeight() {
-        return this.height;
-    }
-
-    public  int getWeight() {
-        return this.weight;
-    }
-
-    public List<FoodAndActivity> getFoodAndActivities() {
-        return this.foodAndActivities;
-    }
-
     public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
 
-    public void setFirstName( String firstName) {
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName( String lastName) {
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Sex getSex() {
+        return this.sex;
     }
 
     public void setSex(Sex sex) {
         this.sex = sex;
     }
 
-    public void setYears( int years) {
+    public int getYears() {
+        return this.years;
+    }
+
+    public void setYears(int years) {
         this.years = years;
     }
 
-    public void setHeight( int height) {
+    public int getHeight() {
+        return this.height;
+    }
+
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public void setWeight( int weight) {
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public List<FoodAndActivity> getFoodAndActivities() {
+        return this.foodAndActivities;
     }
 
     public void setFoodAndActivities(List<FoodAndActivity> foodAndActivities) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -27,8 +28,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void deleteClient(int id) {
-        this.clientDao.deleteClientById(id);
+    public int deleteClient(int id) {
+        return this.clientDao.deleteClientById(id);
     }
 
     @Override
@@ -48,8 +49,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
-        this.clientDao.saveFoodAndActivity(clientId, foodAndActivity);
+    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+        return this.clientDao.saveFoodAndActivity(clientId, foodAndActivity);
     }
 
     @Override

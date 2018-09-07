@@ -39,9 +39,6 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class JavaConfiguration {
 
-//    @Autowired
-//    ResourceLoader resourceLoader;
-
     @Bean
     public ViewResolver getViewResolver(ResourceLoader resourceLoader) {
         MustacheViewResolver mustacheViewResolver = new MustacheViewResolver();
@@ -104,6 +101,7 @@ public class JavaConfiguration {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
+        adapter.setGenerateDdl(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
         return adapter;
     }

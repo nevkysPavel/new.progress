@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -37,12 +38,12 @@ public class ClientDaoImpl implements ClientDao {
 
     //Delete Client
     @Override
-    public void deleteClientById(int id) {
+    public int deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaDelete<Client> criteriaDelete = cb.createCriteriaDelete(Client.class);
         Root<Client> root = criteriaDelete.from(Client.class);
         criteriaDelete.where(cb.equal(root.get("client_id"), id));
-        em.createQuery(criteriaDelete).executeUpdate();
+       return em.createQuery(criteriaDelete).executeUpdate();
 
     }
 
@@ -74,17 +75,13 @@ public class ClientDaoImpl implements ClientDao {
 
     //Save FoodAndActivity to Client
     @Override
-    public void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         Client client = getClientById(clientId);
         foodAndActivity.setClient(client);
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
+        return foodAndActivity.getLocalDate();
         //em.persist(foodAndActivity);
     }
-
-    // I chose update, because "Hibernate copies the attribute values of the detached entity to the managed entity.
-    // This overwrites any changes that you performed on this entity within the current Session.
-
-
 
     @Override
     public Client putClient(Client newClient) {

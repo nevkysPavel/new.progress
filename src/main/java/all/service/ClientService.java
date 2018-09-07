@@ -3,12 +3,13 @@ package all.service;
 import all.entity.Client;
 import all.entity.FoodAndActivity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ClientService {
     int saveClient(Client client);
 
-    void deleteClient(int id);
+    int deleteClient(int id);
 
     Client getClientById(int id);
 
@@ -16,7 +17,7 @@ public interface ClientService {
 
     Client putClient(Client newClient);
 
-    void saveFoodAndActivity(int clientId,FoodAndActivity foodAndActivity);
+    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
 
     int getCalorieCalculationByClientId(int id);
 

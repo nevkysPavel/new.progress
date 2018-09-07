@@ -9,13 +9,13 @@ import java.util.List;
 public interface ClientDao {
     int saveClient(Client client);
 
-    void deleteClientById(int id);
+    int deleteClientById(int id);
 
     Client getClientById(int id);
 
     List<Client> getListClients();
 
-    void saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
+    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
 
     Client putClient(Client newClient);
 
