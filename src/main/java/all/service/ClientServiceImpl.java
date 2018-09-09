@@ -28,8 +28,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public int deleteClient(int id) {
-        return this.clientDao.deleteClientById(id);
+    public void deleteClient(int id) {
+        this.clientDao.deleteClientById(id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
+    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity)  {
         return this.clientDao.saveFoodAndActivity(clientId, foodAndActivity);
     }
 

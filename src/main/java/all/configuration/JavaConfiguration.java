@@ -42,7 +42,7 @@ public class JavaConfiguration {
     @Bean
     public ViewResolver getViewResolver(ResourceLoader resourceLoader) {
         MustacheViewResolver mustacheViewResolver = new MustacheViewResolver();
-        mustacheViewResolver.setPrefix("/WEB-INF/views/");
+        mustacheViewResolver.setPrefix("/WEB-INF/");
         mustacheViewResolver.setSuffix(".html");
         mustacheViewResolver.setCache(false);
         mustacheViewResolver.setContentType("text/html;charset=utf-8");

@@ -40,7 +40,8 @@ public class ControllerClientWithMustache {
 
     @GetMapping("/deleteClientById")
     public ModelAndView deleteClientById(Integer id){
-        return new ModelAndView("deleteClientById","client",clientService.deleteClient(id));
+        clientService.deleteClient(id);
+        return new ModelAndView("deleteClientById");
     }
 
     @GetMapping("/getListOfClients")
@@ -53,9 +54,9 @@ public class ControllerClientWithMustache {
         return new ModelAndView("clientAddFoodAndActivity","client",new UpdateFoodAndActivityDTO());
     }
     @PostMapping("/saveFoodAndActicity")
-    public ModelAndView saveFoodAndActicity(@ModelAttribute UpdateFoodAndActivityDTO UpdateFoodAndActivityDTO){
+    public ModelAndView saveFoodAndActicity(@ModelAttribute UpdateFoodAndActivityDTO updateFoodAndActivityDTO){
         return new ModelAndView("saveFoodAndActicity","client",
-                clientService.saveFoodAndActivity(UpdateFoodAndActivityDTO.getClientId(),UpdateFoodAndActivityDTO.getFoodAndActivity()));
+                clientService.saveFoodAndActivity(updateFoodAndActivityDTO.getClientId(),updateFoodAndActivityDTO.getFoodAndActivity()));
     }
     @GetMapping("/updateClient")
     public ModelAndView updateClient(){
@@ -71,5 +72,10 @@ public class ControllerClientWithMustache {
     public ModelAndView calories(int id){
         int i = clientService.getCalorieCalculationByClientId(id);
         return new ModelAndView("calories","client",i);
+    }
+
+    @GetMapping("/index")
+    public ModelAndView returnToMainPage(){
+        return new ModelAndView();
     }
 }

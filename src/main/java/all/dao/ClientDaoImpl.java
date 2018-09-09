@@ -38,13 +38,12 @@ public class ClientDaoImpl implements ClientDao {
 
     //Delete Client
     @Override
-    public int deleteClientById(int id) {
+    public void deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaDelete<Client> criteriaDelete = cb.createCriteriaDelete(Client.class);
         Root<Client> root = criteriaDelete.from(Client.class);
         criteriaDelete.where(cb.equal(root.get("client_id"), id));
-       return em.createQuery(criteriaDelete).executeUpdate();
-
+        em.createQuery(criteriaDelete).executeUpdate();
     }
 
     //Get Client by id

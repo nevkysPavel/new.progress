@@ -8,6 +8,10 @@
 {{#client}}
 Hello {{firstName}} {{lastName}}<br>
 Your ID is: {{client_id}}
-{{/client}}
+{{/client}}<br>
+<form name="client" action="/food/index" method="get">
+    Return to main page:<br>
+    <input type="submit" value="return">
+</form>
 </body>
 </html>

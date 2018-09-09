@@ -9,7 +9,7 @@ import java.util.List;
 public interface ClientService {
     int saveClient(Client client);
 
-    int deleteClient(int id);
+    void deleteClient(int id);
 
     Client getClientById(int id);
 
@@ -17,7 +17,7 @@ public interface ClientService {
 
     Client putClient(Client newClient);
 
-    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
+    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) ;
 
     int getCalorieCalculationByClientId(int id);
 

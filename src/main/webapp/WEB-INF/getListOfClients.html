@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Get Client By ID</title>
+    <title>Title</title>
 </head>
 <body>
 {{#client}}
@@ -12,6 +12,11 @@ Sex: {{sex}}<br>
 Year of birth: {{years}}<br>
 Height: {{height}}<br>
 Weight: {{weight}}<br>
-{{/client}}
+{{/client}}<br>
+
+<form name="client" action="/food/index" method="get">
+    Return to main page:<br>
+    <input type="submit" value="return">
+</form>
 </body>
 </html>
