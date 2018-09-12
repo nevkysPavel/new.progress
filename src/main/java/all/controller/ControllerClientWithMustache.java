@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.ws.rs.QueryParam;
+
 @Controller
 public class ControllerClientWithMustache {
 
@@ -34,7 +36,7 @@ public class ControllerClientWithMustache {
     }
 
     @GetMapping("/getClientById")
-    public ModelAndView getClientById(Integer id){
+    public ModelAndView getClientById(@QueryParam("id") Integer id){
         return new ModelAndView("getClientById", "client", clientService.getClientById(id));
     }
 
