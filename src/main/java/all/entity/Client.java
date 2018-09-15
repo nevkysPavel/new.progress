@@ -51,17 +51,17 @@ public class Client {
         this.height = height;
         this.weight = weight;
     }
-//
-//    public Client(int client_id, String firstName, String lastName, Sex sex, int years, int height, int weight, List<FoodAndActivity> foodAndActivities) {
-//        this.client_id = client_id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.sex = sex;
-//        this.years = years;
-//        this.height = height;
-//        this.weight = weight;
-//        this.foodAndActivities = foodAndActivities;
-//    }
+
+    public Client(int client_id, String firstName, String lastName, Sex sex, int years, int height, int weight, List<FoodAndActivity> foodAndActivities) {
+        this.client_id = client_id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.years = years;
+        this.height = height;
+        this.weight = weight;
+        this.foodAndActivities = foodAndActivities;
+    }
 
     public Client() {
     }

@@ -10,6 +10,11 @@ public class UpdateFoodAndActivityDTO {
     public UpdateFoodAndActivityDTO() {
     }
 
+    public UpdateFoodAndActivityDTO(int clientId, FoodAndActivity foodAndActivity) {
+        this.clientId = clientId;
+        this.foodAndActivity = foodAndActivity;
+    }
+
     public int getClientId() {
         return this.clientId;
     }

@@ -4,7 +4,10 @@ package all;
 import all.configuration.JavaConfiguration;
 import all.dao.ClientDao;
 import all.dao.FoodAndActivityDao;
+import all.dto.UpdateFoodAndActivityDTO;
 import all.entity.Client;
+import all.entity.FoodAndActivity;
+import all.entity.KindOfSport;
 import all.entity.Sex;
 import all.service.ClientService;
 import all.service.FoodAndActivityService;
@@ -77,8 +80,8 @@ public class SystemTest {
         String a = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .formParam("firstName", Den.getFirstName())
                 .formParam("lastName", Den.getLastName())
-                .formParam("sex",Den.getSex())
-                .formParam("years",Den.getYears())
+                .formParam("sex", Den.getSex())
+                .formParam("years", Den.getYears())
                 .formParam("height", Den.getHeight())
                 .formParam("weight", Den.getWeight())
                 .when()
@@ -94,8 +97,8 @@ public class SystemTest {
         String b = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .formParam("firstName", Maggy.getFirstName())
                 .formParam("lastName", Maggy.getLastName())
-                .formParam("sex",Maggy.getSex())
-                .formParam("years",Maggy.getYears())
+                .formParam("sex", Maggy.getSex())
+                .formParam("years", Maggy.getYears())
                 .formParam("height", Maggy.getHeight())
                 .formParam("weight", Maggy.getWeight())
                 .when()
@@ -107,29 +110,86 @@ public class SystemTest {
                 .extract().asString();
         System.out.println(b);
 
+        Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
+        String e = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .formParam("firstName", Borov.getFirstName())
+                .formParam("lastName", Borov.getLastName())
+                .formParam("sex", Borov.getSex())
+                .formParam("years", Borov.getYears())
+                .formParam("height", Borov.getHeight())
+                .formParam("weight", Borov.getWeight())
+                .when()
+                .post("/savedClient")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                //.body("client_id", equalTo("1"))
+                .extract().asString();
+        System.out.println(e);
+
+        //Get Client By Id
         given().header("Content-Type", "application/x-www-form-urlencoded")
                 .when()
-                .get("getClientById?id=1")//How can I put here an ID ?
+                .get("getClientById?id=1")
                 .then()
                 .statusCode(200)
                 .log().all();
 
 
         //Get List of Clients
-//        String c = given().header("Content-Type", "application/x-www-form-urlencoded")
-//                .when()
-//                .get("/getListOfClients")
-//                .then()
-//                .statusCode(200)
-//                .log().all()
-//                .extract().asString();
+        String c = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .get("/getListOfClients")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract().asString();
 
-        //Get Client By Id
+        //Update Client
+        Client UpdateDen = new Client("NewDen", "NewDenis", Sex.WOMAN, 19900, 1700, 700);
+        String d = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .formParam("client_id", 1)
+                .formParam("firstName", UpdateDen.getFirstName())
+                .formParam("lastName", UpdateDen.getLastName())
+                .formParam("sex", UpdateDen.getSex())
+                .formParam("years", UpdateDen.getYears())
+                .formParam("height", UpdateDen.getHeight())
+                .formParam("weight", UpdateDen.getWeight())
+                .when()
+                .post("/updatedClient")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                //.body("client_id", equalTo("1"))
+                .extract().asString();
+        System.out.println(d);
 
+        //Delete Client
+        given().header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .get("/deleteClientById?id=1")
+                .then()
+                .statusCode(200)
+                .log().all();
 
-
-
-
+        //Save FoodAndActivity
+        FoodAndActivity foodAndActivity = new FoodAndActivity(5,5,5,KindOfSport.RUN,10,Maggy);
+        UpdateFoodAndActivityDTO uFaADTO = new UpdateFoodAndActivityDTO(foodAndActivity.getClient().getClient_id(),foodAndActivity);
+        String f = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .formParam("client_id", uFaADTO.getClientId())
+                .formParam("protein",uFaADTO.getFoodAndActivity().getProtein())
+                .formParam("carbohydrate",uFaADTO.getFoodAndActivity().getCarbohydrate())
+                .formParam("fat",uFaADTO.getFoodAndActivity().getFat())
+                .formParam("kindOfSport",uFaADTO.getFoodAndActivity().getKindOfSport())
+                .formParam("durationOfTraining",uFaADTO.getFoodAndActivity().getDurationOfTraining())
+                .when()
+                .post("/saveFoodAndActicity")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                //.body("client_id", equalTo("1"))
+                .extract().asString();
+        System.out.println(f);
 
     }
 }
