@@ -26,13 +26,11 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         this.clientDao = clientDao;
     }
 
-
     @Override
     public List<FoodAndActivity> getFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
         return  client.getFoodAndActivities();
     }
-
 
     @Override
     public int saveFoodAndActivity(FoodAndActivity foodAndActivity) {
@@ -41,17 +39,6 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
         return foodAndActivity.getId();
     }
 
-    //Get Calories By Client id and Date ?
-    //Fixme
-//    @Override
-//    public int getCaloricityByDateAndClientId(int id, LocalDate localDate) {
-//        Client client = clientDao.getClientById(id);
-//        client.getFoodAndActivities();
-//        return 0;
-//    }
-
-    //Get Food by Client id and Date ? / дописать и проверка и тесты
-    //FixMe
     @Override
     public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData) {
         Client clientById = clientDao.getClientById(clientId);

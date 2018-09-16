@@ -55,11 +55,22 @@ public class ControllerClientWithMustache {
     public ModelAndView clientAddFoodAndActivity(){
         return new ModelAndView("clientAddFoodAndActivity","client",new UpdateFoodAndActivityDTO());
     }
-    @PostMapping("/saveFoodAndActicity")
-    public ModelAndView saveFoodAndActicity(@ModelAttribute UpdateFoodAndActivityDTO updateFoodAndActivityDTO){
-        return new ModelAndView("saveFoodAndActicity","client",
-                clientService.saveFoodAndActivity(updateFoodAndActivityDTO.getClientId(),updateFoodAndActivityDTO.getFoodAndActivity()));
-    }
+//    @PostMapping("/saveFoodAndActicity")
+//    public ModelAndView saveFoodAndActicity(@ModelAttribute UpdateFoodAndActivityDTO updateFoodAndActivityDTO){
+//        return new ModelAndView("saveFoodAndActicity","client",
+//                clientService.saveFoodAndActivity(updateFoodAndActivityDTO.getClientId(),updateFoodAndActivityDTO.getFoodAndActivity()));
+//    }
+
+//    @PostMapping("/saveFoodAndActicity")
+//    public ModelAttribute saveFoodAndActicity(Integer clientId, String protein, String carbohydrate, String fat, KindOfSport kindOfSport,
+//                                    Integer durationOfTraining){
+//        UpdateFoodAndActivityDTO DTO = new UpdateFoodAndActivityDTO(clientId,protein,fat,kindOfSport,durationOfTraining)
+//        return new ModelAttribute("saveFoodAndActicity","client", clientService.saveFoodAndActivity(clientId, new FoodAndActivity()));
+//
+//    }
+
+
+
     @GetMapping("/updateClient")
     public ModelAndView updateClient(){
         return new ModelAndView("updateClient","client", new Client());

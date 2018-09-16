@@ -28,7 +28,6 @@ public class ClientDaoImpl implements ClientDao {
     @Autowired
     private FoodAndActivityDao foodAndActivityDao;
 
-    //Save Client
     @Override
     public int saveClient(Client client) {
         em.persist(client);
@@ -36,7 +35,6 @@ public class ClientDaoImpl implements ClientDao {
         return client.getClient_id();
     }
 
-    //Delete Client
     @Override
     public void deleteClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -46,7 +44,6 @@ public class ClientDaoImpl implements ClientDao {
         em.createQuery(criteriaDelete).executeUpdate();
     }
 
-    //Get Client by id
     @Override
     public Client getClientById(int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -58,7 +55,6 @@ public class ClientDaoImpl implements ClientDao {
         return em.createQuery(clientQuery).getSingleResult();
     }
 
-    //Get List of Clients
     @Override
     public List<Client> getListClients() {
         List<Client> allClient;
@@ -69,17 +65,14 @@ public class ClientDaoImpl implements ClientDao {
         TypedQuery<Client> q = em.createQuery(all);
         allClient = q.getResultList();
         return allClient;
-
     }
 
-    //Save FoodAndActivity to Client
     @Override
     public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         Client client = getClientById(clientId);
         foodAndActivity.setClient(client);
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
         return foodAndActivity.getLocalDate();
-        //em.persist(foodAndActivity);
     }
 
     @Override
@@ -100,8 +93,6 @@ public class ClientDaoImpl implements ClientDao {
         return getThisYear() - client.getYears();
     }
 
-    //Get Client Calorie
-    //Fixme
     @Override
     public int getCalorieCalculationByClientId(int id) {
         Client client = getClientById(id);
