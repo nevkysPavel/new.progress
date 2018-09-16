@@ -161,15 +161,15 @@ public class SystemTest {
                 .then()
                 .statusCode(200);
         //Save FoodAndActivity
-        FoodAndActivity foodAndActivity = new FoodAndActivity(5,5,5, KindOfSport.RUN,10,Maggy);
-        UpdateFoodAndActivityDTO uFaADTO = new UpdateFoodAndActivityDTO(foodAndActivity.getClient().getClient_id(),foodAndActivity);
+        FoodAndActivity foodAndActivity = new FoodAndActivity(5, 5, 5, KindOfSport.RUN, 10, Maggy);
+        UpdateFoodAndActivityDTO uFaADTO = new UpdateFoodAndActivityDTO(foodAndActivity.getClient().getClient_id(), foodAndActivity);
         String saveFoodAndActivityResponse = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .formParam("clientId", uFaADTO.getClientId())
-                .formParam("protein",uFaADTO.getFoodAndActivity().getProtein())
-                .formParam("carbohydrate",uFaADTO.getFoodAndActivity().getCarbohydrate())
-                .formParam("fat",uFaADTO.getFoodAndActivity().getFat())
-                .formParam("kindOfSport",uFaADTO.getFoodAndActivity().getKindOfSport())
-                .formParam("durationOfTraining",uFaADTO.getFoodAndActivity().getDurationOfTraining())
+                .formParam("protein", uFaADTO.getFoodAndActivity().getProtein())
+                .formParam("carbohydrate", uFaADTO.getFoodAndActivity().getCarbohydrate())
+                .formParam("fat", uFaADTO.getFoodAndActivity().getFat())
+                .formParam("kindOfSport", uFaADTO.getFoodAndActivity().getKindOfSport())
+                .formParam("durationOfTraining", uFaADTO.getFoodAndActivity().getDurationOfTraining())
                 .when()
                 .post("/saveFoodAndActicity")
                 .then()
@@ -185,6 +185,24 @@ public class SystemTest {
                 .statusCode(200)
                 .extract().asString();
         System.out.println(g);
+        //Get List of FoodAndActivity
+        String h = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .get("getFoodAndActivityByIdClient?id=2")
+                .then()
+                .statusCode(200)
+                .extract().asString();
+       Assert.assertTrue(h.contains("RUN"));
+       //Get FoodAndActivity By Date And Client Id
+        String i = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .get("getFoodAndActivityByDateAndClientId?id=2?year=2018?month=09?day=16")
+                .then()
+                .statusCode(200)
+                .extract().asString();
+        System.out.println(i);
+
+
     }
 
 }
