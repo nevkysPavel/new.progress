@@ -177,6 +177,14 @@ public class SystemTest {
                 .assertThat()
                 .extract().asString();
         System.out.println(saveFoodAndActivityResponse);
+        //Get Calories
+        String g = given().header("Content-Type", "application/x-www-form-urlencoded")
+                .when()
+                .get("calories?id=2")
+                .then()
+                .statusCode(200)
+                .extract().asString();
+        System.out.println(g);
     }
 
 }
