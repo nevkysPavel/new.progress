@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Save client</title>
+</head>
+<body>
+<form name="client" action="/food/newClient" method="get">
+  Add new Client:<br>
+  <input type="submit" value="Add">
+</form><br>
+<form name="getClient" action="/food/getClientById" method="get">
+  To receive a profile enter ID:<br>
+  <input type="text" name="id"><br>
+  <input type="submit" value="Get">
+</form><br>
+
+<form name="deleteClient" action="/food/deleteClientById" method="get">
+  To delete a profile enter ID:<br>
+  <input type="text" name="id"><br>
+  <input type="submit" value="Get">
+</form><br>
+
+<form name="listOfClients" action="/food/getListOfClients" method="get">
+  To receive a list of clients:<br>
+  <input type="submit" value="Get">
+</form><br>
+
+<form name="clientAddFoodAndActivity" action="/food/clientAddFoodAndActivity" method="get">
+  A client add personal information:<br>
+  <input type="submit" value="Get">
+</form><br>
+
+<form name="updateClient" action="/food/updateClient" method="get">
+  Updating information about client:<br>
+  <input type="submit" value="Get">
+</form><br>
+
+<form name="getCalories" action="/food/calories" method="get">
+  Enter an ID to receive your optimal cal per day:<br>
+  <input type="text" name="id"><br>
+  <input type="submit" value="Receive">
+</form><br>
+
+<form name="listofFoodAndActivity" action="/food/getFoodAndActivityByIdClient" method="get">
+  Receive all foodandA for client. Enter ID:<br>
+  <input type="text" name="id"><br>
+  <input type="submit" value="Receive">
+</form><br>
+
+<form name="getFoodAndActivityByDate" action="/food/getFoodAndActivityByIdClient" method="get">
+  Get foodA by a date:<br>
+  Enter ID:<input type="text" name="id"><br>
+  Enter Year: <input type="text" name="year"><br>
+  Enter Month: <input type="text" name="month"><br>
+  Enter Day: <input type="text" name="day"><br>
+  <input type="submit" value="Receive">
+</form>
+
+
+</body>
+</html>
