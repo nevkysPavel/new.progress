@@ -64,8 +64,8 @@ public class ControllerWithMustache {
     }
 
 
-    @PostMapping("/saveFoodAndActicity")
-    public ModelAndView saveFoodAndActicity(@RequestParam Integer clientId,
+    @PostMapping("/saveFoodAndActivity")
+    public ModelAndView saveFoodAndActivity(@RequestParam Integer clientId,
                                             @RequestParam String protein,
                                             @RequestParam String carbohydrate,
                                             @RequestParam String fat,
@@ -73,7 +73,8 @@ public class ControllerWithMustache {
                                             @RequestParam Integer durationOfTraining) {
         FoodAndActivity foodAndActivity = new FoodAndActivity(Integer.valueOf(protein), Integer.valueOf(carbohydrate), Integer.valueOf(fat), KindOfSport.valueOf(kindOfSport), durationOfTraining, null);
         clientService.saveFoodAndActivity(clientId, foodAndActivity);
-        return new ModelAndView("clientAddFoodAndActivity", "client", new UpdateFoodAndActivityDTO());
+        return new ModelAndView("saveFoodAndActivity", "client",
+                foodAndActivityService.getFoodAndActivityByDateAndClientId(clientId,LocalDate.now()));
     }
 
 
