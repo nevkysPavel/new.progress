@@ -13,22 +13,21 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("food/")
-
 public class FoodAndActivityControllerRest {
 
-    final FoodAndActivityService foodAndActivityService;
+    private final FoodAndActivityService foodAndActivityService;
 
     @Autowired
     public FoodAndActivityControllerRest(FoodAndActivityService foodAndActivityService) {
         this.foodAndActivityService = foodAndActivityService;
     }
 
-  @GetMapping(value = "getFoodAndActivityByIdClient/{client_id}")
+    @GetMapping(value = "getFoodAndActivityByIdClient/{client_id}")
     public ResponseEntity<List<FoodAndActivity>> getAllTablesFoodAndActivityByIdClient(@PathVariable("client_id") int client_id) {
         ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         List<FoodAndActivity> foodAndActivityList = this.foodAndActivityService.getAllTablesFoodAndActivityByIdClient(client_id);
-        if(Objects.nonNull(foodAndActivityList)){
-            responseEntity = new ResponseEntity(foodAndActivityList,HttpStatus.FOUND);
+        if (Objects.nonNull(foodAndActivityList)) {
+            responseEntity = new ResponseEntity(foodAndActivityList, HttpStatus.FOUND);
         }
         return responseEntity;
     }
@@ -39,7 +38,4 @@ public class FoodAndActivityControllerRest {
         return foodAndActivityService.getFoodAndActivityByDateAndClientId(client_id, date);
     }
 
-    public FoodAndActivityService getFoodAndActivityService() {
-        return this.foodAndActivityService;
-    }
 }

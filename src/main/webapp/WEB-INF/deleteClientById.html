@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
 </head>
-<body>
-Your profile deleted!<br>
-<form name="client" action="/food/index" method="get">
-    Return to main page:<br>
-    <input type="submit" value="return">
-</form>
+
+<body class="ui container">
+
+    <div class="ui top attached tabular menu">
+        <a class="active item" data-tab="tab-1">Delete profile</a>
+    </div>
+
+    <div class="ui bottom attached active tab segment" data-tab="tab-1">
+        Your profile deleted!<br>
+        <form name="client" action="/food/index" method="get"><br>
+            Return to main page:<br>
+            <button class="teal mini ui button">
+                Return
+            </button>
+        </form>
+    </div>
 
 </body>
+
 </html>

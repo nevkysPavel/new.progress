@@ -31,8 +31,6 @@ public class TestJavaConfiguration  {
                 .apiInfo(metaData());
     }
 
-
-
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
 
@@ -42,21 +40,10 @@ public class TestJavaConfiguration  {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-
-//    private ApiInfo apiInfo() {
-//        return new ApiInfo(
-//                "My REST API",
-//                "Some custom description of API.",
-//                "API TOS",
-//                "Terms of service",
-//                new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
-//                "License of API", "API license URL", Collections.emptyList());
-//    }
-
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("REST API")
-                .description("Spring Boot REST API")
+                .description("Spring  REST API")
                 .contact(new Contact("JonkiPro",
                         "https://github.com/JonkiPro",
                         "unknows@unknown.com"))
@@ -65,8 +52,5 @@ public class TestJavaConfiguration  {
                 .version("1.0")
                 .build();
     }
-
-
-
 }
 

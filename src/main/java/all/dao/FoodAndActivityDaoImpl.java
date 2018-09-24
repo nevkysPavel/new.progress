@@ -13,12 +13,12 @@ import java.util.List;
 
 
 @Repository
-
 @Transactional
 public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 
-    final ClientDao clientDao;
+    private final ClientDao clientDao;
     @PersistenceContext
+    private
     EntityManager em;
 
     @Autowired
@@ -29,7 +29,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
     @Override
     public List<FoodAndActivity> getFoodAndActivityByIdClient(int id) {
         Client client = clientDao.getClientById(id);
-        return  client.getFoodAndActivities();
+        return client.getFoodAndActivities();
     }
 
     @Override

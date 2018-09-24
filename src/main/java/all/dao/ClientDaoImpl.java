@@ -23,7 +23,7 @@ import java.util.List;
 public class ClientDaoImpl implements ClientDao {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Autowired
     private FoodAndActivityDao foodAndActivityDao;

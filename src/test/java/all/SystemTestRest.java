@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.get;
@@ -42,19 +43,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @ContextConfiguration(classes = {JavaConfiguration.class})
 
 public class SystemTestRest {
-    static EmbeddedMysql mysqld;
-    @Autowired
-    private WebApplicationContext context;
-
+    private static EmbeddedMysql mysqld;
     @Autowired
     ClientDao clientDao;
-
     @Autowired
     ClientService clientService;
-
     @Autowired
     FoodAndActivityService foodAndActivityService;
-
+    @Autowired
+    private WebApplicationContext context;
     @Autowired
     private FoodAndActivityDao foodAndActivityDao;
 
@@ -79,7 +76,7 @@ public class SystemTestRest {
     @Before
     public void setUp() {
         RestAssuredMockMvc.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        mysqld.reloadSchema("process",ScriptResolver.classPathScript("createTablesForTests.sql"));
+        mysqld.reloadSchema("process", ScriptResolver.classPathScript("createTablesForTests.sql"));
     }
 
 
@@ -99,9 +96,7 @@ public class SystemTestRest {
                 .body("sex", equalTo("MAN"))
                 .body("years", equalTo(1990))
                 .body("height", equalTo(170))
-                .body("weight", equalTo(70))
-
-                .extract().as(Client.class);
+                .body("weight", equalTo(70));
 
         Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
         given().contentType(ContentType.JSON).body(Borov)
@@ -111,8 +106,7 @@ public class SystemTestRest {
                 .statusCode(201)
                 .and()
                 .assertThat()
-                .body("lastName", equalTo("Boris"))
-                .extract().as(Client.class);
+                .body("lastName", equalTo("Boris"));
 
         Client Lucy = new Client("Lucy", "Lui", Sex.WOMAN, 1969, 170, 50);
         given().contentType(ContentType.JSON).body(Lucy)
@@ -123,8 +117,7 @@ public class SystemTestRest {
                 .and()
                 .assertThat()
                 .body("firstName", equalTo("Lucy"))
-                .body("height", equalTo(170))
-                .extract().as(Client.class);
+                .body("height", equalTo(170));
 
         Client Maggy = new Client("Maggy", "Mag", Sex.WOMAN, 1975, 165, 55);
         given().contentType(ContentType.JSON).body(Maggy)
@@ -135,18 +128,16 @@ public class SystemTestRest {
                 .and()
                 .assertThat()
                 .body("firstName", equalTo("Maggy"))
-                .body("lastName", equalTo("Mag"))
-                .extract().as(Client.class);
+                .body("lastName", equalTo("Mag"));
+
         //Get List
-        given()
-                .contentType(ContentType.JSON)
+        List<Client> listOfClients = given().contentType(ContentType.JSON)
                 .when()
                 .get("/food/api/clients/get/clients")
                 .then()
                 .statusCode(302)
-                .log().all();
-
-
+                .extract().as(List.class);
+        Assert.assertEquals(4, listOfClients.size());
     }
 
     @Test
@@ -158,7 +149,7 @@ public class SystemTestRest {
                 .then()
                 .statusCode(201);
 
-        //        //Get client
+        //Get client
         get("/food/api/clients/get/client/1")
                 .then()
                 .assertThat()
@@ -168,11 +159,9 @@ public class SystemTestRest {
                 .body("sex", equalTo("WOMAN"))
                 .body("years", equalTo(1969))
                 .body("height", equalTo(170))
-                .body("weight", equalTo(50))
-                .log().body();
+                .body("weight", equalTo(50));
     }
 
-    //Fixme Как проверять обновление
     @Test
     public void ClientControllerRestTestPut() {
         Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
@@ -182,7 +171,6 @@ public class SystemTestRest {
                 .then()
                 .statusCode(201)
                 .extract().as(Client.class);
-
         Borov.setFirstName("UpdatedBorow");
 
         Client updatedBorov = given().contentType(ContentType.JSON).body(Borov)
@@ -191,15 +179,8 @@ public class SystemTestRest {
                 .then()
                 .assertThat()
                 .statusCode(201)
-//                .body("firstName", equalTo("updatedBorov"))
-//                .body("lastName", equalTo("updateBoris"))
-//                .body("sex", equalTo("MAN"))
-//                .body("years", equalTo(110))
-//                .body("height", equalTo(210))
-//                .body("weight", equalTo(140))
-                .log().all()
                 .extract().as(Client.class);
-        Assert.assertEquals("UpdatedBorow",updatedBorov.getFirstName());
+        Assert.assertEquals("UpdatedBorow", updatedBorov.getFirstName());
     }
 
     @Test
@@ -212,18 +193,13 @@ public class SystemTestRest {
                 .statusCode(201)
                 .and()
                 .assertThat()
-                .body("years", equalTo(1990))
-                .extract().as(Client.class);
+                .body("years", equalTo(1990));
 
-
-        given()
-                .contentType(ContentType.JSON)
+        given().contentType(ContentType.JSON)
                 .when()
                 .delete("/food/api/clients/delete/client/1")
                 .then()
                 .statusCode(204);
-
-
     }
 
     @Test
@@ -232,7 +208,6 @@ public class SystemTestRest {
         given().contentType(ContentType.JSON).body(Den)
                 .when()
                 .post("/food/api/clients/post/client");
-
 
         int amount = given().contentType(ContentType.JSON)
                 .when()
@@ -244,7 +219,6 @@ public class SystemTestRest {
                 .extract().as(Integer.class);
         Assert.assertEquals(1627, amount);
     }
-
 
     @Test
     public void ClientControllerRestTestSaveFoodAndActivity() {
@@ -263,8 +237,6 @@ public class SystemTestRest {
                 .post("food/api/clients/post/foodAndActivity")
                 .then()
                 .statusCode(201);
-
-
     }
 
     @Test
@@ -282,18 +254,18 @@ public class SystemTestRest {
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity2);
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity3);
 
-         given()
-                .contentType(ContentType.JSON)
+        List<FoodAndActivity> listOfFoodAndActivity =given().contentType(ContentType.JSON)
                 .when()
                 .get("/food/getFoodAndActivityByIdClient/1")
                 .then()
                 .statusCode(302)
-                .log().all();
+                .extract().as(List.class);
+        Assert.assertEquals(3,listOfFoodAndActivity.size());
     }
 
     @Test
     public void FoodAndActivityRestTestGetFoodAndActivityByDateAndClientId() {
-        Map<String, String> a = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         //Given a Client
         Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
         int clientId = clientService.saveClient(client);
@@ -301,13 +273,10 @@ public class SystemTestRest {
         //than save FoodAndActivity
         FoodAndActivity foodAndActivity = new FoodAndActivity(2, 2, 2, KindOfSport.GYM, 22, clientById);
         int foodAndActivityId = foodAndActivityDao.saveFoodAndActivity(foodAndActivity);
-        System.out.println(foodAndActivityId);
-        a.put("client_id", String.valueOf(clientId));
-        a.put("data", LocalDate.now().toString());
+        map.put("client_id", String.valueOf(clientId));
+        map.put("data", LocalDate.now().toString());
 
-        get("food/by_local_date/", a)
-                .then()
-                .log().body();
+        get("food/by_local_date/", map)
+                .then();
     }
-
 }

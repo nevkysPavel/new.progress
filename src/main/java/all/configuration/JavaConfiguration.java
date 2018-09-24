@@ -116,7 +116,7 @@ public class JavaConfiguration {
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("REST API")
-                .description("Spring Boot REST API")
+                .description("Spring REST API")
                 .contact(new Contact("Nesmachnyi Pavel",
                         "https://github.com/nevkysPavel",
                         "nesmachnyipavel@gmail.com"))

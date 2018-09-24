@@ -1,62 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Save client</title>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
 </head>
-<body>
-<form name="client" action="/food/newClient" method="get">
-  Add new Client:<br>
-  <input type="submit" value="Add">
-</form><br>
-<form name="getClient" action="/food/getClientById" method="get">
-  To receive a profile enter ID:<br>
-  <input type="text" name="id"><br>
-  <input type="submit" value="Get">
-</form><br>
 
-<form name="deleteClient" action="/food/deleteClientById" method="get">
-  To delete a profile enter ID:<br>
-  <input type="text" name="id"><br>
-  <input type="submit" value="Get">
-</form><br>
+<body class="ui container">
 
-<form name="listOfClients" action="/food/getListOfClients" method="get">
-  To receive a list of clients:<br>
-  <input type="submit" value="Get">
-</form><br>
-
-<form name="clientAddFoodAndActivity" action="/food/clientAddFoodAndActivity" method="get">
-  A client add personal information:<br>
-  <input type="submit" value="Get">
-</form><br>
-
-<form name="updateClient" action="/food/updateClient" method="get">
-  Updating information about client:<br>
-  <input type="submit" value="Get">
-</form><br>
-
-<form name="getCalories" action="/food/calories" method="get">
-  Enter an ID to receive your optimal cal per day:<br>
-  <input type="text" name="id"><br>
-  <input type="submit" value="Receive">
-</form><br>
-
-<form name="listofFoodAndActivity" action="/food/getFoodAndActivityByIdClient" method="get">
-  Receive all foodandA for client. Enter ID:<br>
-  <input type="text" name="id"><br>
-  <input type="submit" value="Receive">
-</form><br>
-
-<form name="getFoodAndActivityByDate" action="/food/getFoodAndActivityByIdClient" method="get">
-  Get foodA by a date:<br>
-  Enter ID:<input type="text" name="id"><br>
-  Enter Year: <input type="text" name="year"><br>
-  Enter Month: <input type="text" name="month"><br>
-  Enter Day: <input type="text" name="day"><br>
-  <input type="submit" value="Receive">
-</form>
+    <!---->
+    <div class="ui top attached tabular menu">
+        <a class="active item" data-tab="tab-1">New client</a>
+        <a class="item" data-tab="tab-2">Add personal information</a>
+        <a class="item" data-tab="tab-3">Update client information</a>
+        <a class="item" data-tab="tab-4">Other functions</a>
+    </div>
 
 
+    <div class="ui bottom attached active tab segment" data-tab="tab-1">
+        <form name="client" action="/food/savedClient" method="post">
+            First name:<br>
+            <input type="text" name="firstName"><br>
+            Last name:<br>
+            <input type="text" name="lastName"><br>
+            Sex:<br>
+            <input type="text" name="sex" placeholder="MAN or WOMAN"><br>
+            Year of birth:<br>
+            <input type="text" name="years"><br>
+            Height:<br>
+            <input type="text" name="height"><br>
+            Weight:<br>
+            <input type="text" name="weight"><br>
+            <div class="ui input focus">
+                <button type="submit" class="ui primary button">
+                    <i class="plus square outline icon"></i> Save
+                </button>
+            </div>
+        </form>
+        <div class="ui divider"></div>
+    </div>
+
+    <div class="ui bottom attached tab segment" data-tab="tab-2">
+        <form name="client" action="/food/saveFoodAndActivity" method="post">
+            Your ID:<br>
+            <input type="text" name="clientId"><br>
+            Protein:<br>
+            <input type="text" name="protein"><br>
+            Carbohydrate:<br>
+            <input type="text" name="carbohydrate"><br>
+            Fat:<br>
+            <input type="text" name="fat"><br>
+            Kind of Sport:<br>
+            <input type="text" name="kindOfSport" placeholder="RUN, WALK, SWIM, GYM"><br>
+            Duration Of Training:<br>
+            <input type="text" name="durationOfTraining"><br>
+            <div class="ui input focus">
+                <button type="submit" class="ui primary button">
+                    <i class="plus square outline icon"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="ui bottom attached tab segment" data-tab="tab-3">
+        <form name="client" action="updatedClient" method="post">
+            Client ID:<br>
+            <input type="text" name="client_id"><br>
+            First name:<br>
+            <input type="text" name="firstName"><br>
+            Last name:<br>
+            <input type="text" name="lastName"><br>
+            Sex:<br>
+            <input type="text" name="sex" placeholder="MAN or WOMAN"><br>
+            Year of birth:<br>
+            <input type="text" name="years"><br>
+            Height:<br>
+            <input type="text" name="height"><br>
+            Weight:<br>
+            <input type="text" name="weight"><br>
+            <div class="ui input focus">
+                <button type="submit" class="ui primary button">
+                    <i class="plus square outline icon"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="ui bottom attached tab segment" data-tab="tab-4">
+        <form name="getClient" action="/food/getClientById" method="get">
+            To receive your profile enter ID:<br>
+            <input type="text" name="id">
+            <button class="teal mini ui button">
+                Receive
+            </button>
+        </form><br>
+        <form name="deleteClient" action="/food/deleteClientById" method="get">
+            To delete your profile enter ID:<br>
+            <input type="text" name="id">
+            <button class="teal mini ui button">
+                Delete
+            </button>
+        </form><br>
+        <form name="listOfClients" action="/food/getListOfClients" method="get">
+            Receive a list of clients:
+            <button class="teal mini ui button">
+                Receive
+            </button>
+        </form><br>
+
+        <form name="getCalories" action="/food/calories" method="get">
+            Enter your ID to receive your optimal caloricity per day:<br>
+            <input type="text" name="id">
+            <button class="teal mini ui button">
+                Receive
+            </button>
+        </form><br>
+
+        <form name="listofFoodAndActivity" action="/food/getFoodAndActivityByIdClient" method="get">
+            Enter your ID to receive all your information about caloricity and activity:<br>
+            <input type="text" name="id">
+            <button class="teal mini ui button">
+                Receive
+            </button>
+        </form><br>
+
+        <form name="getFoodAndActivityByDate" action="/food/getFoodAndActivityByIdClient" method="get">
+            Receive your information about caloricity and activity for a special day:<br>
+            Enter ID:<input type="text" name="id"><br>
+            Enter Year: <input type="text" name="year"><br>
+            Enter Month: <input type="text" name="month"><br>
+            Enter Day: <input type="text" name="day"><br>
+            <button class="teal mini ui button">
+                Receive
+            </button>
+        </form>
+    </div>
+    <!---->
+
+
+
+    <script>
+        $('.menu .item')
+            .tab();
+
+    </script>
 </body>
+
 </html>

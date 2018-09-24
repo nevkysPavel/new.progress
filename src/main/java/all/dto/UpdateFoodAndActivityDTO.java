@@ -5,7 +5,7 @@ import all.entity.FoodAndActivity;
 
 public class UpdateFoodAndActivityDTO {
     private int clientId;
-    FoodAndActivity foodAndActivity;
+    private FoodAndActivity foodAndActivity;
 
     public UpdateFoodAndActivityDTO() {
     }
@@ -39,9 +39,7 @@ public class UpdateFoodAndActivityDTO {
         if (this.getClientId() != other.getClientId()) return false;
         final Object this$foodAndActivity = this.getFoodAndActivity();
         final Object other$foodAndActivity = other.getFoodAndActivity();
-        if (this$foodAndActivity == null ? other$foodAndActivity != null : !this$foodAndActivity.equals(other$foodAndActivity))
-            return false;
-        return true;
+        return this$foodAndActivity == null ? other$foodAndActivity == null : this$foodAndActivity.equals(other$foodAndActivity);
     }
 
     public int hashCode() {
@@ -53,7 +51,7 @@ public class UpdateFoodAndActivityDTO {
         return result;
     }
 
-    protected boolean canEqual(Object other) {
+    private boolean canEqual(Object other) {
         return other instanceof UpdateFoodAndActivityDTO;
     }
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.ws.rs.QueryParam;
 import java.time.LocalDate;
 
@@ -33,7 +32,7 @@ public class ControllerWithMustache {
 
     @GetMapping("/newClient")
     public ModelAndView saveClient() {
-        return new ModelAndView("newClient", "client", new Client());
+        return new ModelAndView("index", "client", new Client());
     }
 
     @PostMapping("/savedClient")
@@ -60,7 +59,7 @@ public class ControllerWithMustache {
 
     @GetMapping("/clientAddFoodAndActivity")
     public ModelAndView clientAddFoodAndActivity() {
-        return new ModelAndView("clientAddFoodAndActivity", "client", new UpdateFoodAndActivityDTO());
+        return new ModelAndView("index", "client", new UpdateFoodAndActivityDTO());
     }
 
 
@@ -80,7 +79,7 @@ public class ControllerWithMustache {
 
     @GetMapping("/updateClient")
     public ModelAndView updateClient() {
-        return new ModelAndView("updateClient", "client", new Client());
+        return new ModelAndView("index", "client", new Client());
     }
 
     @PostMapping("/updatedClient")
@@ -109,8 +108,6 @@ public class ControllerWithMustache {
         return new ModelAndView("getFoodAndActivityByDateAndClientId","client",
                 foodAndActivityService.getFoodAndActivityByDateAndClientId(id,foodAndActivityData));
     }
-
-
 
     @GetMapping("/index")
     public ModelAndView returnToMainPage() {

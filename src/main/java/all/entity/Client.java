@@ -15,6 +15,7 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
+    private
     List<FoodAndActivity> foodAndActivities = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
     @Enumerated(EnumType.STRING)
-    private Sex sex;//enum
+    private Sex sex;
     @Column(name = "years")
     private int years;
     @Column(name = "height")
@@ -136,42 +137,42 @@ public class Client {
         final Client other = (Client) o;
         if (!other.canEqual((Object) this)) return false;
         if (this.getClient_id() != other.getClient_id()) return false;
-        final Object this$firstName = this.getFirstName();
-        final Object other$firstName = other.getFirstName();
-        if (this$firstName == null ? other$firstName != null : !this$firstName.equals(other$firstName)) return false;
-        final Object this$lastName = this.getLastName();
-        final Object other$lastName = other.getLastName();
-        if (this$lastName == null ? other$lastName != null : !this$lastName.equals(other$lastName)) return false;
-        final Object this$sex = this.getSex();
-        final Object other$sex = other.getSex();
-        if (this$sex == null ? other$sex != null : !this$sex.equals(other$sex)) return false;
+        final Object thisFirstName = this.getFirstName();
+        final Object otherFirstName = other.getFirstName();
+        if (thisFirstName == null ? otherFirstName != null : !thisFirstName.equals(otherFirstName)) return false;
+        final Object thisLastName = this.getLastName();
+        final Object otherLastName = other.getLastName();
+        if (thisLastName == null ? otherLastName != null : !thisLastName.equals(otherLastName)) return false;
+        final Object thisSex = this.getSex();
+        final Object otherSex = other.getSex();
+        if (thisSex == null ? otherSex != null : !thisSex.equals(otherSex)) return false;
         if (this.getYears() != other.getYears()) return false;
         if (this.getHeight() != other.getHeight()) return false;
         if (this.getWeight() != other.getWeight()) return false;
-        final Object this$foodAndActivities = this.getFoodAndActivities();
-        final Object other$foodAndActivities = other.getFoodAndActivities();
-        return this$foodAndActivities == null ? other$foodAndActivities == null : this$foodAndActivities.equals(other$foodAndActivities);
+        final Object thisFoodAndActivities = this.getFoodAndActivities();
+        final Object otherFoodAndActivities = other.getFoodAndActivities();
+        return thisFoodAndActivities == null ? otherFoodAndActivities == null : thisFoodAndActivities.equals(otherFoodAndActivities);
     }
 
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
         result = result * PRIME + this.getClient_id();
-        final Object $firstName = this.getFirstName();
-        result = result * PRIME + ($firstName == null ? 43 : $firstName.hashCode());
-        final Object $lastName = this.getLastName();
-        result = result * PRIME + ($lastName == null ? 43 : $lastName.hashCode());
-        final Object $sex = this.getSex();
-        result = result * PRIME + ($sex == null ? 43 : $sex.hashCode());
+        final Object firstName1 = this.getFirstName();
+        result = result * PRIME + (firstName1 == null ? 43 : firstName1.hashCode());
+        final Object lastName1 = this.getLastName();
+        result = result * PRIME + (lastName1 == null ? 43 : lastName1.hashCode());
+        final Object sex1 = this.getSex();
+        result = result * PRIME + (sex1 == null ? 43 : sex1.hashCode());
         result = result * PRIME + this.getYears();
         result = result * PRIME + this.getHeight();
         result = result * PRIME + this.getWeight();
-        final Object $foodAndActivities = this.getFoodAndActivities();
-        result = result * PRIME + ($foodAndActivities == null ? 43 : $foodAndActivities.hashCode());
+        final Object foodAndActivities1 = this.getFoodAndActivities();
+        result = result * PRIME + (foodAndActivities1 == null ? 43 : foodAndActivities1.hashCode());
         return result;
     }
 
-    protected boolean canEqual(Object other) {
+    private boolean canEqual(Object other) {
         return other instanceof Client;
     }
 

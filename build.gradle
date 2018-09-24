@@ -13,8 +13,7 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-    //TODO fix SSL certificate errors using https
-        maven { url "http://jcenter.bintray.com" }
+    maven { url "http://jcenter.bintray.com" }
 }
 
 configurations {
@@ -42,7 +41,6 @@ dependencies {
             'org.hibernate:hibernate-core:5.2.9.Final',
             //Front-end
             'com.github.spullara.mustache.java:compiler:0.9.5',
-            //'com.github.sps.mustache:mustache-spring-view:1.4',
             'com.github.sps.mustache:mustache-spring-view:1.1.1',
 
             'mysql:mysql-connector-java:5.1.46',
