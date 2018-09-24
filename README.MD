@@ -1,15 +1,16 @@
-# New progress web application
-//TODO description
+# New progress
+Java web application with CRUD operations.
 
 ## Prerequisites
 * JDK 1.8
-* Standalone Tomcat //TODO version
+* Tomcat 9
+* MySQL 5.7
 
 ## How to build
     ./gradlew clean build
     
 # How to run
-
-    //TODO  
+Use IntellijIdea
+    
     
       
