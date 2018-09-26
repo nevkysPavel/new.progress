@@ -1,6 +1,8 @@
 # New progress
 Java web application with CRUD operations.
 
+![](https://imgur.com/7nJrfHN.gif)
+![](https://imgur.com/okabf03.gif)
 ## Prerequisites
 * JDK 1.8
 * Tomcat 9
