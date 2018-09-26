@@ -27,7 +27,7 @@
             Last name:<br>
             <input type="text" name="lastName"><br>
             Sex:<br>
-            <input type="text" name="sex" placeholder="MAN or WOMAN"><br>
+            <input type="text" name="sex" placeholder="MAN, WOMAN, TRANSGENDER, TRANSEXUAL" size="45"><br>
             Year of birth:<br>
             <input type="text" name="years"><br>
             Height:<br>
@@ -41,6 +41,8 @@
             </div>
         </form>
         <div class="ui divider"></div>
+
+        <a href="http://localhost:9999/food" target="blank">Swagger</a>
     </div>
 
     <div class="ui bottom attached tab segment" data-tab="tab-2">
@@ -54,9 +56,9 @@
             Fat:<br>
             <input type="text" name="fat"><br>
             Kind of Sport:<br>
-            <input type="text" name="kindOfSport" placeholder="RUN, WALK, SWIM, GYM"><br>
+            <input type="text" name="kindOfSport" placeholder="RUN, WALK, SWIM, GYM" size="25"><br>
             Duration Of Training:<br>
-            <input type="text" name="durationOfTraining"><br>
+            <input type="text" name="durationOfTraining" placeholder="minutes"> <br>
             <div class="ui input focus">
                 <button type="submit" class="ui primary button">
                     <i class="plus square outline icon"></i> Save
@@ -74,7 +76,7 @@
             Last name:<br>
             <input type="text" name="lastName"><br>
             Sex:<br>
-            <input type="text" name="sex" placeholder="MAN or WOMAN"><br>
+            <input type="text" name="sex" placeholder="MAN, WOMAN, TRANSGENDER, TRANSEXUAL" size="45"><br>
             Year of birth:<br>
             <input type="text" name="years"><br>
             Height:<br>
@@ -96,20 +98,23 @@
             <button class="teal mini ui button">
                 Receive
             </button>
-        </form><br>
+        </form>
+        <br>
         <form name="deleteClient" action="/food/deleteClientById" method="get">
             To delete your profile enter ID:<br>
             <input type="text" name="id">
             <button class="teal mini ui button">
                 Delete
             </button>
-        </form><br>
+        </form>
+        <br>
         <form name="listOfClients" action="/food/getListOfClients" method="get">
-            Receive a list of clients:
+            Receive a list of clients :
             <button class="teal mini ui button">
                 Receive
             </button>
-        </form><br>
+        </form>
+        <br>
 
         <form name="getCalories" action="/food/calories" method="get">
             Enter your ID to receive your optimal caloricity per day:<br>
@@ -117,7 +122,8 @@
             <button class="teal mini ui button">
                 Receive
             </button>
-        </form><br>
+        </form>
+        <br>
 
         <form name="listofFoodAndActivity" action="/food/getFoodAndActivityByIdClient" method="get">
             Enter your ID to receive all your information about caloricity and activity:<br>
@@ -125,21 +131,21 @@
             <button class="teal mini ui button">
                 Receive
             </button>
-        </form><br>
+        </form>
+        <br>
 
         <form name="getFoodAndActivityByDate" action="/food/getFoodAndActivityByIdClient" method="get">
-            Receive your information about caloricity and activity for a special day:<br>
-            Enter ID:<input type="text" name="id"><br>
-            Enter Year: <input type="text" name="year"><br>
-            Enter Month: <input type="text" name="month"><br>
-            Enter Day: <input type="text" name="day"><br>
+            Receive your information about caloricity and activity for a specific day:<br>
+            Enter ID:<br> <input type="text" name="id"> <br>
+            Enter Year:<br> <input type="text" name="year"><br>
+            Enter Month:<br> <input type="text" name="month"><br>
+            Enter Day:<br> <input type="text" name="day"><br>
             <button class="teal mini ui button">
                 Receive
             </button>
         </form>
     </div>
     <!---->
-
 
 
     <script>

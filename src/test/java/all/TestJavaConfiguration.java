@@ -19,7 +19,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @Configuration
 @EnableSwagger2
-public class TestJavaConfiguration  {
+// TODO do we really need this now?
+public class TestJavaConfiguration {
 
     @Bean
     public Docket api() {

@@ -136,6 +136,7 @@ public class SystemTestRest {
                 .get("/food/api/clients/get/clients")
                 .then()
                 .statusCode(302)
+                // TODO check if we can use type safe casting
                 .extract().as(List.class);
         Assert.assertEquals(4, listOfClients.size());
     }
@@ -222,7 +223,6 @@ public class SystemTestRest {
 
     @Test
     public void ClientControllerRestTestSaveFoodAndActivity() {
-
         Client client = new Client("Den", "Denis", Sex.MAN, 1990, 170, 70);
         int clientId = clientService.saveClient(client);
         Client clientById = clientDao.getClientById(clientId);
@@ -254,13 +254,13 @@ public class SystemTestRest {
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity2);
         foodAndActivityDao.saveFoodAndActivity(foodAndActivity3);
 
-        List<FoodAndActivity> listOfFoodAndActivity =given().contentType(ContentType.JSON)
+        List<FoodAndActivity> listOfFoodAndActivity = given().contentType(ContentType.JSON)
                 .when()
                 .get("/food/getFoodAndActivityByIdClient/1")
                 .then()
                 .statusCode(302)
                 .extract().as(List.class);
-        Assert.assertEquals(3,listOfFoodAndActivity.size());
+        Assert.assertEquals(3, listOfFoodAndActivity.size());
     }
 
     @Test

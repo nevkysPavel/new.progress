@@ -1,5 +1,5 @@
 CREATE TABLE Clients (
-  client_id         INTEGER AUTO_INCREMENT PRIMARY KEY,
+  client_id  INTEGER AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(50)  NOT NULL,
   last_name  VARCHAR(100) NOT NULL,
   sex        VARCHAR(6)   NOT NULL,
@@ -9,14 +9,14 @@ CREATE TABLE Clients (
 );
 
 CREATE TABLE food_and_activity (
-  id           INTEGER AUTO_INCREMENT PRIMARY KEY,
-  protein      INTEGER NOT NULL,
-  carbohydrate INTEGER NOT NULL,
-  fat          INTEGER NOT NULL,
-  kindOfSport  VARCHAR(20),
+  id                   INTEGER AUTO_INCREMENT PRIMARY KEY,
+  protein              INTEGER NOT NULL,
+  carbohydrate         INTEGER NOT NULL,
+  fat                  INTEGER NOT NULL,
+  kindOfSport          VARCHAR(20),
   duration_of_training INTEGER,
-  localDate DATE,
-  client_id INTEGER,
+  localDate            DATE,
+  client_id            INTEGER,
   CONSTRAINT FK_PersonOrder foreign key (client_id) references clients (client_id)
 );
 

@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
 
-@RestController
-@RequestMapping("food/api/clients")
+@RestController("food/api/clients")
 public class ClientControllerRest {
 
     private final ClientService clientService;
@@ -26,7 +26,7 @@ public class ClientControllerRest {
     @GetMapping(value = "/get/client/{id}")
     public ResponseEntity<Client> getClient(@PathVariable("id") int clientId) {
         Client client = this.clientService.getClientById(clientId);
-        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        ResponseEntity<Client> responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         if (Objects.nonNull(client)) {
             responseEntity = new ResponseEntity<>(client, HttpStatus.OK);
         }

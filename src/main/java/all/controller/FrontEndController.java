@@ -14,19 +14,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.ws.rs.QueryParam;
 import java.time.LocalDate;
 
 @Controller
-public class ControllerWithMustache {
+public class FrontEndController {
 
     private final ClientService clientService;
     private final FoodAndActivityService foodAndActivityService;
 
     @Autowired
-    public ControllerWithMustache(ClientService clientService, FoodAndActivityService foodAndActivityService) {
+    public FrontEndController(ClientService clientService, FoodAndActivityService foodAndActivityService) {
         this.clientService = clientService;
-        this.foodAndActivityService=foodAndActivityService;
+        this.foodAndActivityService = foodAndActivityService;
     }
 
 
@@ -73,7 +74,7 @@ public class ControllerWithMustache {
         FoodAndActivity foodAndActivity = new FoodAndActivity(Integer.valueOf(protein), Integer.valueOf(carbohydrate), Integer.valueOf(fat), KindOfSport.valueOf(kindOfSport), durationOfTraining, null);
         clientService.saveFoodAndActivity(clientId, foodAndActivity);
         return new ModelAndView("saveFoodAndActivity", "client",
-                foodAndActivityService.getFoodAndActivityByDateAndClientId(clientId,LocalDate.now()));
+                foodAndActivityService.getFoodAndActivityByDateAndClientId(clientId, LocalDate.now()));
     }
 
 
@@ -94,19 +95,19 @@ public class ControllerWithMustache {
     }
 
     @GetMapping("/getFoodAndActivityByIdClient")
-    public ModelAndView getFoodAndActivityByIdClient(@QueryParam("id") Integer id){
-        return new ModelAndView("getFoodAndActivityByIdClient","client",
+    public ModelAndView getFoodAndActivityByIdClient(@QueryParam("id") Integer id) {
+        return new ModelAndView("getFoodAndActivityByIdClient", "client",
                 foodAndActivityService.getAllTablesFoodAndActivityByIdClient(id));
     }
 
     @GetMapping("/getFoodAndActivityByDateAndClientId")
     public ModelAndView getFoodAndActivityByDateAndClientId(@QueryParam("id") Integer id,
-                                                            @QueryParam("year")Integer year,
+                                                            @QueryParam("year") Integer year,
                                                             @QueryParam("month") Integer month,
-                                                            @QueryParam("day") Integer day){
-        LocalDate foodAndActivityData = LocalDate.of(year,month,day);
-        return new ModelAndView("getFoodAndActivityByDateAndClientId","client",
-                foodAndActivityService.getFoodAndActivityByDateAndClientId(id,foodAndActivityData));
+                                                            @QueryParam("day") Integer day) {
+        LocalDate foodAndActivityData = LocalDate.of(year, month, day);
+        return new ModelAndView("getFoodAndActivityByDateAndClientId", "client",
+                foodAndActivityService.getFoodAndActivityByDateAndClientId(id, foodAndActivityData));
     }
 
     @GetMapping("/index")

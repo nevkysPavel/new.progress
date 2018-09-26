@@ -12,20 +12,21 @@ import java.util.List;
 
 @Service
 @Transactional
-public class FoodAndActivityServiceImpl implements FoodAndActivityService{
+public class FoodAndActivityServiceImpl implements FoodAndActivityService {
     private final FoodAndActivityDao foodAndActivityDao;
 
     @Autowired
-    public FoodAndActivityServiceImpl(FoodAndActivityDao foodAndActivityDao){
-        this.foodAndActivityDao=foodAndActivityDao;
+    public FoodAndActivityServiceImpl(FoodAndActivityDao foodAndActivityDao) {
+        this.foodAndActivityDao = foodAndActivityDao;
     }
 
     @Override
-    public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id){
+    public List<FoodAndActivity> getAllTablesFoodAndActivityByIdClient(int id) {
         return this.foodAndActivityDao.getFoodAndActivityByIdClient(id);
     }
 
     @Override
-    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData){
-        return this.foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId,foodAndActivityData);}
+    public FoodAndActivity getFoodAndActivityByDateAndClientId(int clientId, LocalDate foodAndActivityData) {
+        return this.foodAndActivityDao.getFoodAndActivityByDateAndClientId(clientId, foodAndActivityData);
+    }
 }

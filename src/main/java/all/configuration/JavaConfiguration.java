@@ -90,6 +90,7 @@ public class JavaConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        // TODO add ability to customize parameters during runtime
         dataSource.setUrl("jdbc:mysql://localhost:3306/process");
         dataSource.setUsername("pavel");
         dataSource.setPassword("31228900");

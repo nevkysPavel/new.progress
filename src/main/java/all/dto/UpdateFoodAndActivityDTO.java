@@ -2,7 +2,7 @@ package all.dto;
 
 import all.entity.FoodAndActivity;
 
-
+//TODO to be removed
 public class UpdateFoodAndActivityDTO {
     private int clientId;
     private FoodAndActivity foodAndActivity;
@@ -19,12 +19,12 @@ public class UpdateFoodAndActivityDTO {
         return this.clientId;
     }
 
-    public FoodAndActivity getFoodAndActivity() {
-        return this.foodAndActivity;
-    }
-
     public void setClientId(int clientId) {
         this.clientId = clientId;
+    }
+
+    public FoodAndActivity getFoodAndActivity() {
+        return this.foodAndActivity;
     }
 
     public void setFoodAndActivity(FoodAndActivity foodAndActivity) {

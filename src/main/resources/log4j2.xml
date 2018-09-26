@@ -4,42 +4,42 @@
 
         <!-- Console Appender -->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
         <!-- File Appender -->
         <File name="File" fileName="c:app.log">
-            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
 
     </Appenders>
     <Loggers>
         <!-- Log everything in hibernate -->
         <Logger name="org.hibernate" level="warn" additivity="false">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="Console"/>
         </Logger>
 
         <!-- Log SQL statements -->
         <Logger name="org.hibernate.SQL" level="warn" additivity="false">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="File" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
 
         <!-- Log JDBC bind parameters -->
         <Logger name="org.hibernate.type.descriptor.sql" level="warn" additivity="false">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="File" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
 
         <!-- Log custom packages -->
         <Logger name="com.boraji.tutorial.hibernate" level="warn" additivity="false">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="File" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
 
         <Root level="error">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="File" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
 </Configuration>

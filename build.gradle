@@ -7,7 +7,6 @@ apply plugin: 'war'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -16,6 +15,7 @@ repositories {
     maven { url "http://jcenter.bintray.com" }
 }
 
+//TODO remove as redundant as we dont't use Lombok any more
 configurations {
     testCompile.extendsFrom compileOnly
     annotationProcessor.extendsFrom compileOnly
@@ -50,7 +50,7 @@ dependencies {
             'io.springfox:springfox-swagger2:2.7.0',
             'io.springfox:springfox-swagger-ui:2.7.0',
             //Front-end
-             'com.github.spullara.mustache.java:compiler:0.9.5'
+            'com.github.spullara.mustache.java:compiler:0.9.5'
 
     testCompile 'org.hamcrest:java-hamcrest:+',
             'org.mockito:mockito-core:+',

@@ -44,12 +44,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client putClient(Client newClient) {
-       return this.clientDao.putClient(newClient);
+        return this.clientDao.putClient(newClient);
 
     }
 
     @Override
-    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity)  {
+    public LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) {
         return this.clientDao.saveFoodAndActivity(clientId, foodAndActivity);
     }
 

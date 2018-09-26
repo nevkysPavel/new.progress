@@ -96,13 +96,14 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public int getCalorieCalculationByClientId(int id) {
         Client client = getClientById(id);
-        int i = (int) ((10 * client.getWeight()) + (6.25 * client.getHeight()) - (5 * getClientAge(client)));
-        if (client.getSex() == Sex.MAN) {
-            i += 5;
+        //TODO name the magic variable i, move calculations to the services layer
+        int caloricity = (int) ((10 * client.getWeight()) + (6.25 * client.getHeight()) - (5 * getClientAge(client)));
+        if (client.getSex() == Sex.MAN || client.getSex() == Sex.TRANSEXUAL || client.getSex() == Sex.TRANSGENDER) {
+            caloricity += 5;
         } else {
-            i -= 161;
+            caloricity -= 161;
         }
-        return i;
+        return caloricity;
     }
 
     public void setEm(EntityManager em) {

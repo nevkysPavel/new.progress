@@ -15,7 +15,10 @@ import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.MysqldConfig;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +32,7 @@ import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.config.Charset.UTF8;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -86,8 +90,8 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-        Assert.assertTrue(clientDen.contains("Den"));
-        Assert.assertTrue(clientDen.contains("Denis"));
+        assertTrue(clientDen.contains("Den"));
+        assertTrue(clientDen.contains("Denis"));
 
         Client Maggy = new Client("Maggy", "Mag", Sex.WOMAN, 1975, 165, 55);
         String clientMaggy = given().header("Content-Type", "application/x-www-form-urlencoded")
@@ -103,8 +107,8 @@ public class SystemTestMustache {
                 .statusCode(200)
                 .extract().asString();
         Maggy.setClient_id(2);
-        Assert.assertTrue(clientMaggy.contains("Maggy"));
-        Assert.assertTrue(clientMaggy.contains("Mag"));
+        assertTrue(clientMaggy.contains("Maggy"));
+        assertTrue(clientMaggy.contains("Mag"));
 
         Client Borov = new Client("Borov", "Boris", Sex.MAN, 1991, 175, 80);
         String clientBorov = given().header("Content-Type", "application/x-www-form-urlencoded")
@@ -119,8 +123,8 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-        Assert.assertTrue(clientBorov.contains("Borov"));
-        Assert.assertTrue(clientBorov.contains("Boris"));
+        assertTrue(clientBorov.contains("Borov"));
+        assertTrue(clientBorov.contains("Boris"));
         //Get Client By Id
         String getClientById = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .when()
@@ -128,8 +132,8 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-        Assert.assertTrue(getClientById.contains("Den"));
-        Assert.assertTrue(getClientById.contains("Denis"));
+        assertTrue(getClientById.contains("Den"));
+        assertTrue(getClientById.contains("Denis"));
         //Get List of Clients
         String getListOfClients = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .when()
@@ -137,9 +141,9 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-        Assert.assertTrue(getListOfClients.contains("Den"));
-        Assert.assertTrue(getListOfClients.contains("Boris"));
-        Assert.assertTrue(getListOfClients.contains("Maggy"));
+        assertTrue(getListOfClients.contains("Den"));
+        assertTrue(getListOfClients.contains("Boris"));
+        assertTrue(getListOfClients.contains("Maggy"));
         //Update Client
         Client UpdateDen = new Client("NewDen", "NewDenis", Sex.WOMAN, 19900, 1700, 700);
         String updatedClient = given().header("Content-Type", "application/x-www-form-urlencoded")
@@ -155,8 +159,8 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-        Assert.assertTrue(updatedClient.contains("NewDen"));
-        Assert.assertTrue(updatedClient.contains("NewDenis"));
+        assertTrue(updatedClient.contains("NewDen"));
+        assertTrue(updatedClient.contains("NewDenis"));
         //Delete Client
         given().header("Content-Type", "application/x-www-form-urlencoded")
                 .when()
@@ -201,9 +205,9 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-       Assert.assertTrue(getListOfFoodAndActivity.contains("RUN"));
-       //FixMe
-       //Get FoodAndActivity By Date And Client Id
+        assertTrue(getListOfFoodAndActivity.contains("RUN"));
+        //FixMe
+        //Get FoodAndActivity By Date And Client Id
 //        String i = given().header("Content-Type", "application/x-www-form-urlencoded")
 //                .when()
 //                .get("getFoodAndActivityByDateAndClientId?id=2?year=2018?month=09?day=16")

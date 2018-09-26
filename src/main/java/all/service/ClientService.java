@@ -17,7 +17,7 @@ public interface ClientService {
 
     Client putClient(Client newClient);
 
-    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity) ;
+    LocalDate saveFoodAndActivity(int clientId, FoodAndActivity foodAndActivity);
 
     int getCalorieCalculationByClientId(int id);
 

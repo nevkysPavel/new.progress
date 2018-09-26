@@ -18,8 +18,7 @@ public class FoodAndActivityDaoImpl implements FoodAndActivityDao {
 
     private final ClientDao clientDao;
     @PersistenceContext
-    private
-    EntityManager em;
+    private EntityManager em;
 
     @Autowired
     public FoodAndActivityDaoImpl(ClientDao clientDao) {
