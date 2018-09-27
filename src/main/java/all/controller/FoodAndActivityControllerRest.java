@@ -24,17 +24,16 @@ public class FoodAndActivityControllerRest {
 
     @GetMapping(value = "getFoodAndActivityByIdClient/{client_id}")
     public ResponseEntity<List<FoodAndActivity>> getAllTablesFoodAndActivityByIdClient(@PathVariable("client_id") int client_id) {
-        ResponseEntity responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        ResponseEntity<List<FoodAndActivity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         List<FoodAndActivity> foodAndActivityList = this.foodAndActivityService.getAllTablesFoodAndActivityByIdClient(client_id);
         if (Objects.nonNull(foodAndActivityList)) {
-            responseEntity = new ResponseEntity(foodAndActivityList, HttpStatus.FOUND);
+            responseEntity = new ResponseEntity<>(foodAndActivityList, HttpStatus.FOUND);
         }
         return responseEntity;
     }
 
     @GetMapping(value = "by_local_date")
     public FoodAndActivity getFoodAndActivityByDateAndClientId(@RequestParam int client_id, @RequestParam LocalDate date) {
-
         return foodAndActivityService.getFoodAndActivityByDateAndClientId(client_id, date);
     }
 

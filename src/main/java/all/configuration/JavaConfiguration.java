@@ -46,22 +46,10 @@ public class JavaConfiguration {
         mustacheViewResolver.setSuffix(".html");
         mustacheViewResolver.setCache(false);
         mustacheViewResolver.setContentType("text/html;charset=utf-8");
-
         MustacheTemplateLoader mustacheTemplateLoader = new MustacheTemplateLoader();
         mustacheTemplateLoader.setResourceLoader(resourceLoader);
-
         mustacheViewResolver.setTemplateLoader(mustacheTemplateLoader);
         return mustacheViewResolver;
-    }
-
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(metaData());
     }
 
     @Bean
@@ -90,7 +78,6 @@ public class JavaConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        // TODO add ability to customize parameters during runtime
         dataSource.setUrl("jdbc:mysql://localhost:3306/process");
         dataSource.setUsername("pavel");
         dataSource.setPassword("31228900");
@@ -107,9 +94,21 @@ public class JavaConfiguration {
         return adapter;
     }
 
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(metaData());
+    }
+
+
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
+
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

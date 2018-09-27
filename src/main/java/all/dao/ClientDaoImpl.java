@@ -96,7 +96,6 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public int getCalorieCalculationByClientId(int id) {
         Client client = getClientById(id);
-        //TODO name the magic variable i, move calculations to the services layer
         int caloricity = (int) ((10 * client.getWeight()) + (6.25 * client.getHeight()) - (5 * getClientAge(client)));
         if (client.getSex() == Sex.MAN || client.getSex() == Sex.TRANSEXUAL || client.getSex() == Sex.TRANSGENDER) {
             caloricity += 5;

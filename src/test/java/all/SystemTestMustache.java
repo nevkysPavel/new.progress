@@ -169,9 +169,9 @@ public class SystemTestMustache {
                 .statusCode(200);
 
         //Save FoodAndActivity
-        FoodAndActivity foodAndActivity = new FoodAndActivity(5, 5, 5, KindOfSport.RUN, 10, Maggy);
+        FoodAndActivity foodAndActivity = new FoodAndActivity(15, 12, 5, KindOfSport.RUN, 10, Maggy);
         UpdateFoodAndActivityDTO uFaADTO = new UpdateFoodAndActivityDTO(foodAndActivity.getClient().getClient_id(), foodAndActivity);
-        String saveFoodAndActivityResponse = given().header("Content-Type", "application/x-www-form-urlencoded")
+        given().header("Content-Type", "application/x-www-form-urlencoded")
                 .formParam("clientId", uFaADTO.getClientId())
                 .formParam("protein", uFaADTO.getFoodAndActivity().getProtein())
                 .formParam("carbohydrate", uFaADTO.getFoodAndActivity().getCarbohydrate())
@@ -181,12 +181,8 @@ public class SystemTestMustache {
                 .when()
                 .post("/saveFoodAndActivity")
                 .then()
-                .statusCode(200)
-                .assertThat()
-                .extract().asString();
-        System.out.println(saveFoodAndActivityResponse);
+                .statusCode(200);
 
-        //FixMe without regex
         //Get Calories
         String responseCalories = given().header("Content-Type", "application/x-www-form-urlencoded")
                 .when()
@@ -194,9 +190,7 @@ public class SystemTestMustache {
                 .then()
                 .statusCode(200)
                 .extract().asString();
-//        Integer receive =Integer.parseInt(responseCalories.replaceAll("[^0-6]","").trim());
-//        Integer value = 1205;
-//        Assert.assertEquals(receive,value);
+        assertTrue(responseCalories.contains("1205"));
 
         //Get List of FoodAndActivity
         String getListOfFoodAndActivity = given().header("Content-Type", "application/x-www-form-urlencoded")
@@ -206,15 +200,6 @@ public class SystemTestMustache {
                 .statusCode(200)
                 .extract().asString();
         assertTrue(getListOfFoodAndActivity.contains("RUN"));
-        //FixMe
-        //Get FoodAndActivity By Date And Client Id
-//        String i = given().header("Content-Type", "application/x-www-form-urlencoded")
-//                .when()
-//                .get("getFoodAndActivityByDateAndClientId?id=2?year=2018?month=09?day=16")
-//                .then()
-//                .statusCode(200)
-//                .extract().asString();
-//        System.out.println(i);
 
     }
 }

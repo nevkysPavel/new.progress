@@ -2,7 +2,6 @@ package all.dto;
 
 import all.entity.FoodAndActivity;
 
-//TODO to be removed
 public class UpdateFoodAndActivityDTO {
     private int clientId;
     private FoodAndActivity foodAndActivity;
@@ -37,17 +36,17 @@ public class UpdateFoodAndActivityDTO {
         final UpdateFoodAndActivityDTO other = (UpdateFoodAndActivityDTO) o;
         if (!other.canEqual((Object) this)) return false;
         if (this.getClientId() != other.getClientId()) return false;
-        final Object this$foodAndActivity = this.getFoodAndActivity();
+        final Object thisFoodAndActivity1 = this.getFoodAndActivity();
         final Object other$foodAndActivity = other.getFoodAndActivity();
-        return this$foodAndActivity == null ? other$foodAndActivity == null : this$foodAndActivity.equals(other$foodAndActivity);
+        return thisFoodAndActivity1 == null ? other$foodAndActivity == null : thisFoodAndActivity1.equals(other$foodAndActivity);
     }
 
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
         result = result * PRIME + this.getClientId();
-        final Object $foodAndActivity = this.getFoodAndActivity();
-        result = result * PRIME + ($foodAndActivity == null ? 43 : $foodAndActivity.hashCode());
+        final Object foodAndActivity1 = this.getFoodAndActivity();
+        result = result * PRIME + (foodAndActivity1 == null ? 43 : foodAndActivity1.hashCode());
         return result;
     }
 

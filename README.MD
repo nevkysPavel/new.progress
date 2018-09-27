@@ -16,8 +16,6 @@ Use IntellijIdea
 
 # //TODO  How to deploy from CLI
 
-# //TODO LIcense
-MIT
 
 
     
