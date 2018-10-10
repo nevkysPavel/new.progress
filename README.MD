@@ -10,11 +10,11 @@ Java web application with CRUD operations.
 
 ## How to build
     ./gradlew clean build
-    # how 
+    
 # How to run
 Use IntellijIdea
 
-# //TODO  How to deploy from CLI
+
 
 
 
